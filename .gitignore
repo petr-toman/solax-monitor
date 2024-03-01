@@ -1,31 +1,11 @@
 .vs/
-# Visual Studio LightSwitch build output
-**/*.HTMLClient/GeneratedArtifacts
-**/*.DesktopClient/GeneratedArtifacts
-**/*.DesktopClient/ModelManifest.xml
-**/*.Server/GeneratedArtifacts
-**/*.Server/ModelManifest.xml
-# Local History for Visual Studio
 .localhistory/
-
-# Visual Studio History (VSHistory) files
 .vshistory/
-
-# VS Code files for those working on multiple tools
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
-
-
-# Local History for Visual Studio Code
 .history/
 .env
 .vscode/settings.json
 .vscode/
-cronie/runtime/scripts/log/AZResponse.json
 cronie/runtime/scripts/log/*.json
 cronie/runtime/scripts/log/*.txt
 
