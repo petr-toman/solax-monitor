@@ -1,0 +1,50 @@
+version: "3"
+
+# start by: docker-compose down -v && docker-compose up --build -d
+
+services:
+  cronie:
+    build:
+      context: ./cronie
+      dockerfile: dockerfile-cronie
+    env_file:
+      - .env
+    volumes: 
+      - "solax-storage-shared:/shared"   
+      - "./cronie/runtime/scripts:/scripts"    
+  web:
+    build: 
+      context: ./web
+      dockerfile: dockerfile-web
+    #restart: 'always'
+    depends_on:
+      - mariadb
+    ports:
+      - '8080:80'
+    links:
+      - mariadb
+    env_file:
+      - .env  
+    volumes: 
+      - "solax-storage-shared:/shared"  
+      - "${PHP_SOURCE}:/var/www/localhost/htdocs"   #for development only
+  mariadb:
+    build:
+      context: ./db
+      dockerfile: dockerfile-mariadb
+    # restart: 'always'
+    ports:
+      - '3306:3306'
+    volumes: 
+      - "solax-storage-db:/var/lib//mysql"
+      - "solax-storage-shared:/shared"  
+    env_file:
+      - .env   
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+volumes: 
+   solax-storage-db: 
+   solax-storage-shared:   

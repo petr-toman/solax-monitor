@@ -1,0 +1,20 @@
+FROM alpine:3.18
+
+RUN apk --no-cache --update \
+    add mc bash cronie
+RUN apk add mysql-client    
+RUN apk add bc jq curl  
+
+RUN apk add tzdata openntpd
+
+COPY runtime/etc /etc
+RUN chmod -R 744 /etc/periodic/*
+VOLUME [ "/etc" ]
+
+COPY runtime/scripts/ /scripts/
+RUN chmod 777 /scripts/*.sh
+VOLUME [ "/scripts" ]
+
+ADD docker-entrypoint-cronie.sh /
+RUN chmod 777 docker-entrypoint-cronie.sh
+ENTRYPOINT ["/docker-entrypoint-cronie.sh"]
