@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polling with Progress Bar</title>
+
+    <style>
+
+        /* Styling pro element <pre> */
+            pre {
+            white-space: pre-wrap;
+            font-family: monospace; /* Neproporcionální font */
+            font-size: 14px; /* Velikost písma */
+            line-height: 1; /* Výška řádku */
+            background-color: #f4f4f4; /* Barva pozadí */
+            padding: 10px; /* Vnitřní odsazení */
+            border-radius: 5px; /* Zaoblené rohy */
+            border: 1px solid #ddd; /* Ohraničení */
+        }
+
+    </style>
+</head>
+
+</head>
+<body>
+
+
+
+    <progress  id="progressBar" value="0" max="100" style="width: 100%;"></progress>
+    <div id="show-poll"></div>
+
+    <script>
+        var polling_interval = 50;
+        function pollAndDisplay() {
+            var progressBar = document.getElementById('progressBar');
+            var showPollDiv = document.getElementById('show-poll');
+            progressBar.value = 0;
+
+            var progressInterval = setInterval(function() {
+                if (progressBar.value < 100) {
+                    progressBar.value += 1;
+                } else {
+                    clearInterval(progressInterval);
+                    // Po dosažení 100% spustíme AJAX požadavek
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            // Po obdržení odpovědi vložíme výsledek do divu a spustíme další odpočítávání
+                            var responseText = this.responseText.replace(/\n/g, "<br>");
+                            showPollDiv.innerHTML = responseText;
+                            setTimeout(pollAndDisplay, polling_interval); // 10000 ms = 10 sekund
+                        }
+                    };
+                    xhttp.open("GET", "poll.php", true);
+                    xhttp.send();
+                }
+            }, polling_interval); // 1000 ms = 1 sekunda (interval pro aktualizaci progress baru)
+        }
+
+        // Spustíme funkci při načtení stránky
+        window.onload = pollAndDisplay;
+    </script>
+</body>
+</html>
