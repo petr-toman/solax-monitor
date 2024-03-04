@@ -91,6 +91,54 @@ License: For each use you must have a valid license purchased only from above li
                             <script src="assets/js/custom/utilities/modals/users-search.js"></script>
                         <!--end::Custom Javascript-->
                 <!--end::Javascript-->
+
+
+                <progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
+                <div class="row">
+                    <div id="show-poll" class="column"></div>
+                    <div id="show-graph" class="column"></div>
+                    <div id="show-stat" class="column"></div>
+                </div>
+            
+                <script>
+                    var polling_interval = 50;
+                    function pollAndDisplay() {
+                        var progressBar = document.getElementById('progressBar');
+                        var showPollDiv = document.getElementById('show-poll');
+                        progressBar.value = 0;
+            
+                        var progressInterval = setInterval(function () {
+                            if (progressBar.value < 100) {
+                                progressBar.value += 1;
+                            } else {
+                                clearInterval(progressInterval);
+                                // Po dosažení 100% spustíme AJAX požadavek
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        // Po obdržení odpovědi vložíme výsledek do divu a spustíme další odpočítávání
+                                        var responseText = this.responseText.replace(/\n/g, "<br>");
+                                        showPollDiv.innerHTML = responseText;
+                                        setTimeout(pollAndDisplay, polling_interval); // 10000 ms = 10 sekund
+                                    }
+                                };
+                                xhttp.open("GET", "/poll.php", true);
+                                xhttp.send();
+                            }
+                        }, polling_interval); // 1000 ms = 1 sekunda (interval pro aktualizaci progress baru)
+                    }
+            
+                    // Spustíme funkci při načtení stránky
+                    window.onload = pollAndDisplay;
+                </script>
+
+
+
+
             </body>
     <!--end::Body-->
+
+
+
+
 </html>

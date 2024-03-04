@@ -1,54 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polling with Progress Bar</title>
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="canonical" href="https://preview.keenthemes.com/html/metronic/docs/icons/keenicons">
+    <link rel="shortcut icon" href="/html/metronic/docs/assets/media/logos/metronic.ico">
+    <script src="assets/plugins/global/plugins.bundle.js"></script>
+    <script src="assets/js/scripts.bundle.js"></script>
 
     <style>
-
         /* Styling pro element <pre> */
-            pre {
+        pre {
             white-space: pre-wrap;
             font-family: monospace; /* Neproporcionální font */
-            font-size: 14px; /* Velikost písma */
-            line-height: 1; /* Výška řádku */
-            background-color: #f4f4f4; /* Barva pozadí */
-            padding: 10px; /* Vnitřní odsazení */
-            border-radius: 5px; /* Zaoblené rohy */
-            border: 1px solid #ddd; /* Ohraničení */
+            font-size: 12px;        /* Velikost písma */
+            line-height: 1;         /* Výška řádku */
+            background-color: #f4f4f4;   /* Barva pozadí */
+            padding: 10px;              /* Vnitřní odsazení */
+            border-radius: 5px;         /* Zaoblené rohy */
+            border: 1px solid #ddd;   /* Ohraničení */
         }
 
+        .column {
+            float: left;
+            width: 33.33%;
+            border-style: solid 1px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Styling pro progress bar */
+        #progressBar {
+            width: 100%;
+            height: 2px;
+            background-color: #f0f0f0;   /* Barva pozadí progress baru */
+            border-radius: 10px;           /* Zaoblené rohy */
+            overflow: hidden;              /* Skryje přetečení obsahu */
+        }
+
+        #progressBar::-webkit-progress-bar {
+            background-color: #f0f0f0;   /* Barva pozadí progress baru */
+            border-radius: 10px;           /* Zaoblené rohy */
+        }
+
+        #progressBar::-webkit-progress-value {
+            background-color: #4caf50;     /* Barva progress baru */
+            border-radius: 10px;             /* Zaoblené rohy */
+        }
     </style>
+
 </head>
 
 </head>
+
 <body>
 
+    <progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
+
+    <!--begin::Trigger button-->
+    <button id="kt_drawer_example_basic_button" class="btn btn-primary">Toggle basic stat</button>
+    <!--end::Trigger button-->
+
+    <div class="row">
+
+        <div id="show-House" class="column">
+            DOMÁCNOST
+            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                <div class="d-flex align-items-center">
+                    <span class="svg-icon fs-3 text-success me-2">
+                        <i class="bi bi-droplet-half text-primary"></i>
+                    </span>
+                    <div class="fs-2 fw-bold" id="kt_countup-loadHome" 
+                        data-kt-countup="true" 
+                        data-kt-countup-value="567"
+                        data-kt-countup-start-val="100" 
+                        data-kt-countup-Suffix=" W">1</div>
+                </div>
+                <div class="fw-semibold fs-6 ">Aktuální odběr</div>
+            </div>
+
+            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                <div class="d-flex align-items-center">
+                    <span class="svg-icon fs-3 text-success me-2">
+                        <i class="bi bi-droplet-half text-primary"></i>
+                    </span>
+                    <div class="fs-2 fw-bold" id="kt_countup-totalConsumption" 
+                         data-kt-countup="true" 
+                         data-kt-countup-value="567"
+                         data-kt-countup-decimal-places="2"
+                         data-kt-countup-start-val="100" 
+                         data-kt-countup-Suffix=" kWh">0</div>
+                </div>
+                <div class="fw-semibold fs-6 ">dnes spotřeba</div>
+            </div>
+
+            <!--end:: DOMÁCNOST-->
+        </div>
+
+        <div id="show-Grid" class="column">
+            DISTRIBUČNÍ SÍŤ
+        </div>
+
+        <div id="show-stat" class="column">
+            STŘÍDAČ
+        </div>
+
+        <div id="show-stat" class="column">
+            BATERIE
+        </div>
+
+        <div id="show-stat" class="column">
+            PANELY
+        </div>
+
+    </div>
 
 
-    <progress  id="progressBar" value="0" max="100" style="width: 100%;"></progress>
-    <div id="show-poll"></div>
+
+    <!--begin::View component-->
+    <div id="status_plain_text" class="bg-white" data-kt-drawer="true" data-kt-drawer-activate="true"
+        data-kt-drawer-toggle="#kt_drawer_example_basic_button" data-kt-drawer-close="#kt_drawer_example_basic_close"
+        data-kt-drawer-width="500px">
+        <pre id="plain_text_container">
+        </pre>
+    </div>
+    <!--end::View component-->
 
     <script>
         var polling_interval = 50;
+
         function pollAndDisplay() {
             var progressBar = document.getElementById('progressBar');
             var showPollDiv = document.getElementById('show-poll');
             progressBar.value = 0;
 
-            var progressInterval = setInterval(function() {
+            var progressInterval = setInterval(function () {
                 if (progressBar.value < 100) {
                     progressBar.value += 1;
                 } else {
                     clearInterval(progressInterval);
                     // Po dosažení 100% spustíme AJAX požadavek
                     var xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
+                    xhttp.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             // Po obdržení odpovědi vložíme výsledek do divu a spustíme další odpočítávání
-                            var responseText = this.responseText.replace(/\n/g, "<br>");
-                            showPollDiv.innerHTML = responseText;
+                            var response = JSON.parse(this.responseText);
+                            plain_text_container.innerHTML = response.formatted;
+
+                            // countUp.CountUp("kt_countup-loadHome").update(response.loadHome);
+                            // slx_loadHome.update(response.loadHome);
+                           // slx_totalConsumption.update(response.totalConsumption);
+
                             setTimeout(pollAndDisplay, polling_interval); // 10000 ms = 10 sekund
                         }
                     };
@@ -59,7 +170,21 @@
         }
 
         // Spustíme funkci při načtení stránky
-        window.onload = pollAndDisplay;
+       // window.onload = pollAndDisplay;
+
+        window.onload = function() {
+          // let slx_loadHome = new countUp.CountUp("kt_countup-loadHome");
+          //  let slx_totalConsumption = new countUp.CountUp("kt_countup-totalConsumption");
+            pollAndDisplay(  );
+          }
+
+
+
+                    
+
     </script>
+
+
 </body>
+
 </html>
