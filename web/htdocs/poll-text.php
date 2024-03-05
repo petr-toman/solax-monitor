@@ -4,7 +4,11 @@
 function progress_bar($val, $max) {
     $bar_length = 20;
     $lc_progress = ($max == 0) ? 0 : (int) ($val * $bar_length / $max);
-    $progress_bar = str_repeat("#", $lc_progress) . str_repeat("_", $bar_length - $lc_progress);
+    if ((  $bar_length - $lc_progress ) < 0 || $lc_progress < 0  ){  //out of bounds!
+        $progress_bar = str_repeat("!", $bar_length );
+    } else {
+        $progress_bar = str_repeat("#", $lc_progress) . str_repeat("_", $bar_length - $lc_progress);
+    }
     return "[$progress_bar]";
 }
 
