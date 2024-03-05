@@ -79,11 +79,7 @@
                     <span class="svg-icon fs-3 text-success me-2">
                         <i class="bi bi-droplet-half text-primary"></i>
                     </span>
-                    <div class="fs-2 fw-bold" id="kt_countup-loadHome" 
-                        data-kt-countup="true" 
-                        data-kt-countup-value="567"
-                        data-kt-countup-start-val="100" 
-                        data-kt-countup-Suffix=" W">1</div>
+                    <div class="fs-2 fw-bold" id="kt_countup-loadHome">1</div>
                 </div>
                 <div class="fw-semibold fs-6 ">Aktuální odběr</div>
             </div>
@@ -93,12 +89,7 @@
                     <span class="svg-icon fs-3 text-success me-2">
                         <i class="bi bi-droplet-half text-primary"></i>
                     </span>
-                    <div class="fs-2 fw-bold" id="kt_countup-totalConsumption" 
-                         data-kt-countup="true" 
-                         data-kt-countup-value="567"
-                         data-kt-countup-decimal-places="2"
-                         data-kt-countup-start-val="100" 
-                         data-kt-countup-Suffix=" kWh">0</div>
+                    <div class="fs-2 fw-bold" id="kt_countup-totalConsumption">0</div>
                 </div>
                 <div class="fw-semibold fs-6 ">dnes spotřeba</div>
             </div>
@@ -136,9 +127,26 @@
     <!--end::View component-->
 
     <script>
-        var polling_interval = 50;
+       // import { CountUp } from 'js/scripts.bundle.js';
+       var polling_interval = 50;
+       var pl = polling_interval / 10;
+
+       let slx_totalConsumption = new countUp.CountUp('kt_countup-totalConsumption', 987, {  decimalPlaces: 2, suffix: ' kWh',});
+          if (!slx_totalConsumption.error) {
+                slx_totalConsumption.start();
+          } else {
+            console.error(slx_totalConsumption.error);
+          }
+
+          let slx_loadHome = new countUp.CountUp('kt_countup-loadHome', 123, {  duration: pl, suffix: ' W',});
+          if (!slx_loadHome.error) {
+            slx_loadHome.start();
+          } else {
+            console.error(slx_loadHome.error);
+          }
 
         function pollAndDisplay() {
+
             var progressBar = document.getElementById('progressBar');
             var showPollDiv = document.getElementById('show-poll');
             progressBar.value = 0;
@@ -157,8 +165,8 @@
                             plain_text_container.innerHTML = response.formatted;
 
                             // countUp.CountUp("kt_countup-loadHome").update(response.loadHome);
-                            // slx_loadHome.update(response.loadHome);
-                           // slx_totalConsumption.update(response.totalConsumption);
+                             slx_loadHome.update(response.loadHome);
+                            slx_totalConsumption.update(response.totalConsumption);
 
                             setTimeout(pollAndDisplay, polling_interval); // 10000 ms = 10 sekund
                         }
