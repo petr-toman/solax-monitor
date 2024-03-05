@@ -28,7 +28,7 @@
         .column {
             float: left;
             width: 33.33%;
-            border-style: solid 1px;
+            border: 1px solid #ddd; 
         }
 
         /* Clear floats after the columns */
@@ -120,25 +120,24 @@
     <!--begin::View component-->
     <div id="status_plain_text" class="bg-white" data-kt-drawer="true" data-kt-drawer-activate="true"
         data-kt-drawer-toggle="#kt_drawer_example_basic_button" data-kt-drawer-close="#kt_drawer_example_basic_close"
-        data-kt-drawer-width="500px">
+        data-kt-drawer-width="400px">
         <pre id="plain_text_container">
         </pre>
     </div>
     <!--end::View component-->
 
     <script>
-       // import { CountUp } from 'js/scripts.bundle.js';
        var polling_interval = 50;
        var pl = polling_interval / 10;
 
-       let slx_totalConsumption = new countUp.CountUp('kt_countup-totalConsumption', 987, {  decimalPlaces: 2, suffix: ' kWh',});
+       let slx_totalConsumption = new countUp.CountUp('kt_countup-totalConsumption', 0, {  decimalPlaces: 2, suffix: ' kWh',});
           if (!slx_totalConsumption.error) {
                 slx_totalConsumption.start();
           } else {
             console.error(slx_totalConsumption.error);
           }
 
-          let slx_loadHome = new countUp.CountUp('kt_countup-loadHome', 123, {  duration: pl, suffix: ' W',});
+          let slx_loadHome = new countUp.CountUp('kt_countup-loadHome', 0, {  duration: pl, suffix: ' W',});
           if (!slx_loadHome.error) {
             slx_loadHome.start();
           } else {
