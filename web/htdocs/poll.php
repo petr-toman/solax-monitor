@@ -112,7 +112,15 @@ $solax->loadHomeL3 =  $solax->llph3 - $solax->AZRPowerL3;
 
 
 
+
+
+$solax_json = json_encode( $solax );
+$redis = new Redis();
+$redis->connect('cache-redis', 6379);
+$redis->set( "SOLAX-FORMATED", $solax->formatted);
+$redis->set( "SOLAX", $solax_json);
+
+echo $solax_json ;
+
 require_once ("poll-text.php");
 $solax->formatted = generateText( $solax );
-
-echo json_encode( $solax );

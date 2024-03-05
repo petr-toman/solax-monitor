@@ -1,12 +1,10 @@
 FROM alpine:3.18
 
-
 # Setup apache and php
 RUN apk --no-cache --update \
     add apache2 \
     apache2-ssl \
     curl 
-
 
 RUN apk add php82-apache2 \
     php82-bcmath \
@@ -36,6 +34,14 @@ RUN apk add mc bash
 
 ADD docker-entrypoint-web.sh /
 RUN chmod 777 docker-entrypoint-web.sh
+
+
+RUN apk add --no-check-certificate --no-cache pcre-dev php82-pear  php82-dev build-base 
+COPY temp/*crt /usr/local/share/ca-certificates 
+RUN update-ca-certificates \
+&& pecl82 install redis  \  
+&& echo "extension=redis.so" > /etc/php82/conf.d/redis.ini
+
 
 HEALTHCHECK CMD wget -q --no-cache --spider localhost
 

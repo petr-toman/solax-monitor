@@ -160,13 +160,15 @@
                     xhttp.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             // Po obdržení odpovědi vložíme výsledek do divu a spustíme další odpočítávání
+                            try {
                             var response = JSON.parse(this.responseText);
                             plain_text_container.innerHTML = response.formatted;
-
-                            // countUp.CountUp("kt_countup-loadHome").update(response.loadHome);
-                             slx_loadHome.update(response.loadHome);
+                            slx_loadHome.update(response.loadHome);
                             slx_totalConsumption.update(response.totalConsumption);
-
+                           } catch (e) {
+                              console.log(e); // error in the above string (in this case, yes)!
+                              plain_text_container.innerHTML = e;
+                           }
                             setTimeout(pollAndDisplay, polling_interval); // 10000 ms = 10 sekund
                         }
                     };
