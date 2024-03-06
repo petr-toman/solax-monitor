@@ -36,9 +36,10 @@
                             // Po obdržení odpovědi vložíme výsledek do divu a spustíme další odpočítávání
                             try {
                             var response = JSON.parse(this.responseText);
-                            plain_text_container.innerHTML = response.formatted;
+                           
                             slx_loadHome.update(response.loadHome);
                             slx_totalConsumption.update(response.totalConsumption);
+                            plain_text_container.innerHTML = response.formatted;
                             plain_text_container.innerHTML = e;
                            } catch (e) {
                               console.log(e); // error in the above string (in this case, yes)!
@@ -56,7 +57,5 @@
        // window.onload = pollAndDisplay;
 
         window.onload = function() {
-          // let slx_loadHome = new countUp.CountUp("kt_countup-loadHome");
-          //  let slx_totalConsumption = new countUp.CountUp("kt_countup-totalConsumption");
             pollAndDisplay(  );
           }
