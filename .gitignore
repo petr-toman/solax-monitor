@@ -8,5 +8,6 @@
 .vscode/
 cronie/runtime/scripts/log/*.json
 cronie/runtime/scripts/log/*.txt
+web/htdocs/metro*
 
 

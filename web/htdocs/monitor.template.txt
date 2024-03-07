@@ -1,0 +1,41 @@
+------------------------------------------------
+BFLMPSVZ01          Thu, 2024-03-07 05:02:18 CET 
+------------------------------------------------
+
+--- PANELY -------------------------------------
+        celkem:  4793 W   [!!!!!!!!!!!!!!!!!!!!]
+      string 1:     1 W   [____________________]
+      string 2:  4792 W   [____________________]
+dnes výroba DC:   1.0 kWh
+
+--- BATERIE ------------------------------------
+                            0 %          47 °C
+        nabití:   0.8 kWh [____________________]
+      nabíjení:    77 W
+   dnes nabito:  13.2 kWh
+        vybito:   8.6 kWh
+
+--- STŘÍDAČ [ 0 [Waiting]]-----------------------
+                                           0 °C
+         výkon:  2397 kWh [##########__________]
+            L1:     0 W
+            L2:     0 W
+            L3:  3686 W
+dnes výroba AC:   0.2 kWh
+
+--- DISTRIBUČNÍ SÍŤ ----------------------------
+       dodávka:   209 W
+(AZ)L1 dodávka:     0 W
+(AZ)L2 dodávka:     6 W
+(AZ)L3 dodávka:     4 W
+ (AZ) L1+L2+L3:    11 W
+ dnes odebráno:  0.46 kWh
+        dodáno: 30.76 kWh
+
+--- DOMÁCNOST ----------------------------------
+aktuální odběr:     3 W
+      odběr L1:     0 W
+      odběr L2:    -6 W
+      odběr L3:  3681 W
+ dnes spotřeba: -30.13 kWh
+  soběstačnost:   101 %  [####################]
