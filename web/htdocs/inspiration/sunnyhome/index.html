@@ -39,16 +39,8 @@
 ***********************************-->
 <div id="main-wrapper">
 
-    
 
-    <!--**********************************
-        Content body start
-    ***********************************-->
-    <div class="content-body">
-        <!-- row -->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-4" id="compact-flowchart-container">
+                  <div class="col-xl-4" id="compact-flowchart-container">
                     <div class="widget-stat card">
                         <div class="card-body p-4" id="compact-flowchart" style="padding: 0px;">
                             <div class="row justify-content-center">
@@ -56,7 +48,8 @@
                                 <div class="chart-point glow"
                                      style="margin-left: 40px; margin-right: 40px; margin-top: 20px; border: 2px solid #e0f542;"
                                      id="solar-power-compact">
-                                    <i class="fas fa-solar-panel" style="color: #e0f542"></i>
+                                     <i class="fas fa-solar-panel" style="color: #e0f542"></i>
+                                    <!-- https://fontawesome.com/icons/solar-panel?f=classic&s=thin -->
                                     <span id="compact_panels_text">0 W</span>
                                     <span id="compact_solar_panels_perc" style="color: #fcba03">0</span>
                                 </div>
@@ -109,7 +102,8 @@
                                 </div>
                                 <div class="chart-point" style="border: 2px solid #dc3545; margin-bottom: 20px; margin-left: 40px; margin-right: 40px;"
                                      id="grid-compact">
-                                    <i class="fas fa-plug" style="color: #dc3545;"></i>
+                                   <!--  <i class="fas fa-plug" style="color: #dc3545;"></i> -->
+                                    <i class="fas fa-industry" style="color: #dc3545;"></i>
                                     <span id="compact_grid_text">0 W</span>
                                 </div>
                                 
@@ -119,38 +113,27 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- CUSTOM DASHBOARD DATA -->
-            
-
-
-
-
         </div>
-    </div>
-    <!--**********************************
-        Content body end
-    ***********************************-->
+
 
 </div>
-<!--**********************************
-    Main wrapper end
-***********************************-->
+
 
 <!--**********************************
     Scripts
 ***********************************-->
 
     <!-- Required vendors -->
-    <script src="./vendor/global/global.min.js"></script>
-    <script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-    <script src="./js/custom.min.js"></script>
-    <script src="./js/dlabnav-init.js"></script>
-    <script src="./js/multi-switch.js"></script>
-    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/general.js"></script>
+   
+    <script src="./vendor/global/global.min.js"></script> 
+   <!-- <script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>  -->
+    <script src="./js/custom.min.js"></script> 
+    <script src="./js/dlabnav-init.js"></script> <!-- tohle dělá tmavé pozadí, asi jenom -->
+   <!-- <script src="./js/multi-switch.js"></script> -->
+   <!--  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js--"></script>  -->
+   <!--  <script src="./js/general.js"></script>   -->
     <script src="./js/dashboard_reload.js"></script>
+
+
 </body>
 </html>
