@@ -1,0 +1,2322 @@
+<div class="cmd #history# tooltips cmd-widget" data-type="info" data-subtype="string" data-cmd_id="_id_" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#" style="width: 100%;">  
+  <!-- Widget name : cmd.info.string.distribution_energy
+    Auteur        : Phpvarious
+    Version actuelle : 25/01/2024 07h15
+    Lien          : https://phpvarious.github.io/documentation/widget/fr_FR/widget_scenario/distribution_energie/
+  -->  
+  <div class="widget_id_" id="widget_id_"></div>
+  
+  <script>
+    var version_id_ = '25/01/2024 07h15'
+    var debug_id_ = ('#debug#' == 1) ? true : false
+    var fullJs_id_ = false
+    var jeedomVersion_id_ = 4.4
+    
+    if (debug_id_) console.log('┌─────────────────── Widget Distribution energy [_id_] Compatibilité V4.2 V4.3 V4.4 ───────────────')
+    if (debug_id_) console.log('| Version -> ' + version_id_)
+    /* Compatibilité V4.2 V4.3 V4.4 */
+    /**/ if(typeof jeeFrontEnd === 'undefined') {
+    /**/   if (debug_id_) console.log('| jeeFrontEnd no exist -> version <= 4.2')
+    /**/   jeedomVersion_id_ = 4.2
+    /**/ }
+    /**/ else
+    /**/ {
+    /**/   jeedomVersion_id_ = jeeFrontEnd.jeedomVersion.substr(0, 3)
+    /**/   if (debug_id_) console.log('| jeeFrontEnd -> version == ' + jeedomVersion_id_)
+    /**/ }
+    /**/ if (jeedomVersion_id_ >= 4.4) {
+    /**/   fullJs_id_ = true
+    /**/   if (debug_id_) console.log('| Full Js')
+    /**/ }
+    /**/ if (typeof jeedom.cmd.addUpdateFunction !== 'function') { // a partir de la 4.3
+    /**/   if (debug_id_) console.log('| jeedom.cmd.addUpdateFunction no exist')
+    /**/   jeedom.cmd.addUpdateFunction = function(id,func) { jeedom.cmd.update[id]=func; }
+    /**/ }
+    /* ------------------------------------------ */
+    
+    ////////////////////////// Général /////////////////////////
+    var updateByCmd_id_ = true
+    var HideIfEmpty_id_ = true
+    var MarginTop_id_ = 1
+    if (is_numeric('#UpdateByCmd#') && '#UpdateByCmd#' == 0) updateByCmd_id_ = false
+    if (is_numeric('#HideIfEmpty#') && '#HideIfEmpty#' == 0) HideIfEmpty_id_ = false
+    if (is_numeric('#Scale#')) {
+      document.documentElement.style.setProperty('--scale_id_', '#Scale#')
+      // for v4.4 if has scale
+      if ('#Scale#' > 1) {
+        if (is_object(eqLogic = document.querySelector('.eqLogic[data-eqlogic_id="#eqLogic_id#"]')))
+        {
+          eqLogic.querySelector('.cmds')?.classList.add('margin_id_')
+        }
+      }
+    }
+    if ('#Background#' != '#'+'Background#') document.documentElement.style.setProperty('--background_id_', '#Background#')
+    if (is_numeric('#BorderRadius#')) document.documentElement.style.setProperty('--border-radius_id_', '#BorderRadius#px')
+    if (is_numeric('#BorderWidth#')) {
+      document.documentElement.style.setProperty('--border-width_id_', '#BorderWidth#px')
+      if ('#BorderWidth#' >= 1) document.documentElement.style.setProperty('--margin-top_id_', 0)
+    }
+    if ('#BorderColor#' != '#'+'BorderColor#') document.documentElement.style.setProperty('--border-color_id_', '#BorderColor#')
+    if ('#DefautColor#' != '#'+'DefautColor#') document.documentElement.style.setProperty('--primary-text-color_id_', '#DefautColor#') // icones + texte
+    if ('#LabelColor#' != '#'+'LabelColor#') document.documentElement.style.setProperty('--secondary-text-color_id_', '#LabelColor#') // lebel
+    if (is_numeric('#FontSize#')) document.documentElement.style.setProperty('--fontSize_perso_id_', '#FontSize#px')
+    ////////////////////////// Home /////////////////////////
+    var homeIcon_id_ = null
+    if ('#HomeIcon#' != '#'+'HomeIcon#') homeIcon_id_ = '#HomeIcon#'
+    
+    ////////////////////////// Grid /////////////////////////
+    var GridUnit_id_ = ''
+    var gridIcon_id_ = null
+    var GridConsumptionDec_id_ = 10
+    var GridReturnDec_id_ = 10
+    var GridConsumptionRound_id_ = false
+    var GridReturnRound_id_ = false
+    if ('#GridUnit#' != '#'+'GridUnit#') GridUnit_id_ = '#GridUnit#'
+    if ('#GridIcon#' != '#'+'GridIcon#') gridIcon_id_ = '#GridIcon#'
+    if ('#GridConsumptionColor#' != '#'+'GridConsumptionColor#') document.documentElement.style.setProperty('--grid-consumption-color_id_', '#GridConsumptionColor#')
+    if ('#GridReturnColor#' != '#'+'GridReturnColor#') document.documentElement.style.setProperty('--grid-return-color_id_', '#GridReturnColor#')
+    if ('#PowerFailureColor#' != '#'+'PowerFailureColor#') document.documentElement.style.setProperty('--powerfailure-color_id_', '#PowerFailureColor#')
+    if (is_numeric('#GridConsumptionDec#') && '#GridConsumptionDec#' >= 0) GridConsumptionDec_id_ = 1 + '' + "0".repeat('#GridConsumptionDec#')
+    if (is_numeric('#GridReturnDec#') && '#GridReturnDec#' >= 0) GridReturnDec_id_ = 1 + '' + "0".repeat('#GridReturnDec#')
+    if (is_numeric('#GridConsumptionRound#') && '#GridConsumptionRound#' >= 0) GridConsumptionRound_id_ = '#GridConsumptionRound#'
+    if (is_numeric('#GridReturnRound#') && '#GridReturnRound#' >= 0) GridReturnRound_id_ = '#GridReturnRound#'
+    
+    ////////////////////////// Solar /////////////////////////
+    var solarIcon_id_ = null
+    var solarDec_id_ = 1000
+    var solarRound_id_ = false
+    if (is_numeric('#SolarDec#') && '#SolarDec#' >= 0) solarDec_id_ = 1 + '' + "0".repeat('#SolarDec#')
+    if ('#SolarIcon#' != '#'+'SolarIcon#') solarIcon_id_ = '#SolarIcon#'
+    if ('#SolarColor#' != '#'+'SolarColor#') document.documentElement.style.setProperty('--solar-color_id_', '#SolarColor#')
+    if (is_numeric('#SolarRound#') && '#SolarRound#' >= 0) solarRound_id_ = '#SolarRound#'
+    
+    ////////////////////////// Battery /////////////////////////
+    var BatteryConsumptionDec_id_ = 10
+    var BatteryProductionDec_id_ = 10
+    var BatteryConsumptionRound_id_ = false
+    var BatteryProductionRound_id_ = false
+    //var BatteryInRound_id_ = false
+    //var BatteryOutRound_id_ = false
+    if ('#BatteryInColor#' != '#'+'BatteryInColor#') document.documentElement.style.setProperty('--battery-in-color_id_', '#BatteryInColor#')
+    if ('#BatteryOutColor#' != '#'+'BatteryOutColor#') document.documentElement.style.setProperty('--battery-out-color_id_', '#BatteryOutColor#')
+    if (is_numeric('#BatteryConsumptionDec#') && '#BatteryConsumptionDec#' >= 0) BatteryConsumptionDec_id_ = 1 + '' + "0".repeat('#BatteryConsumptionDec#')
+    if (is_numeric('#BatteryProductionDec#') && '#BatteryProductionDec#' >= 0) BatteryProductionDec_id_ = 1 + '' + "0".repeat('#BatteryProductionDec#')
+    if (is_numeric('#BatteryProductionRound#') && '#BatteryProductionRound#' >= 0) BatteryProductionRound_id_ = '#BatteryProductionRound#'
+    if (is_numeric('#BatteryConsumptionRound#') && '#BatteryConsumptionRound#' >= 0) BatteryConsumptionRound_id_ = '#BatteryConsumptionRound#'
+    
+    ////////////////////////// Gas /////////////////////////
+    var gasUnit_id_ = '' //m³
+    var gasName_id_ = "Gaz"
+    var gasIcon_id_ = null
+    var HideCircleGas_id_ = false
+    var HidePathGas_id_ = false
+    var InvertedCircleGas_id_ = false
+    var GasDec_id_ = 1000
+    var GasRound_id_ = false
+    if ('#GasUnit#' != '#'+'GasUnit#') gasUnit_id_ = '#GasUnit#'
+    if ('#GasRename#' != '#'+'GasRename#') gasName_id_ = '#GasRename#'
+    if ('#GasIcon#' != '#'+'GasIcon#') gasIcon_id_ = '#GasIcon#'
+    if (is_numeric('#HideCircleGas#') && '#HideCircleGas#' == 1) HideCircleGas_id_ = true
+    if (is_numeric('#HidePathGas#') && '#HidePathGas#' == 1) {
+      HidePathGas_id_ = true
+      HideCircleGas_id_ = true
+    }
+    if (is_numeric('#InvertedCircleGas#') && '#InvertedCircleGas#' == 1) InvertedCircleGas_id_ = true
+    if ('#GasColor#' != '#'+'GasColor#') document.documentElement.style.setProperty('--gas-color_id_', '#GasColor#')
+    if (is_numeric('#GasDec#') && '#GasDec#' >= 0) GasDec_id_ = 1 + '' + "0".repeat('#GasDec#')
+    if (is_numeric('#GasRound#') && '#GasRound#' >= 0) GasRound_id_ = '#GasRound#'
+    
+    ////////////////////////// Water /////////////////////////
+    var waterUnit_id_ = '' //m³
+    var waterName_id_ = "Eau"
+    var waterIcon_id_ = null
+    var HideCircleWater_id_ = false
+    var HidePathWater_id_ = false
+    var InvertedCircleWater_id_ = false
+    var WaterDec_id_ = 1000
+    var WaterRound_id_ = false
+    if ('#WaterUnit#' != '#'+'WaterUnit#') waterUnit_id_ = '#WaterUnit#'
+    if ('#WaterRename#' != '#'+'WaterRename#') waterName_id_ = '#WaterRename#'
+    if ('#WaterIcon#' != '#'+'WaterIcon#') waterIcon_id_ = '#WaterIcon#'
+    if (is_numeric('#HideCircleWater#') && '#HideCircleWater#' == 1) HideCircleWater_id_ = true
+    if (is_numeric('#HidePathWater#') && '#HidePathWater#' == 1) {
+      HidePathWater_id_ = true
+      HideCircleWater_id_ = true
+    }
+    if (is_numeric('#InvertedCircleWater#') && '#InvertedCircleWater#' == 1) InvertedCircleWater_id_ = true
+    if ('#WaterColor#' != '#'+'WaterColor#') document.documentElement.style.setProperty('--water-color_id_', '#WaterColor#')
+    if (is_numeric('#WaterDec#') && '#WaterDec#' >= 0) WaterDec_id_ = 1 + '' + "0".repeat('#WaterDec#')
+    if (is_numeric('#WaterRound#') && '#WaterRound#' >= 0) WaterRound_id_ = '#WaterRound#'
+    
+    ////////////////////////// Perso 1 /////////////////////////
+    var Perso1Unit_id_ = ''
+    var perso1Name_id_ = "Perso 1"
+    var perso1Icon_id_ = 0
+    var HideCirclePerso1_id_ = false
+    var HidePathPerso1_id_ = false
+    var InvertedCirclePerso1_id_ = false
+    var Perso1Dec_id_ = 1000
+    var Perso1Round_id_ = false
+    if ('#Perso1Unit#' != '#'+'Perso1Unit#') Perso1Unit_id_ = '#Perso1Unit#'
+    if ('#Perso1Rename#' != '#'+'Perso1Rename#') perso1Name_id_ = '#Perso1Rename#'
+    if ('#Perso1Icon#' != '#'+'Perso1Icon#') perso1Icon_id_ = '#Perso1Icon#'
+    if (is_numeric('#HideCirclePerso1#') && '#HideCirclePerso1#' == 1) HideCirclePerso1_id_ = true
+    if (is_numeric('#HidePathPerso1#') && '#HidePathPerso1#' == 1) {
+      HidePathPerso1_id_ = true
+      HideCirclePerso1_id_ = true
+    }
+    if (is_numeric('#InvertedCirclePerso1#') && '#InvertedCirclePerso1#' == 1) InvertedCirclePerso1_id_ = true
+    if ('#Perso1Color#' != '#'+'Perso1Color#') document.documentElement.style.setProperty('--perso1-color_id_', '#Perso1Color#')
+    if (is_numeric('#Perso1Dec#') && '#Perso1Dec#' >= 0) Perso1Dec_id_ = 1 + '' + "0".repeat('#Perso1Dec#')
+    if (is_numeric('#Perso1Round#') && '#Perso1Round#' >= 0) Perso1Round_id_ = '#Perso1Round#'
+    
+    ////////////////////////// Perso 2 /////////////////////////
+    var Perso2Unit_id_ = ''
+    var perso2Name_id_ = "Perso 2"
+    var perso2Icon_id_ = 0
+    var HideCirclePerso2_id_ = false
+    var HidePathPerso2_id_ = false
+    var InvertedCirclePerso2_id_ = false
+    var Perso2Dec_id_ = 1000
+    var Perso2Round_id_ = false
+    if ('#Perso2Unit#' != '#'+'Perso2Unit#') Perso2Unit_id_ = '#Perso2Unit#'
+    if ('#Perso2Rename#' != '#'+'Perso2Rename#') perso2Name_id_ = '#Perso2Rename#'
+    if ('#Perso2Icon#' != '#'+'Perso2Icon#') perso2Icon_id_ = '#Perso2Icon#'
+    if (is_numeric('#HideCirclePerso2#') && '#HideCirclePerso2#' == 1) HideCirclePerso2_id_ = true
+    if (is_numeric('#HidePathPerso2#') && '#HidePathPerso2#' == 1) { 
+      HidePathPerso2_id_ = true
+      HideCirclePerso2_id_ = true
+    }
+    if (is_numeric('#InvertedCirclePerso2#') && '#InvertedCirclePerso2#' == 1) InvertedCirclePerso2_id_ = true
+    if ('#Perso2Color#' != '#'+'Perso2Color#') document.documentElement.style.setProperty('--perso2-color_id_', '#Perso2Color#')
+    if (is_numeric('#Perso2Dec#') && '#Perso2Dec#' >= 0) Perso2Dec_id_ = 1 + '' + "0".repeat('#Perso2Dec#')
+    if (is_numeric('#Perso2Round#') && '#Perso2Round#' >= 0) Perso2Round_id_ = '#Perso2Round#'
+    
+    ////////////////////////// Home /////////////////////////
+    var HideGreenValue_id_ = false
+    var HomeDec_id_ = 1000
+    if (is_numeric('#HideGreenValue#') && '#HideGreenValue#' == 1) HideGreenValue_id_ = true
+    //if (is_numeric('#HomeDec#') && '#HomeDec#' >= 0) HomeDec_id_ = 1 + '' + "0".repeat('#HomeDec#')
+    
+    
+    var MAX_FLOW_RATE_id_ = 6 //3
+    var MIN_FLOW_RATE_id_ = 0.75 //10
+    var RadiusCircle_id_ = 38
+    var CIRCLE_CIRCUMFERENCE_id_ = 2 * Math.PI * RadiusCircle_id_
+    
+    var unite_conversion_id_ = {
+      'W' : [1000, 'W', 'kW', 'MW'],
+      'Wh' : [1000, 'Wh', 'kWh', 'MWh'],
+      'l' : [1000, 'l', 'm<sup>3</sup>']
+    }
+    
+    function circleRate_id_(value, total){
+      if (total == 0) return MAX_FLOW_RATE_id_
+      return MAX_FLOW_RATE_id_ - (value / total) * (MAX_FLOW_RATE_id_ - MIN_FLOW_RATE_id_)
+    }
+    
+    function autoValueArray_id_(value, unit = '', trunc = 1, round = false) {
+      var result = { }
+      result.unit = unit.replace("\"", "").replace("\'", "")
+      if (value === null || value == '') {
+        result.value = 0
+        return result
+      }
+      if(isNaN(value) == true){
+        result.value = value
+        return result
+      }
+      if (round && round >= 0 && !isNaN(round)) {
+        value = value.toFixed(round)
+        if (value == 0) {
+          result.value = 0
+          return result 
+        }
+      }
+      if (isset(unite_conversion_id_[unit])) {
+        let mod = unite_conversion_id_[unit][0]
+        let prefix = unite_conversion_id_[unit].slice(1)
+        let myval = autoValueFormat_id_(value, mod, prefix.length - 1)
+        //result.value = Math.trunc(myval[0] * trunc) / trunc
+        result.value = Math.trunc((myval[0] * trunc).toPrecision(5)) / trunc
+        result.unit = prefix[myval[1]]
+      } else result.value = Math.trunc(value * trunc) / trunc
+      return result
+    }
+    
+    function autoValueFormat_id_(value, mod = 1000, maxdiv = 10) {
+      let val = 0
+      if (value < 0) {
+        val = parseFloat(-value)
+      } else {
+        val = parseFloat(value)
+      }
+      for (div = 0; div < maxdiv && val >= mod; div++) {
+        val = parseFloat(val / mod)
+      }
+      if (value < 0) {
+        val = -val
+      }
+      return Array(val, div)
+    }
+    
+    function getBatteryIcon_id_(value=false) {
+        if (value < 99 && value >= 76) {
+          return '<path fill="currentColor" d="M16 20H8V6h8m.67-2H15V2H9v2H7.33C6.6 4 6 4.6 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C18 4.6 17.4 4 16.67 4M15 16H9v3h6v-3m0-9H9v3h6V7m0 4.5H9v3h6v-3Z"/>'
+        } else if (value < 76 && value >= 51) {
+          return '<path fill="currentColor" d="M16 20H8V6h8m.67-2H15V2H9v2H7.33C6.6 4 6 4.6 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C18 4.6 17.4 4 16.67 4M15 16H9v3h6v-3m0-4.5H9v3h6v-3Z"/>'
+        } else if (value < 51 && value >= 25) {
+          return '<path fill="currentColor" d="M16 20H8V6h8m.67-2H15V2H9v2H7.33C6.6 4 6 4.6 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C18 4.6 17.4 4 16.67 4M15 16H9v3h6v-3"/>'
+        } else if (value < 25) {
+          return '<path fill="currentColor" d="M16 20H8V6h8m.67-2H15V2H9v2H7.33A1.33 1.33 0 0 0 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34A1.33 1.33 0 0 0 18 20.67V5.33C18 4.6 17.4 4 16.67 4Z"/>'
+        } else {
+          return '<path fill="currentColor" d="M16.67 4H15V2H9v2H7.33A1.33 1.33 0 0 0 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34A1.33 1.33 0 0 0 18 20.67V5.33C18 4.6 17.4 4 16.67 4Z"/>'
+          //return '<path fill="currentColor" d="M16 20H8V6h8m.67-2H15V2H9v2H7.33A1.33 1.33 0 0 0 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34A1.33 1.33 0 0 0 18 20.67V5.33C18 4.6 17.4 4 16.67 4Z"/>'
+          //return '<path fill="currentColor" d="M16.67 4H15V2H9v2H7.33A1.33 1.33 0 0 0 6 5.33v15.34C6 21.4 6.6 22 7.33 22h9.34A1.33 1.33 0 0 0 18 20.67V5.33C18 4.6 17.4 4 16.67 4Z"/>'
+        }
+    }
+    
+    if (debug_id_) console.log('| ┌────────────────────── Param Perso 1 ────────────────────')
+    var hasPerso1_id_ = false
+    var perso1State_id_ = 0
+    if(is_numeric('#Perso1#')){
+      jeedom.cmd.execute({
+        id : '#Perso1#',
+        async: false,
+        noCache: true,
+        error: function(error) {
+          if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(Perso1) !!!')
+          hasPerso1_id_ = false
+        },
+        success: function (cmdInfo) {
+          hasPerso1_id_ = true
+          if(Perso1Unit_id_ == ''){
+            jeedom.cmd.byId({
+              id : '#Perso1#',
+              async: false,
+              noCache: true,
+              error: function(error) {
+                if (debug_id_) console.log('| | ERREUR jeedom.cmd.byId(Perso1) !!!')
+              },
+              success: function (cmdInfo2) {
+                Perso1Unit_id_ = cmdInfo2.unite
+              }
+            })
+          }
+          if (debug_id_) {
+            console.log('| | value  = ' + cmdInfo + '' + Perso1Unit_id_)
+            if (Perso1Round_id_) {
+              console.log('| | Perso1Round  = ' + Perso1Round_id_)
+              console.log('| | value round  = ' + cmdInfo.toFixed(Perso1Round_id_))
+            }
+            if (Perso1Dec_id_) console.log('| | Decimale  = ' + Perso1Dec_id_)
+          }
+          perso1State_id_ = autoValueArray_id_(cmdInfo,Perso1Unit_id_,Perso1Dec_id_,Perso1Round_id_)
+          if (updateByCmd_id_) {
+            jeedom.cmd.addUpdateFunction('#Perso1#', function(_options) {
+              if (_options.value != undefined) 
+              {
+                let perso1State = autoValueArray_id_(_options.value,Perso1Unit_id_,Perso1Dec_id_,Perso1Round_id_)
+                if (debug_id_) console.log('perso1State.value  = ' + perso1State.value)
+                if (debug_id_) console.log('perso1State.unit  = ' + perso1State.unit)
+                if (perso1State.value > 0 && !HideCirclePerso1_id_) document.getElementById("CirclePerso1ToGrid_id_")?.classList.remove("hidden_id_")
+                else document.getElementById("CirclePerso1ToGrid_id_")?.classList.add("hidden_id_")
+                //if ((perso1State.value == 0 && !HideIfEmpty_id_) || perso1State.value > 0) document.getElementById("Perso1Value_id_").innerHTML = perso1State.value + perso1State.unit
+                if ((perso1State.value == 0 && !HideIfEmpty_id_) || perso1State.value != 0) document.getElementById("Perso1Value_id_").innerHTML = perso1State.value + perso1State.unit
+                else document.getElementById("Perso1Value_id_").innerHTML = ''
+              }
+            })
+          }
+        }
+      })
+    }
+    if (debug_id_) console.log('| └─────────────────────────────────────────────────────────')
+    
+    if (debug_id_) console.log('| ┌────────────────────── Param Perso 2 ────────────────────')    
+    var hasPerso2_id_ = false
+    var perso2State_id_ = 0
+    if(is_numeric('#Perso2#')){
+      jeedom.cmd.execute({
+        id : '#Perso2#',
+        async: false,
+        noCache: true,
+        error: function(error) {
+          if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(Perso2) !!!')
+        },
+        success: function (cmdInfo) {
+          hasPerso2_id_ = true
+          if(Perso2Unit_id_ == ''){
+            jeedom.cmd.byId({
+              id : '#Perso2#',
+              async: false,
+              noCache: true,
+              error: function(error) {
+                if (debug_id_) console.log('| | ERREUR jeedom.cmd.byId(Perso2) !!!')
+              },
+              success: function (cmdInfo2) {
+                Perso2Unit_id_ = cmdInfo2.unite
+              }
+            })
+          }
+          if (debug_id_) {
+            console.log('| | value  = ' + cmdInfo + '' + Perso2Unit_id_)
+            if (Perso2Round_id_) {
+              console.log('| | Perso2 Round  = ' + Perso2Round_id_)
+              console.log('| | value round  = ' + cmdInfo.toFixed(Perso2Round_id_))
+            }
+            if (Perso2Dec_id_) console.log('| | Perso2Dec  = ' + Perso2Dec_id_)
+          }
+          perso2State_id_ = autoValueArray_id_(cmdInfo,Perso2Unit_id_,Perso2Dec_id_,Perso2Round_id_)
+          if (updateByCmd_id_) {
+            jeedom.cmd.addUpdateFunction('#Perso2#', function(_options) {
+              if (_options.value != undefined) 
+              {
+                let perso2State = autoValueArray_id_(_options.value,Perso2Unit_id_,Perso2Dec_id_,Perso2Round_id_)
+                if (debug_id_) console.log('perso2State.value  = ' + perso2State.value)
+                if (debug_id_) console.log('perso2State.unit  = ' + perso2State.unit)
+                if (perso2State.value > 0 && !HideCirclePerso2_id_) document.getElementById("CirclePerso2ToGrid_id_")?.classList.remove("hidden_id_")
+                else document.getElementById("CirclePerso2ToGrid_id_")?.classList.add("hidden_id_")
+                //if ((perso2State.value == 0 && !HideIfEmpty_id_) || perso2State.value > 0) document.getElementById("Perso2Value_id_").innerHTML = perso2State.value + '' + perso2State.unit
+                if ((perso2State.value == 0 && !HideIfEmpty_id_) || perso2State.value != 0) document.getElementById("Perso2Value_id_").innerHTML = perso2State.value + '' + perso2State.unit
+                else document.getElementById("Perso2Value_id_").innerHTML = ''
+              }
+            })
+          }
+        }
+      })
+    }
+    if (debug_id_) console.log('| └─────────────────────────────────────────────────────────')
+    
+    if (debug_id_) console.log('| ┌────────────────────── Param Grid ────────────────────')
+    var hasGrid_id_ = false
+    var gridInverted_id_ = false
+    var hasReturnToGrid_id_ = false
+    var powerFailure_id_ = false
+    var totalFromGridNoUnit_id_ = 0
+    var totalFromGrid_id_ = 0
+    var returnedToGridNoUnit_id_ = null
+    var returnedToGrid_id_ = null
+    
+    if (is_numeric('#Grid#')) {
+      jeedom.cmd.execute({
+        id : '#Grid#',
+        async: false,
+        noCache: true,
+        error: function(error) {
+          if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(Grid) !!!')
+          hasGrid_id_ = false
+        },
+        success: function (gridValue) {
+          if (gridValue == '') gridValue = 0
+          if (typeof gridValue === "number") {
+            hasGrid_id_ = true
+            hasReturnToGrid_id_ = true
+            if('#GridInverted#' != '#'+'GridInverted#' && '#GridInverted#' == 1){
+              gridInverted_id_ = true
+              if (debug_id_) console.log('| | grid_Inverted -> true')
+            }
+            if(GridUnit_id_ == ''){
+              jeedom.cmd.byId({
+                id : '#Grid#',
+                async: false,
+                noCache: true,
+                error: function(error) {
+                  if (debug_id_) console.log('| | ERREUR jeedom.cmd.byId(Grid) !!!')
+                },
+                success: function (gridUnit) {
+                  GridUnit_id_ = gridUnit.unite
+                }
+              })
+            }
+            
+            totalFromGridNoUnit_id_ = autoValueArray_id_(gridValue,'',GridConsumptionDec_id_,GridConsumptionRound_id_) //GridUnit_id_
+            if (gridInverted_id_) totalFromGridNoUnit_id_ = Math.abs(Math.min(totalFromGridNoUnit_id_.value, 0))
+            else totalFromGridNoUnit_id_ = Math.max(totalFromGridNoUnit_id_.value, 0)
+            totalFromGrid_id_ = autoValueArray_id_(totalFromGridNoUnit_id_, GridUnit_id_, GridConsumptionDec_id_, GridConsumptionRound_id_)
+            
+            returnedToGridNoUnit_id_ = autoValueArray_id_(gridValue,'',GridReturnDec_id_, GridReturnRound_id_) //GridUnit_id_
+            if (gridInverted_id_) returnedToGridNoUnit_id_ = Math.max(returnedToGridNoUnit_id_.value, 0)
+            else returnedToGridNoUnit_id_ = Math.abs(Math.min(returnedToGridNoUnit_id_.value, 0))
+            returnedToGrid_id_ = autoValueArray_id_(returnedToGridNoUnit_id_, GridUnit_id_, GridReturnDec_id_, GridReturnRound_id_)
+            
+            if (debug_id_) {
+              console.log('| | Grid  = ' + gridValue)
+              console.log('| | -------- GridConsumption --------')
+              if (GridConsumptionRound_id_) {
+                console.log('| | GridConsumptionRound  = ' + GridConsumptionRound_id_)
+                console.log('| | value round  = ' + totalFromGridNoUnit_id_.toFixed(GridConsumptionRound_id_))
+              }
+              if (GridConsumptionDec_id_) console.log('| | GridConsumptionDec  = ' + GridConsumptionDec_id_)
+              console.log('| | totalFromGridNoUnit  = ' + totalFromGridNoUnit_id_)
+              console.log('| | totalFromGrid  = ' + totalFromGrid_id_.value + '' + totalFromGrid_id_.unit)
+              
+              console.log('| | --------- returnedToGrid ---------')
+              if (GridReturnRound_id_) {
+                console.log('| | GridReturnRound  = ' + GridReturnRound_id_)
+                console.log('| | value round  = ' + returnedToGridNoUnit_id_.toFixed(GridReturnRound_id_))
+              }
+              if (GridReturnDec_id_) console.log('| | GridReturnDec  = ' + GridReturnDec_id_)
+              console.log('| | returnedToGridNoUnit  = ' + returnedToGridNoUnit_id_)
+              console.log('| | returnedToGrid  = ' + returnedToGrid_id_.value + '' + returnedToGrid_id_.unit)
+              
+              console.log('| | ----------------------------------')
+            }
+            
+            if (updateByCmd_id_) {
+              jeedom.cmd.addUpdateFunction('#Grid#', function(_options) {
+                
+                if (_options.value != undefined) 
+                {
+                  if (debug_id_) console.log('addUpdateFunction(Grid) = ' + _options.value)
+                  let totalFromGridNoUnit = autoValueArray_id_(_options.value,'',GridConsumptionDec_id_,GridConsumptionRound_id_)
+                  if (gridInverted_id_) totalFromGridNoUnit = Math.abs(Math.min(totalFromGridNoUnit.value, 0))
+                  else totalFromGridNoUnit = Math.max(totalFromGridNoUnit.value, 0)
+                  totalFromGrid_id_ = autoValueArray_id_(totalFromGridNoUnit, GridUnit_id_, GridConsumptionDec_id_, GridConsumptionRound_id_)
+                
+                  let returnedToGridNoUnit = autoValueArray_id_(_options.value, '', GridReturnDec_id_, GridReturnRound_id_)
+                  if (gridInverted_id_) returnedToGridNoUnit = Math.max(returnedToGridNoUnit.value, 0)
+                  else returnedToGridNoUnit = Math.abs(Math.min(returnedToGridNoUnit.value, 0))
+                  returnedToGrid_id_ = autoValueArray_id_(returnedToGridNoUnit, GridUnit_id_, GridReturnDec_id_, GridReturnRound_id_)
+                
+                  if (totalFromGridNoUnit != totalFromGridNoUnit_id_ || returnedToGridNoUnit != returnedToGridNoUnit_id_){
+                    if (debug_id_) console.log('totalFromGridNoUnit  = ' + totalFromGridNoUnit)
+                    if (debug_id_) console.log('returnedToGridNoUnit  = ' + returnedToGridNoUnit)
+                    totalFromGridNoUnit_id_ = totalFromGridNoUnit
+                    returnedToGridNoUnit_id_ = returnedToGridNoUnit
+                    calculate_id_(false,'Grid')
+                  } else if (debug_id_) console.log('No update because the values are identical.')
+                }
+              })
+            }
+          }
+        }
+      })
+    }
+    else if (is_numeric('#GridConsumption#') && is_numeric('#GridProduction#')) {
+      jeedom.cmd.execute({
+        id : '#GridConsumption#',
+        async: false,
+        noCache: true,
+        error: function(error) {
+          if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(GridConsumption) !!!')
+        },
+        success: function (gridConsumption) {
+          if (typeof gridConsumption === "number") {
+            jeedom.cmd.execute({
+              id : '#GridProduction#',
+              async: false,
+              noCache: true,
+              error: function(error) {
+                if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(GridProduction) !!!')
+              },
+              success: function (gridProduction) {
+                if (typeof gridProduction === "number") {
+                  hasGrid_id_ = true
+                  hasReturnToGrid_id_ = true
+                  if(GridUnit_id_ == ''){
+                    jeedom.cmd.byId({
+                      id : '#GridConsumption#',
+                      async: false,
+                      noCache: true,
+                      error: function(error) {
+                        if (debug_id_) console.log('| | ERREUR jeedom.cmd.byId(GridConsumption) !!!')
+                      },
+                      success: function (gridUnit) {
+                        GridUnit_id_ = gridUnit.unite
+                      }
+                    })
+                  }
+                  totalFromGridNoUnit_id_ = autoValueArray_id_(gridConsumption,'',GridConsumptionDec_id_,GridConsumptionRound_id_) //GridUnit_id_
+                  totalFromGridNoUnit_id_ = totalFromGridNoUnit_id_.value
+                  totalFromGrid_id_ = autoValueArray_id_(totalFromGridNoUnit_id_, GridUnit_id_, GridConsumptionDec_id_, GridConsumptionRound_id_)
+                  
+                  returnedToGridNoUnit_id_ = autoValueArray_id_(gridProduction,'',GridReturnDec_id_, GridReturnRound_id_) //GridUnit_id_
+                  returnedToGridNoUnit_id_ = returnedToGridNoUnit_id_.value
+                  returnedToGrid_id_ = autoValueArray_id_(returnedToGridNoUnit_id_, GridUnit_id_, GridReturnDec_id_, GridReturnRound_id_)
+
+                  if (debug_id_){
+                    console.log('| | -------- GridConsumption --------')
+                    console.log('| | GridConsumption  = ' + gridConsumption)
+                    if (GridConsumptionRound_id_) {
+                      console.log('| | GridConsumption Round  = ' + GridConsumptionRound_id_)
+                      console.log('| | value round  = ' + gridConsumption.toFixed(GridConsumptionRound_id_))
+                    }
+                    if (GridConsumptionDec_id_) console.log('| | GridConsumptionDec  = ' + GridConsumptionDec_id_)
+                    console.log('| | totalFromGridNoUnit  = ' + totalFromGridNoUnit_id_)
+                    console.log('| | totalFromGrid  = ' + totalFromGrid_id_.value + '' + totalFromGrid_id_.unit)
+                    console.log('| | --------- returnedToGrid ---------')
+                    console.log('| | returnedToGrid  = ' + gridProduction)
+                    if (GridReturnRound_id_) {
+                      console.log('| | GridReturnRound Round  = ' + GridReturnRound_id_)
+                      console.log('| | value round  = ' + gridProduction.toFixed(GridReturnRound_id_))
+                    }
+                    if (GridReturnDec_id_) console.log('| | GridReturnDec = ' + GridReturnDec_id_)
+                    console.log('| | returnedToGridNoUnit  = ' + returnedToGridNoUnit_id_)
+                    console.log('| | returnedToGrid  = ' + returnedToGrid_id_.value + '' + returnedToGrid_id_.unit)
+                    console.log('| | ----------------------------------')
+                  }
+                  if (updateByCmd_id_) {
+                    jeedom.cmd.addUpdateFunction('#GridConsumption#', function(_options) {
+                      if (_options.value != undefined) 
+                      {
+                        if (debug_id_) console.log('addUpdateFunction(GridConsumption) = ' + _options.value)
+                        let totalFromGridNoUnit = autoValueArray_id_(_options.value,'',GridConsumptionDec_id_,GridConsumptionRound_id_) //GridUnit_id_
+                        if(totalFromGridNoUnit_id_ != totalFromGridNoUnit.value){
+                          totalFromGridNoUnit_id_ = totalFromGridNoUnit.value
+                          if (debug_id_) console.log('totalFromGridNoUnit  = ' + totalFromGridNoUnit_id_)
+                          totalFromGrid_id_ = autoValueArray_id_(totalFromGridNoUnit_id_, GridUnit_id_, GridConsumptionDec_id_, GridConsumptionRound_id_)
+                          calculate_id_(false,'GridConsumption')
+                        }
+                        else if (debug_id_) console.log('no update because the value is the same')
+                      }
+                    })
+                    jeedom.cmd.addUpdateFunction('#GridProduction#', function(_options) {
+                      if (_options.value != undefined) 
+                      {
+                        if (debug_id_) console.log('addUpdateFunction(GridProduction) = ' + _options.value)
+                        let returnedToGridNoUnit = autoValueArray_id_(_options.value, '', GridReturnDec_id_, GridReturnRound_id_)
+                        if(returnedToGridNoUnit_id_ != returnedToGridNoUnit.value){
+                          returnedToGridNoUnit_id_ = returnedToGridNoUnit.value
+                          if (debug_id_) console.log('returnedToGridNoUnit  = ' + returnedToGridNoUnit_id_)
+                          returnedToGrid_id_ = autoValueArray_id_(returnedToGridNoUnit_id_, GridUnit_id_, GridReturnDec_id_, GridReturnRound_id_)
+                          calculate_id_(false,'GridProduction')
+                        }
+                        else if (debug_id_) console.log('no update because the value is the same')
+                      }
+                    })
+                  }
+                }
+              }
+            })
+          }
+        }
+      })
+    }
+    if (hasGrid_id_ && is_numeric('#PowerFailure#')){
+      jeedom.cmd.execute({
+        id : '#PowerFailure#',
+         async: false,
+         noCache: true,
+         error: function(error) {
+           if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(PowerFailure) !!!')
+         },
+         success: function (powerFailure) {
+           if (typeof powerFailure === "number") {
+             if (powerFailure >= 1) powerFailure_id_ = true
+             jeedom.cmd.addUpdateFunction('#PowerFailure#', function(_options) {
+               if (_options.value != undefined) 
+               {
+                 if (_options.value >= 1) document.getElementById("powerFailure_id_")?.classList.add("blink_id_")
+                 else document.getElementById("powerFailure_id_")?.classList.remove("blink_id_")
+               }
+             })
+             if (debug_id_) console.log('| | powerFailure  = ' + powerFailure)
+           }
+         }
+      })
+    }
+    
+    if (debug_id_) console.log('| └──────────────────────────────────────────────────────')
+    
+    if (debug_id_) console.log('| ┌────────────────────── Param SOLAR ───────────────────')
+    var hasSolarProduction_id_ = false
+    var solarInverted_id_ = false
+    var totalSolarProduction_id_ = 0
+    var totalSolarProductionNoUnit_id_ = 0
+      
+    if('#Solar#' != '#'+'Solar#'){
+      jeedom.cmd.execute({
+        id : '#Solar#',
+        async: false,
+        noCache: true,
+        error: function(error) {
+          if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(Solar) !!!')
+        },
+        success: function (solarValue) {
+          if (typeof solarValue === "number") {
+            hasSolarProduction_id_ = true
+            if('#SolarInverted#' != '#'+'SolarInverted#' && '#SolarInverted#' == 1){
+              solarInverted_id_ = true
+              if (debug_id_) console.log('| | eqLogic_solar_Inverted -> true')
+            }
+            
+            totalSolarProductionNoUnit_id_ = autoValueArray_id_(solarValue,'',solarDec_id_,solarRound_id_)
+            if (solarInverted_id_) totalSolarProductionNoUnit_id_ = Math.abs(Math.min(totalSolarProductionNoUnit_id_.value, 0))
+            else totalSolarProductionNoUnit_id_ = Math.max(totalSolarProductionNoUnit_id_.value, 0)
+            totalSolarProduction_id_ = autoValueArray_id_(totalSolarProductionNoUnit_id_,GridUnit_id_,solarDec_id_,solarRound_id_)
+            
+            if (debug_id_) {
+              console.log('| | Solar  = ' + solarValue)
+              if (solarRound_id_) {
+                console.log('| | solarRound  = ' + solarRound_id_)
+                console.log('| | value round  = ' + solarValue.toFixed(solarRound_id_))
+              }
+              if (solarDec_id_) console.log('| | solarDec  = ' + solarDec_id_)
+              console.log('| | totalSolarProductionNoUnit  = ' + totalSolarProductionNoUnit_id_)
+              console.log('| | totalSolarProduction  = ' + totalSolarProduction_id_.value + '' + totalSolarProduction_id_.unit)
+            }
+            
+            if (updateByCmd_id_) {
+              jeedom.cmd.addUpdateFunction('#Solar#', function(_options) {
+                if (_options.value != undefined) 
+                {
+                  if (debug_id_) console.log('addUpdateFunction(Solar) = ' + _options.value)
+                  let totalSolarProductionNoUnit = autoValueArray_id_(_options.value,'',solarDec_id_,solarRound_id_)
+                  if (solarInverted_id_) totalSolarProductionNoUnit = Math.abs(Math.min(totalSolarProductionNoUnit.value, 0))
+                  else totalSolarProductionNoUnit = Math.max(totalSolarProductionNoUnit.value, 0)
+                  totalSolarProduction_id_ = autoValueArray_id_(totalSolarProductionNoUnit, GridUnit_id_, solarDec_id_,solarRound_id_)
+                
+                  if (totalSolarProductionNoUnit != totalSolarProductionNoUnit_id_){
+                    if (debug_id_) console.log('totalSolarProductionNoUnit  = ' + totalSolarProductionNoUnit)
+                    totalSolarProductionNoUnit_id_ = totalSolarProductionNoUnit
+                    calculate_id_(false,'Solar')
+                  }
+                  else if (debug_id_) console.log('no update because the value is the same')
+                }
+              })
+            }
+          }
+        }
+      })
+    }
+    if (debug_id_) console.log('| └──────────────────────────────────────────────────────')
+      
+    if (debug_id_) console.log('| ┌───────────────────── Param BATTERY ──────────────────')
+    var hasBattery_id_ = false
+    var batteryTempState_id_ = null
+    var batteryInverted_id_ = false
+    var totalBatteryIn_id_ = null
+    var totalBatteryOut_id_ = null
+    var totalBatteryInNoUnit_id_ = null
+    var totalBatteryOutNoUnit_id_ = null
+    var batteryChargeState_id_ = null
+    
+    if (is_numeric('#Battery#')) {
+      jeedom.cmd.execute({
+        id : '#Battery#',
+        async: false,
+        noCache: true,
+        error: function(error) {
+          if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(Battery)!!!')
+        },
+        success: function (batteryValue) {
+          if (batteryValue == '') batteryValue = 0
+          if (typeof batteryValue === "number") {
+            hasBattery_id_ = true
+            if (debug_id_) console.log('| | Battery = ' + batteryValue)
+            if('#BatteryInverted#' != '#'+'BatteryInverted#' && '#BatteryInverted#' == 1){
+              batteryInverted_id_ = true
+              if (debug_id_) console.log('| | eqLogic_battery_Inverted -> true')
+            }
+            
+            totalBatteryInNoUnit_id_ = (batteryInverted_id_) ? Math.max(batteryValue, 0) : Math.abs(Math.min(batteryValue, 0))
+            totalBatteryInNoUnit_id_ = autoValueArray_id_(totalBatteryInNoUnit_id_, '', BatteryProductionDec_id_, BatteryProductionRound_id_)
+            totalBatteryInNoUnit_id_ = totalBatteryInNoUnit_id_.value
+            totalBatteryIn_id_ = autoValueArray_id_(totalBatteryInNoUnit_id_, GridUnit_id_, BatteryProductionDec_id_, BatteryProductionRound_id_)
+            
+            totalBatteryOutNoUnit_id_ = (batteryInverted_id_) ? Math.abs(Math.min(batteryValue, 0)) : Math.max(batteryValue, 0)
+            totalBatteryOutNoUnit_id_ = autoValueArray_id_(totalBatteryOutNoUnit_id_, '', BatteryConsumptionDec_id_, BatteryConsumptionRound_id_)
+            totalBatteryOutNoUnit_id_ = totalBatteryOutNoUnit_id_.value
+            totalBatteryOut_id_ = autoValueArray_id_(totalBatteryOutNoUnit_id_, GridUnit_id_, BatteryConsumptionDec_id_, BatteryConsumptionRound_id_)
+            
+            if (debug_id_) {
+              console.log('| | -------- totalBatteryIn --------')
+              if (BatteryProductionRound_id_) console.log('| | - BatteryInRound  = ' + BatteryProductionRound_id_)
+              if (BatteryProductionDec_id_) console.log('| | - BatteryInDec  = ' + BatteryProductionDec_id_)
+              console.log('| | totalBatteryInNoUnit  = ' + totalBatteryInNoUnit_id_)
+              console.log('| | totalBatteryIn  = ' + totalBatteryIn_id_.value + '' + totalBatteryIn_id_.unit)
+              
+              console.log('| | --------- totalBatteryOut ---------')
+              if (BatteryConsumptionRound_id_) console.log('| | BatteryOutRound  = ' + BatteryConsumptionRound_id_)
+              if (BatteryConsumptionDec_id_) console.log('| | BatteryOutDec  = ' + BatteryConsumptionDec_id_)
+              console.log('| | totalBatteryOutNoUnit  = ' + totalBatteryOutNoUnit_id_)
+              console.log('| | totalBatteryOut  = ' + totalBatteryOut_id_.value + '' + totalBatteryOut_id_.unit)
+              console.log('| | ----------------------------------')
+            }
+            
+            if (updateByCmd_id_) {
+              jeedom.cmd.addUpdateFunction('#Battery#', function(_options) {
+                if (_options.value != undefined) 
+                {
+                  if (debug_id_) console.log('addUpdateFunction(Battery) = ' + _options.value)
+                
+                  let totalBatteryInNoUnit = (batteryInverted_id_) ? Math.max(_options.value, 0) : Math.abs(Math.min(_options.value, 0))
+                  totalBatteryInNoUnit = autoValueArray_id_(totalBatteryInNoUnit, '', BatteryProductionDec_id_, BatteryProductionRound_id_)
+                  totalBatteryIn_id_ = autoValueArray_id_(totalBatteryInNoUnit.value, GridUnit_id_, BatteryProductionDec_id_, BatteryProductionRound_id_)
+                
+                  let totalBatteryOutNoUnit = (batteryInverted_id_) ? Math.abs(Math.min(_options.value, 0)) : Math.max(_options.value, 0)
+                  totalBatteryOutNoUnit = autoValueArray_id_(totalBatteryOutNoUnit,'', BatteryConsumptionDec_id_, BatteryConsumptionRound_id_)
+                  totalBatteryOut_id_ = autoValueArray_id_(totalBatteryOutNoUnit.value, GridUnit_id_, BatteryConsumptionDec_id_, BatteryConsumptionRound_id_)
+                
+                  if (totalBatteryInNoUnit != totalBatteryInNoUnit_id_ || totalBatteryOutNoUnit != totalBatteryOutNoUnit_id_){
+                    if (debug_id_) console.log('totalBatteryInNoUnit  = ' + totalBatteryInNoUnit.value)
+                    if (debug_id_) console.log('totalBatteryOutNoUnit  = ' + totalBatteryOutNoUnit.value)
+                    totalBatteryInNoUnit_id_ = totalBatteryInNoUnit.value
+                    totalBatteryOutNoUnit_id_ = totalBatteryOutNoUnit.value
+                    calculate_id_(false,'Battery')
+                  } else if (debug_id_) console.log('No update because the values are identical.')
+                }
+              })
+            }
+          }
+        }
+      })
+    }
+    else if(is_numeric('#BatteryConsumption#') && is_numeric('#BatteryProduction#')){
+      jeedom.cmd.execute({
+        id : '#BatteryConsumption#',
+        async: false,
+        noCache: true,
+        error: function(error) {
+          if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(BatteryConsumption) !!!')
+        },
+        success: function (batteryConsumption) {
+          if (typeof batteryConsumption === "number") {
+            jeedom.cmd.execute({
+              id : '#BatteryProduction#',
+              async: false,
+              noCache: true,
+              error: function(error) {
+                if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(BatteryProduction) !!!')
+              },
+              success: function (batteryProduction) {
+                if (typeof batteryProduction === "number") {
+                  hasBattery_id_ = true
+                  
+                  totalBatteryInNoUnit_id_ = autoValueArray_id_(batteryProduction, '', BatteryProductionDec_id_, BatteryProductionRound_id_)
+                  totalBatteryInNoUnit_id_ = totalBatteryInNoUnit_id_.value
+                  totalBatteryIn_id_ = autoValueArray_id_(totalBatteryInNoUnit_id_, GridUnit_id_, BatteryProductionDec_id_, BatteryProductionRound_id_)
+                  
+                  totalBatteryOutNoUnit_id_ = autoValueArray_id_(batteryConsumption, '', BatteryConsumptionDec_id_, BatteryConsumptionRound_id_)
+                  totalBatteryOutNoUnit_id_ = totalBatteryOutNoUnit_id_.value
+                  totalBatteryOut_id_ = autoValueArray_id_(totalBatteryOutNoUnit_id_, GridUnit_id_, BatteryConsumptionDec_id_, BatteryConsumptionRound_id_)
+                  
+                  if (debug_id_) {
+                    console.log('| | -------- totalBatteryIn --------')
+                    console.log('| | value  = ' + batteryProduction)
+                    if (BatteryProductionRound_id_) console.log('| | -- BatteryInRound  = ' + BatteryProductionRound_id_)
+                    if (BatteryProductionDec_id_) console.log('| | -- BatteryInDec  = ' + BatteryProductionDec_id_)
+                    console.log('| | totalBatteryInNoUnit  = ' + totalBatteryInNoUnit_id_)
+                    console.log('| | totalBatteryIn  = ' + totalBatteryIn_id_.value + '' + totalBatteryIn_id_.unit)
+                    
+                    console.log('| | --------- totalBatteryOut ---------')
+                    console.log('| | value  = ' + batteryConsumption)
+                    if (BatteryConsumptionRound_id_) console.log('| | -- BatteryOutRound  = ' + BatteryConsumptionRound_id_)
+                    if (BatteryConsumptionDec_id_) console.log('| | -- BatteryOutDec  = ' + BatteryConsumptionDec_id_)
+                    console.log('| | totalBatteryOutNoUnit  = ' + totalBatteryOutNoUnit_id_)
+                    console.log('| | totalBatteryOut  = ' + totalBatteryOut_id_.value + '' + totalBatteryOut_id_.unit)
+                    console.log('| | ----------------------------------')
+                  }
+                  
+                  if (updateByCmd_id_) {    
+                    jeedom.cmd.addUpdateFunction('#BatteryProduction#', function(_options) {
+                      if (_options.value != undefined) 
+                      {
+                        if (debug_id_) console.log('addUpdateFunction(BatteryProduction) = ' + _options.value)
+                        let totalBatteryInNoUnit = autoValueArray_id_(_options.value, '', BatteryProductionDec_id_, BatteryProductionRound_id_)
+                        totalBatteryIn_id_ = autoValueArray_id_(totalBatteryInNoUnit.value, GridUnit_id_, BatteryProductionDec_id_, BatteryProductionRound_id_)
+                      
+                        if (totalBatteryInNoUnit.value != totalBatteryInNoUnit_id_){
+                          if (debug_id_) console.log('totalBatteryInNoUnit old  = ' + totalBatteryInNoUnit_id_)
+                          if (debug_id_) console.log('totalBatteryInNoUnit  = ' + totalBatteryInNoUnit.value)
+                          totalBatteryInNoUnit_id_ = totalBatteryInNoUnit.value
+                          calculate_id_(false,'BatteryProduction')
+                        } else if (debug_id_) console.log('no update because the value is the same (totalBatteryInNoUnit ->old = ' + totalBatteryInNoUnit_id_ + ')')
+                      }
+                    })
+                    jeedom.cmd.addUpdateFunction('#BatteryConsumption#', function(_options) {
+                      if (_options.value != undefined) 
+                      {
+                        if (debug_id_) console.log('addUpdateFunction(BatteryConsumption) = ' + _options.value)
+                        let totalBatteryOutNoUnit = autoValueArray_id_(_options.value, '', BatteryConsumptionDec_id_, BatteryConsumptionRound_id_)
+                        totalBatteryOut_id_ = autoValueArray_id_(totalBatteryOutNoUnit.value, GridUnit_id_, BatteryConsumptionDec_id_, BatteryConsumptionRound_id_)
+                        if (totalBatteryOutNoUnit.value != totalBatteryOutNoUnit_id_){
+                          if (debug_id_) console.log('totalBatteryOutNoUnit old  = ' + totalBatteryOutNoUnit_id_)
+                          if (debug_id_) console.log('totalBatteryOutNoUnit  = ' + totalBatteryOutNoUnit.value)
+                          totalBatteryOutNoUnit_id_ = totalBatteryOutNoUnit.value
+                          calculate_id_(false,'BatteryConsumption')
+                        } else if (debug_id_) console.log('no update because the value is the same (totalBatteryOutNoUnit ->old = ' + totalBatteryOutNoUnit_id_ + ')')
+                      }
+                    })
+                  }
+                }
+              }
+            })
+          }
+        }
+      })
+    }
+    
+    if(hasBattery_id_){
+      if('#BatteryState#' != '#'+'BatteryState#'){
+        jeedom.cmd.execute({
+          id : '#BatteryState#',
+          async: false,
+          noCache: true,
+          error: function(error) {
+            if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(BatteryState) !!!')
+          },
+          success: function (batteryState) {
+            if (typeof batteryState === "number") {
+              batteryChargeState_id_ = autoValueArray_id_(batteryState,'%', 1)
+              if (debug_id_) console.log('| | batteryChargeState = ' + batteryChargeState_id_.value + '' + batteryChargeState_id_.unit)
+              if (updateByCmd_id_) {
+                jeedom.cmd.addUpdateFunction('#BatteryState#', function(_options) {
+                  if (_options.value != undefined) 
+                  {
+                    let batteryChargeState = autoValueArray_id_(_options.value,'%', 1)
+                    document.getElementById("batteryChargeIcon_id_").innerHTML = getBatteryIcon_id_(batteryChargeState.value)
+                    document.getElementById("batteryChargeState_id_").innerHTML = batteryChargeState.value + '' + batteryChargeState.unit
+                  }
+                })
+              }
+            }
+          }
+        })
+      }
+      if('#BatteryTemp#' != '#'+'BatteryTemp#'){
+        jeedom.cmd.execute({
+          id : '#BatteryTemp#',
+          async: false,
+          noCache: true,
+          error: function(error) {
+            if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(BatteryTemp)!!!')
+          },
+          success: function (batteryTemp) {
+            if (typeof batteryTemp === "number") {
+              batteryTempState_id_ = autoValueArray_id_(batteryTemp,'°C', 10)
+              if (debug_id_) console.log('| | batteryTempState = ' + batteryTempState_id_.value + '' + batteryTempState_id_.unit)
+              if (updateByCmd_id_) {
+                jeedom.cmd.addUpdateFunction('#BatteryTemp#', function(_options) {
+                  if (_options.value != undefined) 
+                  {
+                    let batteryTempState = autoValueArray_id_(_options.value,'°C', 10)
+                    if (debug_id_) console.log('addUpdateFunction(BatteryTemp) = ' + batteryTempState.value + '' + batteryTempState.unit)
+                    document.getElementById("batteryTempState_id_").innerHTML = batteryTempState.value + '' + batteryTempState.unit
+                  }
+                })
+              }
+              
+            }
+          }
+        })
+      }
+    }
+    if (debug_id_) console.log('| └──────────────────────────────────────────────────────')
+      
+    if (debug_id_) console.log('| ┌─────────────────────── Param GAS ────────────────────')
+    var hasGas_id_ = false
+    var gasState_id_ = 0
+    //var gasInverted_id_ = false
+    if(is_numeric('#Gas#')){
+      jeedom.cmd.execute({
+        id : '#Gas#',
+        async: false,
+        noCache: true,
+        error: function(error) {
+          if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(Gas) !!!')
+        },
+        success: function (gasValue) {
+          hasGas_id_ = true
+          //if('#GasInverted#' != '#'+'GasInverted#' && '#GasInverted#' == 1){
+            //gasInverted_id_ = true
+            //if (debug_id_) console.log('| | gas_Inverted -> true')
+          //}
+          
+          if(gasUnit_id_ == ''){
+            jeedom.cmd.byId({
+              id : '#Gas#',
+              async: false,
+              noCache: true,
+              error: function(error) {
+                if (debug_id_) console.log('| | ERREUR jeedom.cmd.byId(Gas) !!!')
+              },
+              success: function (cmdInfo2) {
+                gasUnit_id_ = cmdInfo2.unite
+              }
+            })
+          }
+          if (debug_id_) {
+            console.log('| | value  = ' + gasValue + '' + gasUnit_id_)
+            if (GasRound_id_) {
+              console.log('| | GasRound  = ' + GasRound_id_)
+              console.log('| | value round  = ' + gasValue.toFixed(GasRound_id_))
+            }
+            if (GasDec_id_) console.log('| | GasDec  = ' + GasDec_id_) 
+          }
+          gasState_id_ = autoValueArray_id_(gasValue,gasUnit_id_,GasDec_id_,GasRound_id_)
+          if (updateByCmd_id_) {
+            jeedom.cmd.addUpdateFunction('#Gas#', function(_options) {
+              if (_options.value != undefined) 
+              {
+                let gasState = autoValueArray_id_(_options.value,gasUnit_id_,GasDec_id_,GasRound_id_)
+                if (debug_id_) console.log('gasState.value  = ' + gasState.value)
+                if (debug_id_) console.log('gasState.unit  = ' + gasState.unit)
+                if (gasState.value > 0 && !HideCircleGas_id_) document.getElementById("CircleGasToHome_id_")?.classList.remove("hidden_id_")
+                else document.getElementById("CircleGasToHome_id_")?.classList.add("hidden_id_")
+                //if ((gasState.value == 0 && !HideIfEmpty_id_) || gasState.value > 0) document.getElementById("GasValue_id_").innerHTML = gasState.value + gasState.unit
+                if ((gasState.value == 0 && !HideIfEmpty_id_) || gasState.value != 0) document.getElementById("GasValue_id_").innerHTML = gasState.value + gasState.unit
+              }
+            })
+          }
+        }
+      })
+    }
+    if (debug_id_) console.log('| └──────────────────────────────────────────────────────')
+      
+    if (debug_id_) console.log('| ┌────────────────────── Param WATER ───────────────────')
+    var waterState_id_ = 0
+    var hasWater_id_ = false
+    //var waterInverted_id_ = false
+    if(is_numeric('#Water#')){
+      jeedom.cmd.execute({
+        id : '#Water#',
+        async: false,
+        noCache: true,
+        error: function(error) {
+          if (debug_id_) console.log('| | ERREUR jeedom.cmd.execute(Water) !!!')
+        },
+        success: function (waterValue) {
+          if (typeof waterValue === "number") {
+            hasWater_id_ = true
+            //if('#WaterInverted#' != '#'+'WaterInverted#' && '#WaterInverted#' == 1){
+              //waterInverted_id_ = true
+              //if (debug_id_) console.log('| | water_Inverted -> true')
+            //}
+            if(waterUnit_id_ == ''){
+              jeedom.cmd.byId({
+                id : '#Water#',
+                async: false,
+                noCache: true,
+                error: function(error) {
+                  if (debug_id_) console.log('| | ERREUR jeedom.cmd.byId(Water) !!!')
+                },
+                success: function (cmdInfo2) {
+                  waterUnit_id_ = cmdInfo2.unite
+                }
+              })
+            }
+            
+            if (debug_id_) {
+              console.log('| | value  = ' + waterValue + '' + waterUnit_id_)
+              if (WaterRound_id_) {
+                console.log('| | WaterRound  = ' + WaterRound_id_)
+                console.log('| | value round  = ' + waterValue.toFixed(WaterRound_id_))
+              }
+              if (WaterDec_id_) console.log('| | Decimale  = ' + WaterDec_id_)
+            }
+            waterState_id_ = autoValueArray_id_(waterValue,waterUnit_id_,WaterDec_id_,WaterRound_id_)
+            if (updateByCmd_id_) {
+              jeedom.cmd.addUpdateFunction('#Water#', function(_options) {
+                if (_options.value != undefined) 
+                {
+                  let waterState = autoValueArray_id_(_options.value,waterUnit_id_,WaterDec_id_,WaterRound_id_)
+                  if (debug_id_) console.log('waterState.value  = ' + waterState.value)
+                  if (debug_id_) console.log('waterState.unit  = ' + waterState.unit)
+                  if (waterState.value > 0 && !HideCircleWater_id_) document.getElementById("CircleWaterToHome_id_")?.classList.remove("hidden_id_")
+                  else document.getElementById("CircleWaterToHome_id_")?.classList.add("hidden_id_")
+                  //if ((waterState.value == 0 && !HideIfEmpty_id_) || waterState.value > 0) document.getElementById("WaterValue_id_").innerHTML = waterState.value + waterState.unit
+                  if ((waterState.value == 0 && !HideIfEmpty_id_) || waterState.value != 0) document.getElementById("WaterValue_id_").innerHTML = waterState.value + waterState.unit
+                }
+              })
+            }
+          }
+        }
+      })
+    }
+    if (debug_id_) console.log('| └──────────────────────────────────────────────────────')
+    if (debug_id_) console.log('└──────────────────────────────────────────────────────')
+    
+    
+    jeedom.cmd.addUpdateFunction('_id_', function(_options) {
+      if (!updateByCmd_id_) {
+        calculate_id_(true,"Update")
+      }
+    })
+    
+    calculate_id_(true)
+    
+    
+    function calculate_id_(init=true,el='') {
+      var ElDomExist = !!document.getElementById("widget_id_")
+      if (debug_id_) console.log("ElDomExist ?",ElDomExist)
+      if (ElDomExist) {
+        if (debug_id_) console.log('┌─────────────────── Widget Distribution energy [_id_] en debug (calculate) ───────────────')
+        if (debug_id_) console.log('| ┌──────────────────────── VALUES ──────────────────────')
+        if (el != '' && debug_id_) console.log('| | launched by ' + el)
+      
+        var solarConsumption = null
+        if (hasSolarProduction_id_) {
+          solarConsumption = totalSolarProductionNoUnit_id_ - ((returnedToGridNoUnit_id_ == null) ? 0 : returnedToGridNoUnit_id_) - ((totalBatteryInNoUnit_id_ == null) ? 0 : totalBatteryInNoUnit_id_)
+          if (debug_id_) console.log('| | solarConsumption = ' + solarConsumption)
+        }
+      
+        var batteryFromGrid = null
+        var batteryToGrid = null
+        if (solarConsumption !== null && solarConsumption < 0) {
+          // What we returned to the grid and what went in to the battery is more
+          // than produced, so we have used grid energy to fill the battery or
+          // returned battery energy to the grid
+          if (hasBattery_id_) {
+            batteryFromGrid = Math.abs(solarConsumption)
+            if (batteryFromGrid > totalFromGridNoUnit_id_) { // 1000 > 5000
+              batteryToGrid = Math.min((batteryFromGrid - totalFromGridNoUnit_id_), 0)
+              batteryFromGrid = totalFromGridNoUnit_id_
+            } else {
+              //batteryToGrid = batteryFromGrid // add
+              //batteryFromGrid = 0 // add
+            }
+          }
+          solarConsumption = 0
+          if (debug_id_) console.log('| | NEW solarConsumption : ' + solarConsumption)
+        }
+if (!batteryToGrid) if (debug_id_) console.log('| | !batteryToGrid')
+if (!batteryFromGrid) if (debug_id_) console.log('| | !batteryFromGrid')
+        var solarToBattery = null
+        if (hasSolarProduction_id_ && hasBattery_id_) {
+          if (!batteryToGrid) {
+            if (debug_id_) console.log('| | !batteryToGrid')
+            batteryToGrid = Math.max(0,(returnedToGridNoUnit_id_ || 0) - (totalSolarProductionNoUnit_id_ || 0) - (totalBatteryInNoUnit_id_ || 0) - (batteryFromGrid || 0))
+            if (debug_id_) console.log('| | batteryToGrid = ' + batteryToGrid)
+          }
+          solarToBattery = ((totalBatteryInNoUnit_id_) ? totalBatteryInNoUnit_id_ : 0) - (batteryFromGrid || 0)
+          if (debug_id_) console.log('| | solarToBattery = ' + solarToBattery)
+        } else if (!hasSolarProduction_id_ && hasBattery_id_) {
+          batteryToGrid = returnedToGridNoUnit_id_
+          if (debug_id_) console.log('| | NEW batteryToGrid = ' + batteryToGrid)
+        }
+      
+        var solarToGrid = 0
+        if (hasSolarProduction_id_ && returnedToGridNoUnit_id_) {
+          solarToGrid = returnedToGridNoUnit_id_ - ((batteryToGrid) ? batteryToGrid : 0)
+        }
+        if (debug_id_) console.log('| | solarToGrid : ' + solarToGrid)
+  
+        var batteryConsumption = null
+        if (hasBattery_id_) {
+          batteryConsumption = ((totalBatteryOutNoUnit_id_ !== null) ? totalBatteryOutNoUnit_id_ : 0) - ((batteryToGrid !== null) ? batteryToGrid : 0)
+          if (debug_id_) console.log('| | batteryConsumption : ' + batteryConsumption)
+        }
+      
+        var gridConsumption = Math.max(totalFromGridNoUnit_id_ - ((batteryFromGrid !== null) ? batteryFromGrid : 0), 0)
+        
+        if (debug_id_) console.log('| | gridConsumption : ' + gridConsumption)
+        
+      
+        var totalHomeConsumption = Math.max(gridConsumption + ((solarConsumption !== null) ? solarConsumption : 0) + ((batteryConsumption !== null) ? batteryConsumption : 0), 0)
+        if (debug_id_) console.log('| | totalHomeConsumption : ' + totalHomeConsumption)
+      
+        var homeBatteryCircumference = undefined
+        if (batteryConsumption !== null) {
+          homeBatteryCircumference = CIRCLE_CIRCUMFERENCE_id_ * (batteryConsumption / totalHomeConsumption)
+          if (debug_id_) console.log('| | homeBatteryCircumference : ' + homeBatteryCircumference)
+        }
+      
+        var homeSolarCircumference = undefined
+        if (hasSolarProduction_id_) {
+          //homeSolarCircumference = CIRCLE_CIRCUMFERENCE_id_ * (solarConsumption! / totalHomeConsumption)
+          homeSolarCircumference = CIRCLE_CIRCUMFERENCE_id_ * (solarConsumption / totalHomeConsumption)
+          if (debug_id_) console.log('| | homeSolarCircumference : ' + homeSolarCircumference)
+        }
+      
+        var homeGridCircumference = CIRCLE_CIRCUMFERENCE_id_ * ((totalHomeConsumption - ((batteryConsumption !== null) ? batteryConsumption : 0) - ((solarConsumption !== null) ? solarConsumption : 0)) / totalHomeConsumption)
+        if (debug_id_) console.log('| | homeGridCircumference : ' + homeGridCircumference)
+  
+        var totalLines = gridConsumption + (((solarConsumption !== null) ? solarConsumption : 0) + (solarToGrid + ((solarToBattery !== null) ? solarToBattery : 0)) + ((batteryConsumption !== null) ? batteryConsumption : 0) + ((batteryFromGrid !== null) ? batteryFromGrid : 0)) + ((batteryToGrid !== null) ? batteryToGrid : 0)
+        if (debug_id_) console.log('| | totalLines : ' + totalLines)
+  
+        var greenValue_id_ = 0
+        if(hasGrid_id_ && hasSolarProduction_id_) greenValue_id_ = (totalHomeConsumption - ((totalFromGridNoUnit_id_ !== null) ? totalFromGridNoUnit_id_ : 0)) * 100 / totalHomeConsumption
+        if(isNaN(greenValue_id_) == true) greenValue_id_ = 0
+        if (debug_id_) console.log('| | greenValue : ' + greenValue_id_)
+      
+        var newDur = {
+          batteryGrid: circleRate_id_(((batteryFromGrid !== null) ? batteryFromGrid : ((batteryToGrid !== null) ? batteryToGrid : 0)), totalLines),
+          batteryToHome: circleRate_id_( (batteryConsumption !== null) ? batteryConsumption : 0, totalLines),
+          gridToHome: circleRate_id_(gridConsumption, totalLines),
+          solarToBattery: circleRate_id_((solarToBattery !== null) ? solarToBattery : 0, totalLines),
+          solarToGrid: circleRate_id_(solarToGrid, totalLines),
+          solarToHome: circleRate_id_((solarConsumption !== null) ? solarConsumption : 0, totalLines),
+        }
+      
+        if (debug_id_) console.log('| | newDur.batteryGrid : ' + newDur.batteryGrid)
+        if (debug_id_) console.log('| | newDur.batteryToHome : ' + newDur.batteryToHome)
+        if (debug_id_) console.log('| | newDur.gridToHome : ' + newDur.gridToHome)
+        if (debug_id_) console.log('| | newDur.solarToBattery : ' + newDur.solarToBattery)
+        if (debug_id_) console.log('| | newDur.solarToGrid : ' + newDur.solarToGrid)
+        if (debug_id_) console.log('| | newDur.solarToHome : ' + newDur.solarToHome)
+      
+        if (debug_id_) console.log('| └──────────────────────────────────────────────────────')
+      
+        if (init) {
+          var html = ''
+          html += '<div class="content_id_">'
+            ///////////////////////////////////////////////////////////////////////////
+            /////////////////////////// ROW 1 /////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////
+            if (hasSolarProduction_id_ || hasGas_id_ || hasWater_id_ || hasPerso1_id_ || hasPerso2_id_) {
+              html += '<!-- (hasSolarProduction || hasGas || hasWater) -->'
+                html += '<div class="row_id_">'
+          
+                  if (hasPerso1_id_) { 
+                    html += '<!-- (hasPerso1) -->'
+                      html += '<div class="circle-container_id_ perso1_id_">'
+                        html += '<span class="label_id_">' + perso1Name_id_ + '</span>'
+                        html += '<div class="circle_id_">'
+                          if(perso1Icon_id_ != 0) html += '<i class="' + perso1Icon_id_ + '"></i>'
+                          html += '<span id="Perso1Value_id_">'
+                            //if ((perso1State_id_.value == 0 && !HideIfEmpty_id_) || perso1State_id_.value > 0) html += perso1State_id_.value + '' + perso1State_id_.unit
+                            if ((perso1State_id_.value == 0 && !HideIfEmpty_id_) || perso1State_id_.value != 0) html += perso1State_id_.value + '' + perso1State_id_.unit
+                          html += '</span>'
+                        html += '</div>'
+                        html += '<svg width="80" height="30">'
+                          html += '<path d="M40 -5 v40" id="perso1_id_" class="'
+                          if (HidePathPerso1_id_) html += ' hidden_id_'
+                          html += '"/>'
+                          html += '<circle r="3.4" class="perso1_id_'
+                          if(perso1State_id_.value == 0 || HideCirclePerso1_id_) html += ' hidden_id_'
+                          html += '" vector-effect="non-scaling-stroke" id="CirclePerso1ToGrid_id_">'
+                            html += '<animateMotion dur="1.66s" repeatCount="indefinite" calcMode="linear"'
+                            if (InvertedCirclePerso1_id_) html += ' keyPoints="1;0" keyTimes="0;1"'
+                            html += '>'
+                              html += '<mpath xlink:href="#perso1_id_" />'
+                            html += '</animateMotion>'
+                          html += '</circle>'
+                        html += '</svg>'
+                      html += '</div>'
+                    html += '<!-- FIN (hasPerso1) -->'
+                  } else if (hasPerso2_id_) { 
+                    html += '<!-- (hasPerso2) -->'
+                      html += '<div class="circle-container_id_ perso2_id_">'
+                        html += '<span class="label_id_">' + perso2Name_id_ + '</span>'
+                        html += '<div class="circle_id_">'
+                          if (perso2Icon_id_ === null) {
+                            html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" role="img" aria-hidden="true" viewBox="0 0 24 24" class="svg-icon_id_">'
+                            html += '<path fill="currentColor" d="M10.6 16q0-2.025.363-2.913T12.5 11.15q1.025-.9 1.563-1.563t.537-1.512q0-1.025-.687-1.7T12 5.7q-1.275 0-1.938.775T9.126 8.05L6.55 6.95q.525-1.6 1.925-2.775T12 3q2.625 0 4.038 1.463t1.412 3.512q0 1.25-.537 2.138t-1.688 2.012Q14 13.3 13.738 13.913T13.475 16H10.6Zm1.4 6q-.825 0-1.412-.588T10 20q0-.825.588-1.413T12 18q.825 0 1.413.588T14 20q0 .825-.588 1.413T12 22Z"/>'
+                            html += '</svg>'
+                          } else if (perso2Icon_id_ != 0) html += '<i class="' + perso2Icon_id_ + '"></i>'
+                          html += '<span id="Perso2Value_id_">'
+                            //if ((perso2State_id_.value == 0 && !HideIfEmpty_id_) || perso2State_id_.value > 0) html += perso2State_id_.value + '' + perso2State_id_.unit
+                            if ((perso2State_id_.value == 0 && !HideIfEmpty_id_) || perso2State_id_.value != 0) html += perso2State_id_.value + '' + perso2State_id_.unit
+                          html += '</span>'
+                        html += '</div>'
+                        html += '<svg width="80" height="30">'
+                          html += '<path d="M40 -5 v40" id="perso2_id_" class="'
+                          if (HidePathPerso2_id_) html += ' hidden_id_'
+                          html += '"/>'
+                          html += '<circle r="3.4" class="perso2_id_'
+                          if(perso2State_id_.value == 0 || HideCirclePerso2_id_) html += ' hidden_id_'
+                          html += '" vector-effect="non-scaling-stroke" id="CirclePerso2ToGrid_id_">'
+                            html += '<animateMotion dur="1.66s" repeatCount="indefinite" calcMode="linear"'
+                            if (InvertedCirclePerso2_id_) html += ' keyPoints="1;0" keyTimes="0;1"'
+                            html += '>'
+                              html += '<mpath xlink:href="#perso2_id_" />'
+                            html += '</animateMotion>'
+                          html += '</circle>'
+                        html += '</svg>'
+                      html += '</div>'
+                    html += '<!-- FIN (hasPerso2) -->'
+                  } else html += '<div class="spacer_id_"></div>'
+      
+                  if (hasSolarProduction_id_) {
+                    html += '<!-- (hasSolarProduction) -->'
+                      html += '<div class="circle-container_id_ solar_id_">'
+                        html += '<span class="label_id_">{{Solaire}}</span>'
+                        html += '<div class="circle_id_">'
+                          if (solarIcon_id_ === null) {
+                            html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" role="img" aria-hidden="true" viewBox="0 0 24 24" class="svg-icon_id_">'
+                              html += '<g>'
+                                html += '<path d="M11.45,2V5.55L15,3.77L11.45,2M10.45,8L8,10.46L11.75,11.71L10.45,8M2,11.45L3.77,15L5.55,11.45H2M10,2H2V10C2.57,10.17 3.17,10.25 3.77,10.25C7.35,10.26 10.26,7.35 10.27,3.75C10.26,3.16 10.17,2.57 10,2M17,22V16H14L19,7V13H22L17,22Z"></path>'
+                              html += '</g>'
+                            html += '</svg>'
+                          } else if (solarIcon_id_ != 0) html += '<i class="' + solarIcon_id_ + '"></i>'
+                          html += '<span id="solarValue_id_">'
+                        if ((totalSolarProduction_id_.value == 0 && !HideIfEmpty_id_) || totalSolarProduction_id_.value > 0) html += totalSolarProduction_id_.value + '' + totalSolarProduction_id_.unit
+                          html += '</span>'
+                        html += '</div>'
+                      html += '</div>'
+                    html += '<!-- FIN (hasSolarProduction) -->'
+                  } else if(hasGas_id_ || hasWater_id_){
+                    html += '<div class="spacer_id_"></div>'
+                  }
+      
+                  if(hasGas_id_) {
+                    html += '<!-- (hasGas) -->'
+                      html += '<div class="circle-container_id_ gas_id_">'
+                        html += '<span class="label_id_">' + gasName_id_ + '</span>'
+                        html += '<div class="circle_id_">'
+                          if (gasIcon_id_ == null) {
+                            html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" viewBox="0 0 24 24" class="svg-icon_id_">'
+                              html += '<g>'
+                                html += '<path d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"></path>'
+                              html += '</g>'
+                            html += '</svg>'
+                          } else if (gasIcon_id_ != 0) html += '<i class="' + gasIcon_id_ + '"></i>'
+                          html += '<span id="GasValue_id_">'
+                            //if ((gasState_id_.value == 0 && !HideIfEmpty_id_) || gasState_id_.value > 0) html += gasState_id_.value + '' + gasState_id_.unit
+                            if ((gasState_id_.value == 0 && !HideIfEmpty_id_) || gasState_id_.value != 0) html += gasState_id_.value + '' + gasState_id_.unit
+                          html += '</span>'
+                        html += '</div>'
+                        html += '<svg width="80" height="30">'
+                          html += '<path d="M40 -5 v40" id="gas_id_" class="'
+                          if (HidePathGas_id_) html += ' hidden_id_'
+                          html += '"/>'
+                          html += '<circle r="3.4" class="gas_id_'
+                          if(gasState_id_.value == 0 || HideCircleGas_id_) html += ' hidden_id_'
+                          html += '" vector-effect="non-scaling-stroke" id="CircleGasToHome_id_">'
+                            html += '<animateMotion dur="1.66s" repeatCount="indefinite" calcMode="linear"'
+                            if (InvertedCircleGas_id_) html += ' keyPoints="1;0" keyTimes="0;1"'
+                            html += '>'
+                              html += '<mpath xlink:href="#gas_id_" />'
+                            html += '</animateMotion>'
+                          html += '</circle>'
+                        html += '</svg>'
+                      html += '</div>'
+                    html += '<!-- FIN (hasGas) -->'
+                  } else if(hasWater_id_) {
+                    html += '<!-- else if(hasWater) -->'
+                      html += '<div class="circle-container_id_ water_id_">'
+                        html += '<span class="label_id_">' + waterName_id_ + '</span>'
+                        html += '<div class="circle_id_">'
+                          if (waterIcon_id_ === null) {
+                            html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" viewBox="0 0 24 24" class="svg-icon_id_">'
+                              html += '<g>'
+                                html += '<path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"></path>'
+                              html += '</g>'
+                            html += '</svg>'
+                          } else if (waterIcon_id_ != 0) html += '<i class="' + waterIcon_id_ + '"></i>'
+                          html += '<span id="WaterValue_id_">'
+                            //if ((waterState_id_.value == 0 && !HideIfEmpty_id_) || waterState_id_.value > 0) html += waterState_id_.value + '' + waterState_id_.unit
+                            if ((waterState_id_.value == 0 && !HideIfEmpty_id_) || waterState_id_.value != 0) html += waterState_id_.value + '' + waterState_id_.unit
+                          html += '</span>'
+                        html += '</div>'
+                        html += '<svg width="80" height="30">'
+                          html += '<path d="M40 -5 v40" id="water_id_" class="'
+                          if (HidePathWater_id_) html += 'hidden_id_'
+                          html += '"/>' //html += '<path d="M40 -10 v40" id="water_id_" />'
+                          html += '<circle r="3.4" class="water_id_'
+                            if(waterState_id_.value == 0 || HideCircleWater_id_) html += ' hidden_id_'
+                          html += '" vector-effect="non-scaling-stroke" id="CircleWaterToHome_id_">'
+                            html += '<animateMotion dur="1.66s" repeatCount="indefinite" calcMode="linear"'
+                            if (InvertedCircleWater_id_) html += ' keyPoints="1;0" keyTimes="0;1"'
+                            html += '>'
+                              html += '<mpath xlink:href="#water_id_" />'
+                            html += '</animateMotion>'
+                          html += '</circle>'
+                        html += '</svg>'
+                      html += '</div>'
+                    html += '<!-- FIN else if(hasWater) -->'
+                  } else {
+                    html += '<div class="spacer_id_"></div>'
+                  }
+                html += '</div>'
+              html += '<!-- FIN (hasSolarProduction || hasGas || hasWater) -->'
+            }
+       
+            ///////////////////////////////////////////////////////////////////////////
+            /////////////////////////// ROW 2 /////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////       
+          
+            /////////////// GRID      
+            html += '<div class="row_id_">'
+              if(hasGrid_id_) {
+                html += '<!-- GRID -->'
+                  html += '<div class="circle-container_id_ grid_id_">'
+                    html += '<div class="circle_id_'
+                    if (powerFailure_id_) html += ' blink_id_'
+                    html += '" id="powerFailure_id_">'
+                      if(gridIcon_id_ === null) {
+                        html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" viewBox="0 0 24 24" class="svg-icon_id_">'
+                          html += '<g>'
+                            html += '<path d="M8.28,5.45L6.5,4.55L7.76,2H16.23L17.5,4.55L15.72,5.44L15,4H9L8.28,5.45M18.62,8H14.09L13.3,5H10.7L9.91,8H5.38L4.1,10.55L5.89,11.44L6.62,10H17.38L18.1,11.45L19.89,10.56L18.62,8M17.77,22H15.7L15.46,21.1L12,15.9L8.53,21.1L8.3,22H6.23L9.12,11H11.19L10.83,12.35L12,14.1L13.16,12.35L12.81,11H14.88L17.77,22M11.4,15L10.5,13.65L9.32,18.13L11.4,15M14.68,18.12L13.5,13.64L12.6,15L14.68,18.12Z"></path>'
+                          html += '</g>'
+                        html += '</svg>'
+                      } else if (gridIcon_id_ != 0) html += '<i class="' + gridIcon_id_ + '"></i>'
+                      html += '<span class="return_id_'
+                      if (returnedToGrid_id_.value == 0 && HideIfEmpty_id_) html += ' hidden_id_'
+                      html += '" id="IconReturn_id_">'
+                        html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" viewBox="0 0 24 24" class="svg-icon_id_ small_id_"">'
+                          html += '<g>'
+                            html += '<path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>'
+                          html += '</g>'
+                        html += '</svg><span id="ReturnedToGridValue_id_">'
+                          if ((returnedToGrid_id_.value == 0 && !HideIfEmpty_id_) || returnedToGrid_id_.value > 0) html += returnedToGrid_id_.value + '' +returnedToGrid_id_.unit
+                        html += '</span>'
+                      html += '</span>'
+                      html += '<span class="consumption_id_'
+                      if (totalFromGrid_id_.value == 0 && HideIfEmpty_id_) html += ' hidden_id_'            
+                      html += '" id="IconConsumption_id_">'
+                        html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" viewBox="0 0 24 24" class="svg-icon_id_ small_id_">'
+                          html += '<g>'
+                            html += '<path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>'
+                          html += '</g>'
+                        html += '</svg><span id="TotalFromGridValue_id_">'
+                          if ((totalFromGrid_id_.value == 0 && !HideIfEmpty_id_) || totalFromGrid_id_.value > 0) html += totalFromGrid_id_.value + '' +totalFromGrid_id_.unit
+                        html += '</span>'
+                      html += '</span>'
+                    html += '</div>'
+                    html += '<span class="label_id_" >'
+                      if (!hasPerso1_id_ || !hasPerso2_id_) html += '{{Réseau}}'
+                    html += '</span>'
+                  html += '</div>'
+                html += '<!-- FIN GRID -->'
+              } else {
+                html += '<div class="spacer_id_"></div>'
+              }
+        
+              html += '<div class="spacer_id_"></div>'
+        
+              /////////////// HOME
+              html += '<div class="circle-container_id_ home_id_">'
+                html += '<div class="circle_id_'
+                if(!hasGrid_id_ && hasGas_id_ && hasWater_id_) html += ' margin-bottom_id_'
+                html += '">'
+                  if(homeIcon_id_ === null){
+                    html += '<svg  class="svg-icon_id_" preserveAspectRatio="xMidYMid meet" focusable="false" viewBox="0 0 24 24">'
+                      html += '<g><path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"></path></g>'
+                    html += '</svg>'
+                  } else  html += '<i class="' + homeIcon_id_ + '"></i>'
+                  html += '<span id="homeValue_id_">'
+                    totalHomeConsumption = autoValueArray_id_(totalHomeConsumption,GridUnit_id_,HomeDec_id_)
+                    if ((totalHomeConsumption.value == 0 && !HideIfEmpty_id_) || totalHomeConsumption.value > 0) html += totalHomeConsumption.value + '' + totalHomeConsumption.unit
+                  html += '</span>'
+                  if(hasGrid_id_ && hasSolarProduction_id_ && !HideGreenValue_id_) {
+                    greenValue_id_ = autoValueArray_id_(greenValue_id_,'%',1)                
+                    html += '<span id="IconGreen_id_" class="'
+                    if (greenValue_id_.value == 0 && HideIfEmpty_id_)  html += ' hidden_id_'                
+                    html += '">'
+                      html += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="svg-icon_id_ small_id_">'
+                        html += '<path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66l.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8Z"/>'
+                      html += '</svg>'
+                      html += '<span id="greenValue_id_">'
+                        html += greenValue_id_.value + '' + greenValue_id_.unit
+                      html += '</span>'
+                    html += '</span>'
+                  }
+                  html += '<svg>'
+                    if (homeSolarCircumference !== undefined){
+                      html += '<circle  class="solar_id_" id="circle_solar_id_" cx="40" cy="40" r="38" stroke-dasharray="'
+                      html += homeSolarCircumference + ' '
+                      html += CIRCLE_CIRCUMFERENCE_id_ - homeSolarCircumference
+                      html += '" shape-rendering="geometricPrecision" stroke-dashoffset="'
+                      html += -(CIRCLE_CIRCUMFERENCE_id_ - homeSolarCircumference)
+                      html += '"/>'
+                    }
+                    if (homeBatteryCircumference !== undefined) {
+                      html += '<circle class="battery_id_" id="circle_battery_id_" cx="40" cy="40" r="38" stroke-dasharray="'
+                      html += homeBatteryCircumference + ' '
+                      html += CIRCLE_CIRCUMFERENCE_id_ - homeBatteryCircumference
+                      html += '" stroke-dashoffset="'
+                      html += -(CIRCLE_CIRCUMFERENCE_id_ - homeBatteryCircumference - (homeSolarCircumference || 0))
+                      html += '" shape-rendering="geometricPrecision" />'
+                    }
+                    html += '<circle class="grid_id_" id="circle_grid_id_" cx="40" cy="40" r="38" stroke-dasharray="'
+                    if(homeGridCircumference !== undefined) {
+                      if(homeGridCircumference > 0) html += CIRCLE_CIRCUMFERENCE_id_ - (homeSolarCircumference || 0) - (homeBatteryCircumference || 0) + ' '
+                      else html += 0 + ' '
+                    }
+                    if(homeGridCircumference !== undefined) html += CIRCLE_CIRCUMFERENCE_id_ - homeGridCircumference
+                    else html += (homeSolarCircumference || 0) + (homeBatteryCircumference || 0)
+                    html += '" stroke-dashoffset="0" shape-rendering="geometricPrecision" />'
+                  html += '</svg>'
+                html += '</div>'
+                html += '<span class="label_id_" >'
+                  if(!hasGas_id_ || !hasWater_id_) html += '{{Maison}}'
+                html += '</span>'
+              html += '</div>'
+            html += '</div>'
+      
+            ///////////////////////////////////////////////////////////////////////////
+            /////////////////////////// ROW 3 /////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////      
+    
+            if (hasBattery_id_ || (hasWater_id_ && hasGas_id_) || (hasPerso1_id_ && hasPerso2_id_)){
+              html += '<!-- (hasBattery || (hasWater && hasGas) || hasPerso2) -->'
+                html += '<div class="row_id_">'
+                  if (hasPerso1_id_ && hasPerso2_id_) { 
+                    html += '<!-- (hasPerso2) -->'
+                    html += '<div class="circle-container_id_ bottom_id_ perso2_id_">'
+                      html += '<svg width="80" height="30">'
+                        html += '<path d="M40 35 v-40" id="pathPerso2_id_" class="'
+                        if (HidePathPerso2_id_) html += ' hidden_id_'
+                        html += '"/>'
+                        html += '<circle r="3.4" class="perso2_id_'
+                        if(perso1State_id_.value == 0 || HideCirclePerso2_id_) html += ' hidden_id_'
+                        html += '" vector-effect="non-scaling-stroke" id="CirclePerso2ToGrid_id_">'
+                          html += '<animateMotion dur="1.66s" repeatCount="indefinite" calcMode="linear"'
+                          if (InvertedCirclePerso2_id_) html += ' keyPoints="1;0" keyTimes="0;1"'
+                          html += '>'
+                            html += '<mpath xlink:href="#pathPerso2_id_" />'
+                          html += '</animateMotion>'
+                        html += '</circle>'
+                      html += '</svg>'
+                      html += '<div class="circle_id_">'
+                        if (perso2Icon_id_ === null) {
+                          html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" role="img" aria-hidden="true" viewBox="0 0 24 24" class="svg-icon_id_">'
+                            html += '<path fill="currentColor" d="M10.6 16q0-2.025.363-2.913T12.5 11.15q1.025-.9 1.563-1.563t.537-1.512q0-1.025-.687-1.7T12 5.7q-1.275 0-1.938.775T9.126 8.05L6.55 6.95q.525-1.6 1.925-2.775T12 3q2.625 0 4.038 1.463t1.412 3.512q0 1.25-.537 2.138t-1.688 2.012Q14 13.3 13.738 13.913T13.475 16H10.6Zm1.4 6q-.825 0-1.412-.588T10 20q0-.825.588-1.413T12 18q.825 0 1.413.588T14 20q0 .825-.588 1.413T12 22Z"/>'
+                          html += '</svg>'
+                        } else if (perso2Icon_id_ != 0) html += '<i class="' + perso2Icon_id_ + '"></i>'
+                        html += '<span id="Perso2Value_id_">'
+                        //if ((perso2State_id_.value == 0 && !HideIfEmpty_id_) || perso2State_id_.value > 0) html += perso2State_id_.value + '' + perso2State_id_.unit
+                        if ((perso2State_id_.value == 0 && !HideIfEmpty_id_) || perso2State_id_.value != 0) html += perso2State_id_.value + '' + perso2State_id_.unit
+                        html += '</span>'
+                      html += '</div>'
+                      html += '<span class="label_id_">' + perso2Name_id_ + '</span>'
+                    html += '</div>'
+                    html += '<!-- FIN (hasPerso2) -->'
+                  } else html += '<div class="spacer_id_"></div>'
+      
+                  if (hasBattery_id_) {
+                    html += '<div class="circle-container_id_ battery_id_">'
+                      html += '<div class="circle_id_" id="">'
+                        if(batteryChargeState_id_ !== null && batteryTempState_id_ !== null){
+                          html += '<div class="scroll-container_id_">'
+                            html += '<div class="scroll-text_id_">'
+                              html += '<span id="batteryChargeState_id_">'+ batteryChargeState_id_.value + '' + batteryChargeState_id_.unit + '</span><br>'
+                              html += '<span id="batteryTempState_id_">'+ batteryTempState_id_.value + '' + batteryTempState_id_.unit + '</span>'
+                            html += '</div>'
+                          html+= '</div>'
+                        } else if (batteryChargeState_id_ !== null) {
+                          html += '<span id="batteryChargeState_id_">'
+                            html += batteryChargeState_id_.value + '' + batteryChargeState_id_.unit
+                          html += '</span>'
+                        } else if (batteryTempState_id_ !== null) {
+                          html += '<span id="batteryTempState_id_">'
+                          html += batteryTempState_id_.value + '' + batteryTempState_id_.unit
+                          html += '</span>'
+                        }
+                        html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" role="img" aria-hidden="true" viewBox="0 0 24 24" class="svg-icon_id_" id="batteryChargeIcon_id_">'
+                          if (batteryChargeState_id_ !== null) html += getBatteryIcon_id_(batteryChargeState_id_.value)
+                          else html += getBatteryIcon_id_(0)
+                        html += '</svg>'
+                        html += '<span class="battery-in_id_'
+                        if (totalBatteryIn_id_.value == 0 && HideIfEmpty_id_) html += ' hidden_id_'
+                        html += '" id="IconBatteryIn_id_">'
+                          html += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="svg-icon_id_ small_id_">'
+                            html += '<path d="M11 4h2v12l5.5-5.5l1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5L11 16V4Z"/>'
+                          html += '</svg><span id="totalBatteryInValue_id_">'
+                            if ((totalBatteryIn_id_.value == 0 && !HideIfEmpty_id_) || totalBatteryIn_id_.value > 0) html += totalBatteryIn_id_.value + '' + totalBatteryIn_id_.unit
+                          html += '</span>'
+                        html += '</span>'
+                        html += '<span class="battery-out_id_'
+                        if (totalBatteryOut_id_.value == 0 && HideIfEmpty_id_) html += ' hidden_id_'
+                        html += '" id="IconBatteryOut_id_">'
+                          html += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="svg-icon_id_ small_id_">'
+                            html += '<path d="M13 20h-2V8l-5.5 5.5l-1.42-1.42L12 4.16l7.92 7.92l-1.42 1.42L13 8v12Z"/>'
+                          html += '</svg><span id="totalBatteryOutValue_id_">'
+                            if ((totalBatteryOut_id_.value == 0 && !HideIfEmpty_id_) || totalBatteryOut_id_.value > 0) html += totalBatteryOut_id_.value + '' + totalBatteryOut_id_.unit
+                          html += '</span>'
+                        html += '</span>'
+                      html += '</div>'
+                      html += '<span class="label_id_">'
+                        html += '{{Batterie}}'
+                      html += '</span>'
+                    html += '</div>'
+                  } else {
+                    html += '<div class="spacer_id_"></div>'
+                  }
+        
+                  if(hasGas_id_ && hasWater_id_){
+                    html += '<div class="circle-container_id_ water_id_ bottom_id_">'
+                      html += '<svg width="80" height="30">'
+                        html += '<path d="M40 35 v-40" id="water_id_" class="'
+                        if (HidePathWater_id_) html += 'hidden_id_'
+                        html +='" />'
+                        html += '<circle r="3.4" class="water_id_'
+                        if(waterState_id_.value == 0 || HideCircleWater_id_) html += ' hidden_id_'
+                        html += '" vector-effect="non-scaling-stroke" id="CircleWaterToHome_id_">'
+                          html += '<animateMotion dur="1.66s" repeatCount="indefinite" calcMode="linear"'
+                          if (InvertedCircleWater_id_) html += ' keyPoints="1;0" keyTimes="0;1"'
+                          html += '>'
+                            html += '<mpath xlink:href="#water_id_" />'
+                          html += '</animateMotion>'
+                        html += '</circle>'
+                      html += '</svg>'
+                      html += '<div class="circle_id_">'
+                        if (waterIcon_id_ === null) {              
+                          html += '<svg preserveAspectRatio="xMidYMid meet" focusable="false" viewBox="0 0 24 24" style="width: 25px;" class="svg-icon_id_">'
+                            html += '<g><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"></path></g>'
+                          html += '</svg>'
+                        } else if (waterIcon_id_ != 0) html += '<i class="' + waterIcon_id_ + '"></i>'
+                        html += '<span id="WaterValue_id_">'
+                          //if ((waterState_id_.value == 0 && !HideIfEmpty_id_) || waterState_id_.value > 0) html += waterState_id_.value + '' + waterState_id_.unit
+                          if ((waterState_id_.value == 0 && !HideIfEmpty_id_) || waterState_id_.value != 0) html += waterState_id_.value + '' + waterState_id_.unit
+                        html += '</span>'
+                      html += '</div>'
+                      html += '<span class="label_id_">' + waterName_id_ + '</span>'
+                    html += '</div>'
+                  } else {
+                    html += '<div class="spacer_id_"></div>'
+                  }
+                html += '</div>'
+              html += '<!-- FIN (hasBattery || (hasWater && hasGas)) -->'
+            } else {
+              html += '<div class="spacer_id_"></div>'
+            }
+        
+            ///////////////////////  lines ///////////////////////////
+        
+            if(hasSolarProduction_id_)
+            {
+              html += '<!-- (hasSolarProduction) -->'
+                html += '<div class = "lines_id_'
+                  if (hasBattery_id_) html += ' high_id_'
+                  if (!hasBattery_id_ && ((hasGas_id_ && hasWater_id_) || hasPerso2_id_)) html += ' water-gas_id_'
+                html += '">'
+                  html += '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" id="solar-home-flow_id_">'
+                    html += '<path id="solar_id_" class="solar_id_" d="M'
+                    html += (hasBattery_id_) ? 55 : 53
+                    html += ',0 v'
+                    html += (hasGrid_id_) ? 15 : 17
+                    html += ' c0,'
+                    html += (hasBattery_id_) ? '35 20,30 30,30' : '40 20,35 30,35'
+                    html += 'h25" vector-effect="non-scaling-stroke"></path>'
+                    html += '<circle r="1" class="solar_id_ '
+                    html += (solarConsumption > 0) ? '' : 'hidden_id_ '
+                    html += '" vector-effect="non-scaling-stroke" id="CircleSolarToHome_id_">'
+                      html += '<animateMotion dur="' + newDur.solarToHome + 's" repeatCount="indefinite" calcMode="linear" id="AnimSolarToHome_id_">'
+                        html += '<mpath xlink:href="#solar_id_" />'
+                      html += '</animateMotion>'
+                    html += '</circle>'
+                  html += '</svg>'
+                html += '</div>'
+              html += '<!-- FIN (hasSolarProduction) -->'
+            }
+  
+            if (hasReturnToGrid_id_ && hasSolarProduction_id_) 
+            {
+              html += '<!-- (hasReturnToGrid && hasSolarProduction) -->'
+                html += '<div class = "lines_id_'
+                if (hasBattery_id_) html += ' high_id_'
+                if (!hasBattery_id_ && ((hasGas_id_ && hasWater_id_) || hasPerso2_id_)) html += ' water-gas_id_'
+                html += '">'
+                  html += '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" id="solar-grid-flow_id_">'
+                    html += '<path id="return_id_" class="return_id_" d="M'
+                    html += (hasBattery_id_) ? 45 : 47
+                    html += ',0 v15 c0,'
+                    html += (hasBattery_id_) ? "35 -20,30 -30,30" : "40 -20,35 -30,35" // adoucissement de la courbe
+                    html += ' h-20" vector-effect="non-scaling-stroke"></path>'
+                    html += '<circle r="1" class="return_id_'
+                    if (solarToGrid == 0 || totalSolarProductionNoUnit_id_ == 0) html += ' hidden_id_' // masque le circle si totalSolarProduction == 0
+                    html += '" vector-effect="non-scaling-stroke" id="CircleSolarToGrid_id_">'
+                      html += '<animateMotion dur="' + newDur.solarToGrid + 's" repeatCount="indefinite" calcMode="linear" id="AnimSolarToGrid_id_">'
+                        html += '<mpath xlink:href="#return_id_" />'
+                      html += '</animateMotion>'
+                    html += '</circle>'
+                  html += '</svg>'
+                html += '</div>'
+              html += '<!-- FIN (hasReturnToGrid && hasSolarProduction) -->'
+            }
+  
+            if (hasBattery_id_ && hasSolarProduction_id_)
+            {
+              html += '<!-- (hasBattery && hasSolarProduction) -->'
+                html += '<div class = "lines_id_'
+                if (hasBattery_id_) html += ' high_id_'
+                if (!hasBattery_id_ && ((hasGas_id_ && hasWater_id_) || hasPerso2_id_)) html += ' water-gas_id_'
+                html += '">'
+                  html += '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" id="solar-battery-flow_id_">'
+                    html += '<path id="battery-solar_id_" class="battery-solar_id_" d="M50,0 V100" vector-effect="non-scaling-stroke" ></path>'
+                    html += '<circle r="1" class="battery-solar_id_'
+                    if(solarToBattery == 0) html += ' hidden_id_'
+                    html += '" vector-effect="non-scaling-stroke" id="CircleSolarToBattery_id_">'
+                      html += '<animateMotion dur="' + newDur.solarToBattery + 's" repeatCount="indefinite" calcMode="linear" id="AnimSolarToBattery_id_">'
+                        html += '<mpath xlink:href="#battery-solar_id_" />'
+                      html += '</animateMotion>'
+                    html += '</circle>'
+                  html += '</svg>'
+                html += '</div>'
+              html += '<!-- FIN (hasBattery && hasSolarProduction) -->'
+            }
+  
+            if(hasGrid_id_){
+              html += '<!-- GRID [2] -->'
+                html += '<div class="lines_id_ '
+                if (hasBattery_id_) html += 'high_id_ '
+                if (!hasBattery_id_ && ((hasGas_id_ && hasWater_id_) || (hasPerso1_id_ && hasPerso2_id_))) html += 'water-gas_id_'
+                html += '">'
+                  html += '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" id="grid-home-flow_id_">'
+                    html += '<path class="grid_id_" id="grid_id_" d="M0,'
+                    if (hasBattery_id_) html += 50
+                    else if (hasSolarProduction_id_) html += 56
+                    else html += 53
+                    html += ' H100" vector-effect="non-scaling-stroke"></path>'
+                    html += '<!-- (gridConsumption) -->'
+                      html += '<circle r="1" class="grid_id_'
+                      if (gridConsumption == 0) html += ' hidden_id_'
+                      html += '" vector-effect="non-scaling-stroke" id="CircleGridToHome_id_">'
+                        html += '<animateMotion dur="' + newDur.gridToHome + 's" repeatCount="indefinite" calcMode="linear" id="gridToHome_id_">'
+                          html += '<mpath xlink:href="#grid_id_" />'
+                        html += '</animateMotion>'
+                      html += '</circle>'
+                    html += '<!-- (gridConsumption) -->'
+                  html += '</svg>'
+                html += '</div>'
+              html += '<!-- FIN GRID[2] -->'
+            }
+  
+            if(hasBattery_id_)
+            {
+              html += '<!-- (hasBattery) -->'
+                html += '<div class="lines_id_ '
+                if (hasBattery_id_) html += 'high_id_ '
+                if (!hasBattery_id_ && ((hasGas_id_ && hasWater_id_) || hasPerso2_id_)) html += 'water-gas_id_'
+                html += '">'
+                  html += '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" id="battery-home-flow_id_">'
+                    html += '<path id="battery-home_id_" class="battery-home_id_" d="M55,100 v-'
+                    html += (hasGrid_id_) ? 15 : 17
+                    html += ' c0,-35 20,-30 30,-30 h20" vector-effect="non-scaling-stroke"></path>'
+                    html += '<circle r="1" class="battery-home_id_'
+                    if(batteryConsumption == 0) html += ' hidden_id_'
+                    html += '" vector-effect="non-scaling-stroke" id="CircleBatteryToHome_id_">'
+                      html += '<animateMotion dur="' + newDur.batteryToHome + 's" repeatCount="indefinite" id="AnimBatteryToHome_id_" calcMode="linear">'
+                        html += '<mpath xlink:href="#battery-home_id_" />'
+                      html += '</animateMotion>'
+                    html += '</circle>'
+                  html += '</svg>'
+                html += '</div>'
+              html += '<!-- FIN (hasBattery) -->'
+            }
+  
+            if(hasGrid_id_ && hasBattery_id_){
+              html += '<!-- (GRID && hasBattery) -->'
+                html += '<div class="lines_id_ '
+                if (hasBattery_id_) html += 'high_id_ '
+                if (!hasBattery_id_ && ((hasGas_id_ && hasWater_id_) || hasPerso2_id_)) html += 'water-gas_id_'
+                html += '">'
+                  html += '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">'
+                    html += '<path id="battery-grid_id_" class="'
+                      if(batteryFromGrid) html += 'battery-from-grid_id_'
+                      if(batteryToGrid) html += 'battery-to-grid_id_'
+                      if (!batteryFromGrid && !batteryToGrid) html += ' hidden_id_'
+                    html += '" d="M45,100 v-15 c0,-35 -20,-30 -30,-30 h-20" vector-effect="non-scaling-stroke"></path>'
+                    html += '<circle r="1" class="battery-from-grid_id_'
+                    if(!batteryFromGrid) html += ' hidden_id_'
+                    html += '" vector-effect="non-scaling-stroke" id="CircleBatteryFromGrid_id_">'
+                      html += '<animateMotion dur="' + newDur.batteryGrid + 's" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" id="AnimBatteryFromGrid_id_">'
+                        html += '<mpath xlink:href="#battery-grid_id_" />'
+                      html += '</animateMotion>'
+                    html += '</circle>'
+                    html += '<circle r="1" class="battery-to-grid_id_'
+                    if(!batteryToGrid) html += ' hidden_id_'
+                    html += '" vector-effect="non-scaling-stroke" id="CircleBatteryToGrid_id_">'
+                      html += '<animateMotion dur="' + newDur.batteryGrid + 's" repeatCount="indefinite" calcMode="linear" id="AnimBatteryToGrid_id_">'
+                        html += '<mpath xlink:href="#battery-grid_id_" />'
+                      html += '</animateMotion>'
+                    html += '</circle>'
+                  html += '</svg>'
+                html += '</div>'
+              html += '<!-- FIN (GRID && hasBattery) -->'
+            }
+          html += '</div>'
+          document.getElementById('widget_id_').innerHTML = html
+        }
+        else {
+          ///////////////////////////////////////////////////////////////////////////
+          //////////////////////////////// VALUE ////////////////////////////////////
+          ///////////////////////////////////////////////////////////////////////////
+        
+          // GRID
+          if(hasGrid_id_) {
+            document.getElementById("ReturnedToGridValue_id_").innerHTML = returnedToGrid_id_.value + '' + returnedToGrid_id_.unit
+            document.getElementById("TotalFromGridValue_id_").innerHTML = totalFromGrid_id_.value + '' + totalFromGrid_id_.unit
+            if (HideIfEmpty_id_){
+              if (returnedToGrid_id_.value > 0) document.getElementById("IconReturn_id_")?.classList.remove('hidden_id_')
+              else document.getElementById("IconReturn_id_")?.classList.add('hidden_id_')
+              if (totalFromGrid_id_.value > 0) document.getElementById("IconConsumption_id_")?.classList.remove('hidden_id_')
+              else document.getElementById("IconConsumption_id_")?.classList.add('hidden_id_')
+            }
+          }
+          // GREEN
+          if(hasGrid_id_ && hasSolarProduction_id_ && !HideGreenValue_id_) {
+            greenValue_id_ = autoValueArray_id_(greenValue_id_,'%',1)
+            document.getElementById("greenValue_id_").innerHTML = greenValue_id_.value + '' + greenValue_id_.unit
+            if (HideIfEmpty_id_){
+              if (greenValue_id_.value > 0) document.getElementById("IconGreen_id_")?.classList.remove('hidden_id_')
+              else document.getElementById("IconGreen_id_")?.classList.add('hidden_id_')
+            }
+          }
+          // SOLAR
+          if(hasSolarProduction_id_) {
+            if (totalSolarProduction_id_.value > 0 || (totalSolarProduction_id_.value == 0  && !HideIfEmpty_id_)) document.getElementById("solarValue_id_").innerHTML = totalSolarProduction_id_.value + '' + totalSolarProduction_id_.unit
+            else document.getElementById("solarValue_id_").innerHTML = ''
+          }
+          // BATTERY
+          if(hasBattery_id_) {
+            document.getElementById("totalBatteryInValue_id_").innerHTML = totalBatteryIn_id_.value + '' + totalBatteryIn_id_.unit
+            document.getElementById("totalBatteryOutValue_id_").innerHTML = totalBatteryOut_id_.value + '' + totalBatteryOut_id_.unit
+            if (HideIfEmpty_id_){
+              if (totalBatteryIn_id_.value > 0) document.getElementById("IconBatteryIn_id_")?.classList.remove('hidden_id_')
+              else document.getElementById("IconBatteryIn_id_")?.classList.add('hidden_id_')
+              if (totalBatteryOut_id_.value > 0) document.getElementById("IconBatteryOut_id_")?.classList.remove('hidden_id_')
+              else document.getElementById("IconBatteryOut_id_")?.classList.add('hidden_id_')
+            }
+          }
+          // HOME
+          totalHomeConsumption = autoValueArray_id_(totalHomeConsumption,GridUnit_id_,HomeDec_id_)
+          if (HideIfEmpty_id_ && totalHomeConsumption.value == 0) document.getElementById("homeValue_id_").innerHTML = ''
+          else document.getElementById("homeValue_id_").innerHTML = totalHomeConsumption.value + '' + totalHomeConsumption.unit
+        
+          ///////////////////////////////////////////////////////////////////////////
+          /////////////////////////////// ANIMATE ///////////////////////////////////
+          ///////////////////////////////////////////////////////////////////////////
+        
+          if (hasReturnToGrid_id_ && hasSolarProduction_id_) {
+            if (solarToGrid > 0 && totalSolarProductionNoUnit_id_ > 0){
+              document.getElementById("AnimSolarToGrid_id_")?.setAttribute("dur",newDur.solarToGrid)
+              document.getElementById("CircleSolarToGrid_id_")?.classList.remove("hidden_id_")
+            }
+            else {
+              document.getElementById("CircleSolarToGrid_id_")?.classList.add("hidden_id_")
+            }
+          }
+          
+          if (hasGrid_id_) {
+            if (gridConsumption > 0){
+              document.getElementById("gridToHome_id_")?.setAttribute("dur",newDur.gridToHome)
+              document.getElementById("CircleGridToHome_id_")?.classList.remove("hidden_id_")
+            }
+            else document.getElementById("CircleGridToHome_id_")?.classList.add("hidden_id_")
+          }
+          
+          if (hasGrid_id_ && hasBattery_id_) {
+            if(batteryFromGrid > 0)
+            {
+              document.getElementById("battery-grid_id_")?.classList.remove('battery-to-grid_id_')
+              document.getElementById("battery-grid_id_")?.classList.add("battery-from-grid_id_")
+              document.getElementById("AnimBatteryFromGrid_id_")?.setAttribute("dur",newDur.batteryGrid)
+              document.getElementById("CircleBatteryFromGrid_id_")?.classList.remove("hidden_id_")
+              document.getElementById("battery-grid_id_")?.classList.remove("hidden_id_")
+            }
+            else {
+              document.getElementById("CircleBatteryFromGrid_id_")?.classList.add("hidden_id_")
+            }
+            if (batteryToGrid > 0)
+            {
+              document.getElementById("battery-grid_id_")?.classList.remove('battery-from-grid_id_')
+              document.getElementById("battery-grid_id_")?.classList.add("battery-to-grid_id_")
+              document.getElementById("AnimBatteryToGrid_id_")?.setAttribute("dur",newDur.batteryGrid)
+              document.getElementById("CircleBatteryToGrid_id_")?.classList.remove("hidden_id_")
+              document.getElementById("battery-grid_id_")?.classList.remove("hidden_id_")
+            }
+            else {
+              document.getElementById("CircleBatteryToGrid_id_")?.classList.add("hidden_id_")
+            }
+            if ((!batteryFromGrid || batteryFromGrid == 0) && batteryToGrid == 0) document.getElementById("battery-grid_id_")?.classList.add("hidden_id_")
+          }
+          
+          if (hasSolarProduction_id_) {
+            if (solarConsumption > 0) {
+              document.getElementById("AnimSolarToHome_id_")?.setAttribute("dur",newDur.solarToHome)
+              document.getElementById("CircleSolarToHome_id_")?.classList.remove("hidden_id_")
+            }
+            else {
+              document.getElementById("CircleSolarToHome_id_")?.classList.add("hidden_id_")
+            }
+          }
+          
+          if (hasBattery_id_ && hasSolarProduction_id_) {
+            if(solarToBattery > 0) {
+              document.getElementById("AnimSolarToBattery_id_")?.setAttribute("dur",newDur.solarToBattery)
+              document.getElementById("CircleSolarToBattery_id_")?.classList.remove("hidden_id_")
+            }
+            else {
+              document.getElementById("CircleSolarToBattery_id_")?.classList.add("hidden_id_")
+            }
+          }
+          if(hasBattery_id_)
+          {
+            if(batteryConsumption > 0) {
+              document.getElementById("AnimBatteryToHome_id_")?.setAttribute("dur",newDur.batteryToHome)
+              document.getElementById("CircleBatteryToHome_id_")?.classList.remove("hidden_id_")
+            }
+            else {
+              document.getElementById("CircleBatteryToHome_id_")?.classList.add("hidden_id_")
+            }
+          }
+        
+          if (homeSolarCircumference !== undefined){
+            let strokedasharraySolar = (homeSolarCircumference + " " + (CIRCLE_CIRCUMFERENCE_id_ - homeSolarCircumference))
+            let strokedashoffsetSolar = -(CIRCLE_CIRCUMFERENCE_id_ - homeSolarCircumference)
+            document.getElementById("circle_solar_id_").setAttribute("stroke-dasharray",strokedasharraySolar)
+            document.getElementById("circle_solar_id_").setAttribute("stroke-dashoffset",strokedashoffsetSolar)
+          }
+          if (homeBatteryCircumference !== undefined){
+            let strokedasharrayBattery = (homeBatteryCircumference + ' ' + (CIRCLE_CIRCUMFERENCE_id_ - homeBatteryCircumference))
+            let strokedashoffsetBattery = -(CIRCLE_CIRCUMFERENCE_id_ - homeBatteryCircumference - (homeSolarCircumference || 0))
+            document.getElementById("circle_battery_id_").setAttribute("stroke-dasharray",strokedasharrayBattery)
+            document.getElementById("circle_battery_id_").setAttribute("stroke-dashoffset",strokedashoffsetBattery)
+          }
+          if(homeGridCircumference !== undefined) {
+            let strokedasharrayGrid = (homeGridCircumference > 0) ? (CIRCLE_CIRCUMFERENCE_id_ - (homeSolarCircumference || 0) - (homeBatteryCircumference || 0)) : 0
+            strokedasharrayGrid += ' ' + (CIRCLE_CIRCUMFERENCE_id_ - homeGridCircumference)    
+            document.getElementById("circle_grid_id_").setAttribute("stroke-dasharray",strokedasharrayGrid)
+          }
+        }
+        if (debug_id_) console.log('└──────────────────────────────────────────────────────')
+      } // ElDomExist
+    }
+  </script>
+  <template>
+    <div> ------------ Général -------------</div>
+    <div>HideIfEmpty : Masquer les valeurs si égales a 0 [1: masqué (défaut) | 0: affiché]</div>
+    <div>Scale : Facteur d'échelle du widget [ Exemple : 1.2, 0.8 ... | Défaut : 1 ]</div>
+    <div>Background : Couleur arrière plan du widget [ Exemple : #fffff, white, linear-gradient... | Défaut : transparent ]</div>
+    <div>BorderRadius : Taille de l'arrondi du widget [ Exemple : 10, 20 ... (Défaut : 12) ]</div>
+    <div>BorderWidth : Taille de la bordure du widget [ Exemple : 1, 2 ... (Défaut : 0) ]</div>
+    <div>BorderColor : Couleur de la bordure du widget [ Exemple : #fffff, white]</div>
+    <div>DefautColor : Couleur par défaut du texte et icones [ Exemple : #fffff, white]</div>
+    <div>LabelColor : Couleur des titres [ Exemple : #fffff, white]</div>
+    <div>FontSize : Taille des valeurs Perso1, Perso2, Gaz, Water, Solar.</div>
+    <div> ------------ Home -------------</div>
+    <div>HomeIcon : Icone à afficher [ Ex : icon jeedom-lumiere-on | 0 : Auncune Icone]</div>
+    <div>HideGreenValue : Masquer le % d'énergie verte [1: masqué | 0: affiché (défaut)]</div>
+    <div> ------------ Grid -------------</div>
+    <div>Grid : ID de l'équipement réseau</div>
+    <div>-- GridInverted : Inverse les valeurs de l'équipement Grid [1: inversé | 0: défaut]</div>
+    <div>GridUnit : pour forcer une unité pour la totalité des valeurs (Réseau, Batterie et Maison).</div>
+    <div>GridProduction :  ID de l'équipement réseau (vers réseau edf)</div>
+    <div>GridReturnRound : Arrondir la valeur [ Exemple : 1 | défaut : pas d'arrondi ]</div>
+    <div>GridConsumptionDec : Nombre de chiffres a affichées après la virgule [ Exemple : 1 | défaut : 1 ]</div>
+    <div>GridConsumption : ID de l'équipement réseau (depuis réseau edf)</div>
+    <div>GridConsumptionRound : Arrondir la valeur [ Exemple : 1 | défaut : pas d'arrondi ]</div>
+    <div>GridReturnDec :  : Nombre de chiffres a affichées après la virgule [ Exemple : 1 | défaut : 1 ]</div>
+    <div>GridIcon : Icone à afficher [ Ex : icon jeedom-lumiere-on | 0 : Auncune Icone]</div>
+    <div>GridConsumptionColor : Couleur des éléments de catégorie réseau [ Exemple : #fffff, white]</div>
+    <div>GridReturnColor : Couleur des "lignes" pour le retour au réseau [ Exemple : #fffff, white]</div>
+    <div>PowerFailure : ID de l'équipement pour la coupure secteur.</div>
+    <div>PowerFailureColor : Couleur de clignotement si perte secteur.</div>
+    
+    <div> ------------ Solar ------------</div>
+    <div>Solar : ID de l'équipement Solaire</div>
+    <div>-- SolarInverted : Inverse les valeurs de l'équipement Solar [1: inversé | 0: défaut]</div>
+    <div>SolarRound : Arrondir la valeur [ Exemple : 1 | défaut : pas d'arrondi ]</div>
+    <div>SolarDec : Nombre de chiffres a affichées après la virgule [ Exemple : 1 | défaut : 3 ]</div>
+    <div>SolarIcon : Icone à afficher [ Ex : icon jeedom-lumiere-on | 0 : Auncune Icone] </div>
+    <div>SolarColor : Couleur des éléments de catégorie solaire [ Exemple : #fffff, white]</div>
+    <div> ----------- Battery ------------</div>
+    <div>Battery : ID de l'équipement Battery</div>
+    <div>-- BatteryInverted : Inverse les valeurs de l'équipement Battery [1: inversé | 0: défaut]</div>
+    <div>BatteryProduction : ID de l'équipement battery (Entrée batterie)</div>
+    <div>BatteryProductionRound : Arrondir la valeur [ Exemple : 1 | défaut : pas d'arrondi ]</div>
+    <div>BatteryProductionDec : Nombre de chiffres a affichées après la virgule [ Exemple : 1 | défaut : 1 ]</div>
+    <div>BatteryConsumption :  ID de l'équipement battery (Sortie batterie)</div>
+    <div>BatteryConsumptionRound : Arrondir la valeur [ Exemple : 1 | défaut : pas d'arrondi ]</div>
+    <div>BatteryConsumptionDec : Nombre de chiffres a affichées après la virgule [ Exemple : 1 | défaut : 1 ]</div>
+    <div>BatteryState : ID de l'équipement pour l'état de charge de la batterie (%)</div>
+    <div>BatteryTemp : ID de l'équipement pour la température (°C) de la batterie</div>
+    <div>BatteryInColor : Couleur des éléments de catégorie Batterie [ Exemple : #fffff, white]</div>
+    <div>BatteryOutColor : Couleur de la "ligne" pour la sortie de la batterie [ Exemple : #fffff, white]</div>   
+    <div> ------------ Gas --------------</div>
+    <div>Gas : ID de l'équipement Gaz</div>
+    <div>GasUnit : Unité de la valeur [ défaut : m³]</div>
+    <div>GasRename : Si vous voulez personnaliser le nom de la tuile. (Ex: Total, Energie ...)</div>
+    <div>GasRound : Arrondir la valeur [ Exemple : 1 | défaut : pas d'arrondi ]</div>
+    <div>GasDec : Nombre de chiffres a affichées après la virgule [ Exemple : 1 | défaut : 3 ]</div>
+    <div>GasIcon : Icone à afficher [ Ex : icon jeedom-lumiere-on | 0 : Auncune Icone]</div>
+    <div>HideCircleGas : Masquer l'animation du "point" [1: masqué | 0: affiché (défaut)]</div>
+    <div>HidePathGas : Masquer l'animation du "point" et "trait" [1: masqué | 0: affiché (défaut)]</div>
+    <div>InvertedCircleGas : Inverse l'animation du "point" [1: inversé | 0: défaut]</div>
+    <div>GasColor : Couleur des éléments de catégorie gaz [ Exemple : #fffff, white]</div>
+    <div> ----------- Water -------------</div>
+    <div>Water : ID de l'équipement Water</div>
+    <div>WaterUnit : Unité de la valeur [ défaut : m³]</div>
+    <div>WaterRename : Si vous voulez personnaliser le nom de la tuile. (Ex: Total, Energie ...)</div>
+    <div>WaterRound : Arrondir la valeur [ Exemple : 1 | défaut : pas d'arrondi ]</div>
+    <div>WaterDec : Nombre de chiffres a affichées après la virgule [ Exemple : 1 | défaut : 3 ]</div>
+    <div>WaterIcon : Icone à afficher [ Ex : icon jeedom-lumiere-on | 0 : Auncune Icone]</div>
+    <div>HideCircleWater : Masquer l'animation du "point" [1: masqué | 0: affiché (défaut)]</div>
+    <div>HidePathWater : Masquer l'animation du "point" et "trait" [1: masqué | 0: affiché (défaut)]</div>
+    <div>InvertedCircleWater : Inverse l'animation du "point" [1: inversé | 0: défaut]</div>
+    <div>WaterColor : Couleur des éléments de catégorie eau [ Exemple : #fffff, white]</div>
+    <div> ---------- Perso1 -------------</div>
+    <div>Perso1 : ID de l'équipement Perso1</div>
+    <div>Perso1Unit : Unité de la valeur [ défaut : unité de la commande]</div>
+    <div>Perso1Rename : personnaliser le nom de la tuile. (Ex: Total, Energie ...)</div>
+    <div>Perso1Round : Arrondir la valeur [ Exemple : 1 | défaut : pas d'arrondi ]</div>
+    <div>Perso1Dec : Nombre de chiffres a affichées après la virgule [ Exemple : 1 | défaut : 3 ]</div>
+    <div>Perso1Icon : Icone à afficher [ Ex : icon jeedom-lumiere-on | 0 : Auncune Icone]</div>
+    <div>Perso1Color : Couleur des éléments de catégorie perso1 [ Exemple : #fffff, white]</div>
+    <div>HideCirclePerso1 : Masquer l'animation du "point" [1: masqué | 0: affiché (défaut)]</div>
+    <div>HidePathPerso1 : Masquer l'animation du "point" et "trait" [1: masqué | 0: affiché (défaut)]</div>
+    <div>InvertedCirclePerso1 : Inverse l'animation du "point" [1: inversé | 0: défaut]</div>
+    <div> ---------- Perso2 -------------</div>
+    <div>Perso2 : ID de l'équipement Perso2</div>
+    <div>Perso2Unit : Unité de la valeur [ défaut : unité de la commande]</div>
+    <div>Perso2Rename : personnaliser le nom de la tuile. (Ex: Total, Energie ...)</div>
+    <div>Perso2Round : Arrondir la valeur [ Exemple : 1 | défaut : pas d'arrondi ]</div>
+    <div>Perso2Dec : Nombre de chiffres a affichées après la virgule [ Exemple : 1 | défaut : 3 ]</div>
+    <div>Perso2Icon : Icone à afficher [ Ex : icon jeedom-lumiere-on | 0 : Auncune Icone]</div>
+    <div>Perso2Color : Couleur des éléments de catégorie perso2 [ Exemple : #fffff, white]</div>
+    <div>HideCirclePerso2 : Masquer l'animation du "point" [1: masqué | 0: affiché (défaut)]</div>
+    <div>HidePathPerso2 : Masquer l'animation du "point" et "trait" [1: masqué | 0: affiché (défaut)]</div>
+    <div>InvertedCirclePerso2 : Inverse l'animation du "point" [1: inversé | 0: défaut]</div>
+  </template>
+  <style>
+  :root {
+    --scale_id_ : 1;
+    --background_id_ : transparent;
+    --icon-size_id_: 24px;
+    --secondary-text-color_id_: var(--txt-color);
+    --primary-text-color_id_: var(--link-color);
+    --gas-color_id_ : #8E021B;
+    --solar-color_id_: #ff9800;
+    --grid-consumption-color_id_: #488fc2;
+    --grid-return-color_id_: #8353d1;
+    --water-color_id_ : blue;
+    --battery-out-color_id_ : #f06292;
+    --battery-in-color_id_ : #69c1b8;
+    --border-width_id_ : 0px;
+    --border-radius_id_: 12px;
+    --border-color_id_: var(--link-color);
+    --perso1-color_id_: #a100ff;
+    --perso2-color_id_: #6aff53;
+    --powerfailure-color_id_: red;
+    --circle-batterie_id_: #f06292;
+    --fontSize_perso_id_: 14px;
+    --margin-top_id_: 1;
+    }
+    .content_id_ {
+      position: relative;
+      padding: 16px;
+    }
+    .widget_id_ {
+      -webkit-transform: scale(var(--scale_id_));
+      transform: scale(var(--scale_id_));
+      background: var(--background_id_);
+      box-shadow: var(--box-shadow,none);
+      box-sizing: border-box;
+      border-radius: var(--border-radius_id_);
+      border-width: var(--border-width_id_);
+      border-style: solid;
+      border-color: var(--border-color_id_,#e0e0e0);
+      color: var(--primary-text-color_id_);
+      display: block;
+      position: relative;
+      line-height: 20px;
+      -webkit-transform-origin: top;
+      transform-origin: top;
+      margin-top: calc((var(--scale_id_)) * -10px * var(--margin-top_id_));
+    }
+    .svg-icon_id_ {
+      vertical-align: middle;
+      fill: currentcolor;
+      width: var(--icon-size_id_);
+      height: var(--icon-size_id_);
+      padding-bottom: 2px;
+    }
+    .circle_id_ svg:not(.svg-icon_id_) {
+      position: absolute;
+      fill: none;
+      stroke-width: 4px;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+    }
+    .lines_id_ {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 146px;
+      display: flex;
+      justify-content: center;
+      padding: 0 16px 16px;
+      box-sizing: border-box;
+    }
+    .lines_id_.water-gas_id_ {
+      bottom: 110px;
+    }
+    .lines_id_.high_id_ {
+      bottom: 100px;
+      height: 156px;
+    }
+    .lines_id_ svg {
+      width: calc(100% - 160px);
+      height: 100%;
+      max-width: 340px;
+    }
+    .row_id_ {
+      display: flex;
+      justify-content: space-between;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .circle-container_id_ {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .circle-container_id_.solar_id_ {
+      margin: 0 4px;
+      height: 130px;
+    }
+    .circle-container_id_.gas_id_ {
+      margin-left: 4px;
+      height: 130px;
+    }
+    .circle-container_id_.water_id_ {
+      margin-left: 4px;
+      height: 130px;
+    }
+    .circle-container_id_.perso1_id_, .circle-container_id_.perso2_id_ {
+      margin-right: 4px;
+      height: 130px;
+    }
+    .circle-container_id_.bottom_id_ {
+      position: relative;
+      top: -20px;
+      margin-bottom: -20px;
+    }
+    .circle-container_id_.battery_id_ {
+      height: 110px;
+      justify-content: flex-end;
+    }
+    .spacer_id_ {
+      width: 84px;
+    }
+    .circle_id_ {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      box-sizing: border-box;
+      border: 2px solid;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 12px;
+      line-height: 12px;
+      position: relative;
+      text-decoration: none;
+      color: var(--primary-text-color_id_);
+      overflow: hidden;
+    }
+    .circle_id_ i {
+      font-size: 22px;
+      padding-bottom: 4px;
+    }
+    .svg-icon_id_.small_id_ {
+      --icon-size_id_: 12px;
+    }
+    .label_id_ {
+      color: var(--secondary-text-color_id_);
+      font-size: 12px;
+      opacity: 1;
+      height: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80px;
+      white-space: nowrap;
+    }
+    .lines_id_ path {
+      stroke: var(--primary-text-color_id_);
+      stroke-width: 1;
+      fill: none;
+    }
+    .gas_id_ circle, .gas_id_ svg:not(.svg-icon_id_) path {
+      stroke: var(--gas-color_id_);
+    }
+    circle.gas_id_ {
+      stroke-width: 4;
+      fill: var(--gas-color_id_);
+    }
+    .gas_id_ .circle_id_ {
+      border-color: var(--gas-color_id_);
+    }
+    .water_id_ circle, .water_id_ svg:not(.svg-icon_id_) path {
+      stroke: var(--water-color_id_);
+    }
+    circle.water_id_ {
+      stroke-width: 4;
+      fill: var(--water-color_id_);
+    }
+    .water_id_ .circle_id_ {
+      border-color: var(--water-color_id_);
+    }
+    .solar_id_ .circle_id_ {
+      border-color: var(--solar-color_id_);
+    }
+    .perso1_id_ .circle_id_ {
+      border-color: var(--perso1-color_id_);
+    }
+    .perso1_id_ circle, .perso1_id_ svg:not(.svg-icon_id_) path {
+      stroke: var(--perso1-color_id_);
+    }
+    circle.perso1_id_ {
+      stroke-width: 4;
+      fill: var(--perso1-color_id_);
+    }
+    .perso2_id_ .circle_id_ {
+      border-color: var(--perso2-color_id_);
+    }
+    .perso2_id_ circle, .perso2_id_ svg:not(.svg-icon_id_) path {
+      stroke: var(--perso2-color_id_);
+    }
+    circle.perso2_id_ {
+      stroke-width: 4;
+      fill: var(--perso2-color_id_);
+    }
+    circle.solar_id_,
+    path.solar_id_ {
+      stroke: var(--solar-color_id_);
+    }
+    circle.solar_id_ {
+      stroke-width: 4;
+      fill: var(--solar-color_id_);
+    }
+    .battery_id_ .circle_id_ {
+      border-color: var(--battery-out-color_id_);
+    }
+    circle.battery_id_,
+    path.battery_id_ {
+      stroke: var(--battery-out-color_id_);
+    }
+    path.battery-home_id_,
+    circle.battery-home_id_ {
+      stroke: var(--battery-out-color_id_);
+    }
+    circle.battery-home_id_ {
+      stroke-width: 4;
+      fill: var(--battery-out-color_id_);
+    }
+    path.battery-solar_id_,
+    circle.battery-solar_id_ {
+      stroke: var(--battery-in-color_id_);
+    }
+    circle.battery-solar_id_ {
+      stroke-width: 4;
+      fill: var(--battery-in-color_id_);
+    }
+    .battery-in_id_ {
+      color: var(--battery-in-color_id_);
+    }
+    .battery-out_id_ {
+      color: var(--battery-out-color_id_);
+    }
+    path.battery-from-grid_id_ {
+      stroke: var(--grid-consumption-color_id_);
+    }
+    path.battery-to-grid_id_ {
+      stroke: var(--grid-return-color_id_);
+    }
+    path.return_id_,
+    circle.return_id_,
+    circle.battery-to-grid_id_ {
+      stroke: var(--grid-return-color_id_);
+    }
+    circle.return_id_,
+    circle.battery-to-grid_id_ {
+      stroke-width: 4;
+      fill: var(--grid-return-color_id_);
+    }
+    .return_id_ {
+      color: var(--grid-return-color_id_);
+    }
+    .grid_id_ .circle_id_ {
+      border-color: var(--grid-consumption-color_id_);
+    }
+    .consumption_id_ {
+      color: var(--grid-consumption-color_id_);
+    }
+    circle.grid_id_,
+    circle.battery-from-grid_id_,
+    path.grid_id_ {
+      stroke: var(--grid-consumption-color_id_);
+    }
+    circle.grid_id_,
+    circle.battery-from-grid_id_ {
+      stroke-width: 4;
+      fill: var(--grid-consumption-color_id_);
+    }
+    .home_id_ .circle_id_ {
+      border-width: 0;
+      border-color: #03a9f4;
+    }
+    .home_id_ .circle_id_.border_id_ {
+      border-width: 2px;
+    }
+    .circle_id_ svg circle {
+      animation: rotate-in_id_ 0.6s ease-in;
+      transition: stroke-dashoffset 0.4s, stroke-dasharray 0.4s;
+      fill: none;
+    }
+    .solar_id_ .circle_id_ span, .perso1_id_ .circle_id_ span, .perso2_id_ .circle_id_ span, .gas_id_ .circle_id_ span, .water_id_ .circle_id_ span {
+      font-size: var(--fontSize_perso_id_);
+    }
+    @keyframes rotate-in_id_ {
+      from {
+        stroke-dashoffset: 238.76104;
+        stroke-dasharray: 238.76104;
+      }
+    }
+    .card-actions_id_ a {
+      text-decoration: none;
+    }
+    .margin-bottom_id_{
+      margin-bottom: 20px;
+    } 
+    .scroll-container_id_ {
+      height: 12px;
+      overflow: hidden;
+    }
+    .hidden_id_ {
+      display: none;
+    }
+    .scroll-text_id_ {
+      height: 100%;
+      text-align: center;
+      -moz-animation: my-animation_id_ 10s linear infinite;
+      -webkit-animation: my-animation_id_ 10s linear infinite;
+      animation: my-animation_id_ 10s linear infinite;
+    }
+    .blink_id_ {
+      -moz-animation: blinking_id_ 1s linear infinite;
+      -webkit-animation: blinking_id_ 1s linear infinite;
+      animation: blinking_id_ 1s linear infinite;
+    }
+    .eqLogic[data-eqlogic_id="#eqLogic_id#"] .cmds.margin_id_{
+      /* for v4.4 if has scale */
+      overflow: unset;
+    }
+    @keyframes my-animation_id_ {
+      0% {
+        -moz-transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+        transform: translateY(0%);
+      }
+      40% {
+        -moz-transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+        transform: translateY(0%);
+      }
+      50% {
+        -moz-transform: translateY(-100%);
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+      }
+      90% {
+        -moz-transform: translateY(-100%);
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+      }
+      100% {
+        -moz-transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+        transform: translateY(0%);
+      }
+    }
+    @keyframes blinking_id_ {
+      0% {
+        border-color: var(--grid-consumption-color_id_);
+      }
+      100% {
+        border-color: var(--powerfailure-color_id_);
+        opacity: 0.2;
+        background: var(--powerfailure-color_id_);
+      }
+    }
+  </style>
+</div>
