@@ -1,8 +1,9 @@
-FROM mariadb:10.5
+FROM mariadb:10.6
 
-# Setup apache and php
-RUN apt-get -y  update 
-RUN apt-get -y  install mc bash
+# Setup apache and php: 2024-03-08 : there is temporary error in maridb repos, causing erro in apt-get
+# RUN apt-get upgrade -y
+# RUN apt-get -y  update 
+# RUN apt-get -y  install mc bash
 
 COPY docker-entrypoint-mariadb.sh /docker-entrypoint-initdb.d/docker-entrypoint-mariadb.sh
 RUN chmod 777 /docker-entrypoint-initdb.d/docker-entrypoint-mariadb.sh

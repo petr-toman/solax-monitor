@@ -17,17 +17,28 @@ services:
       context: ./web
       dockerfile: dockerfile-web
     #restart: 'always'
-    depends_on:
-      - mariadb
+   # depends_on:
+   #   - mariadb
     ports:
-      - '8090:80'
-    links:
-      - mariadb
+      - '8801:80'
+    #links:
+    #  - mariadb
     env_file:
       - .env  
     volumes: 
       - "solax-storage-shared:/shared"  
-      - "${PHP_SOURCE}:/var/www/localhost/htdocs"   #for development only
+      - "./web/htdocs:/var/www/localhost/htdocs"   #for development only
+  fake-solax:
+    build: 
+      context: ./fake-solax
+      dockerfile: dockerfile-fake-solax
+    ports:
+      - '8803:80'
+    env_file:
+      - .env  
+    volumes: 
+      - "solax-storage-shared:/shared"  
+      - "./fake-solax/htdocs:/var/www/localhost/htdocs"   #for development only    
   cache-redis:
     image: redis:6.2-alpine
     restart: always
@@ -56,6 +67,15 @@ services:
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
       MYSQL_USER: "${MYSQL_USER}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+  sunnyhome:
+    # image: snyll/sunnyhome:arm64   # works but horribly slow
+     image: snyll/sunnyhome:amd64  # might be better?
+    # platform: linux/arm64/v8        # this is a question.
+     ports:
+       - '8802:8802'
+     volumes: 
+      - "solax-storage-sunnyhome:/data"  
 volumes: 
    solax-storage-db: 
    solax-storage-shared:   
+   solax-storage-sunnyhome:
