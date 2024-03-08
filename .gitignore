@@ -11,3 +11,4 @@ cronie/runtime/scripts/log/*.txt
 web/htdocs/metro*
 
 
+fake-solax/htdocs/lastcall
