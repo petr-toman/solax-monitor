@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="author" content="stolenMartin Hronek" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="SunnyHome is application for gathering data from Solax Inverters and provide simple autoamtion." />
+    <title>Sunny Home</title>
+    <meta property="og:description" content="SunnyHome is application for gathering data from Solax Inverters and provide simple autoamtion." />
+    <meta name="format-detection" content="telephone=no">
+    <!-- PAGE TITLE HERE -->
+    <title>Sunny Home</title>
+    <!-- FAVICONS ICON -->
+   <!--  <link href="./vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet"> -->
+   <!-- <link href="./vendor/owl-carousel/owl.carousel.css" rel="stylesheet"> -->
+   <!--  <link href="./vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet"> -->
+    <link href="./icons/fontawesome-free-6.1.1-web/css/all.css" rel="stylesheet">
+    <!-- Style css -->
+   <!--  <link href="./vendor/clockpicker/css/bootstrap-clockpicker.min.css" rel="stylesheet"> -->
+   <link href="./css/style.css" rel="stylesheet">  
+   <!-- <link href="./css/custom.css" rel="stylesheet"> -->
+   <!--  <link href="./vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet"> -->
+    <!-- Daterange picker -->
+   <!--  <link href="./vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"> -->
+  <!--   <link href="./css/multi-switch.min.css" rel="stylesheet"> -->
+    <link href="./css/flowchart.css" rel="stylesheet">
+  <!--  <link href="./iconpicker/fontawesome-iconpicker.css" rel="stylesheet"> -->
+   
+
+</head>
+<body>
+
+<!--**********************************
+    Main wrapper start
+***********************************-->
+<div id="main-wrapper">
+
+
+                  <div class="col-xl-4" id="compact-flowchart-container">
+                    <div class="widget-stat card">
+                        <div class="card-body p-4" id="compact-flowchart" style="padding: 0px;">
+                            <div class="row justify-content-center">
+                                <span class="line_compact" style="transform: translate(0px, 139px) rotate(90deg);"></span>
+                                <div class="chart-point glow"
+                                     style="margin-left: 40px; margin-right: 40px; margin-top: 20px; border: 2px solid #e0f542;"
+                                     id="solar-power-compact">
+                                     <i class="fas fa-solar-panel" style="color: #e0f542"></i>
+                                    <!-- https://fontawesome.com/icons/solar-panel?f=classic&s=thin -->
+                                    <span id="compact_panels_text">0 W</span>
+                                    <span id="compact_solar_panels_perc" style="color: #fcba03">0</span>
+                                </div>
+                            </div>
+                            <div class="row justify-content-around" style="margin-top: 40px;">
+                                <div class="chart-point" style="border: 2px solid #29e014;" id="battery-compact">
+                                    <i class="fas fa-battery-full" id="compact_battery_icon"
+                                       style="color: #29e014;"></i>
+                                    <span id="compact_battery_text">3070 W</span>
+                                    <span id="compact_battery_percent" style="color: #fcba03">0%</span>
+                                </div>
+                                
+                                <div class="chart-point"
+                                     style="margin-left: 40px; margin-right: 40px; border: 2px solid #4287f5;">
+                                    <i class="fas fa-bolt" style="color: #4287f5;"></i>
+                                    <span id="compact_inverter_text">0 W</span>
+                                    <span id="compact_inverter_temperature_text" style="color: #fcba03">0</span>
+                                    <span class="circle-electron move-left" id="electron_battery_move_left"
+                                          style="transform: translate(-47px, 0px);"></span>
+                                    <span class="circle-electron move-right" id="electron_battery_move_right"
+                                          style="transform: translate(-92px, 0px);"></span>
+
+                                    <span class="circle-electron move-down" id="electron_panels_move_down"
+                                          style="transform: translate(0px, -135px);"></span>
+
+                                    <span class="circle-electron move-left" id="electron_house_move_left"
+                                          style="transform: translate(92px, 0px);"></span>
+                                    <span class="circle-electron move-right" id="electron_house_move_right"
+                                          style="transform: translate(47px, 0px);"></span>
+
+                                    <span class="circle-electron move-up" id="electron_grid_move_up"
+                                          style="transform: translate(0px, 135px);"></span>
+                                    <span class="circle-electron move-down" id="electron_grid_move_down"
+                                          style="transform: translate(0px, 5px);"></span>
+
+                                    
+
+                                    <span class="line_compact" style="transform: translate(-70px, 0px);"></span>
+                                    <span class="line_compact" style="transform: translate(70px, 0px);"></span>
+                                    <span class="line_compact" style="transform: translate(0px, 70px) rotate(90deg);"></span>
+                                    
+                                </div>
+                                <div class="chart-point" style="border: 2px solid #881cfc;" id="house-compact">
+                                    <i class="fas fa-home" style="color: #881cfc;"></i>
+                                    <span id="compact_house_text">0 W</span>
+                                </div>
+                            </div>
+                            <div class="row justify-content-around" style="margin-top: 40px;">
+                                <div class="chart-point" style="margin-bottom: 20px; border: 0;">
+                                </div>
+                                <div class="chart-point" style="border: 2px solid #dc3545; margin-bottom: 20px; margin-left: 40px; margin-right: 40px;"
+                                     id="grid-compact">
+                                   <!--  <i class="fas fa-plug" style="color: #dc3545;"></i> -->
+                                    <i class="fas fa-industry" style="color: #dc3545;"></i>
+                                    <span id="compact_grid_text">0 W</span>
+                                </div>
+                                
+                                <div class="chart-point" style="margin-bottom: 20px; border: 0;">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+
+</div>
+
+
+<!--**********************************
+    Scripts
+***********************************-->
+
+    <!-- Required vendors -->
+   
+    <script src="./vendor/global/global.min.js"></script> 
+   <!-- <script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>  -->
+    <script src="./js/custom.min.js"></script> 
+    <script src="./js/dlabnav-init.js"></script> <!-- tohle dělá tmavé pozadí, asi jenom -->
+   <!-- <script src="./js/multi-switch.js"></script> -->
+   <!--  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js--"></script>  -->
+   <!--  <script src="./js/general.js"></script>   -->
+    <script src="./js/dashboard_reload.js?2"></script>
+
+
+</body>
+</html>

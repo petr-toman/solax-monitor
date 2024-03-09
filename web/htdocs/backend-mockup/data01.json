@@ -1,0 +1,1366 @@
+[
+    {
+        "id": 0,
+        "dataKey": "counter",
+        "dataValue": "1"
+    },
+    {
+        "id": 1,
+        "dataKey": "energy_spot_price_today_1_hour",
+        "dataValue": "62.43",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.555+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 2,
+        "dataKey": "energy_spot_price_today_2_hour",
+        "dataValue": "60.66",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.556+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 3,
+        "dataKey": "energy_spot_price_today_3_hour",
+        "dataValue": "59.65",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.560+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 4,
+        "dataKey": "energy_spot_price_today_4_hour",
+        "dataValue": "58.03",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.560+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 5,
+        "dataKey": "energy_spot_price_today_5_hour",
+        "dataValue": "55.56",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.560+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 6,
+        "dataKey": "energy_spot_price_today_6_hour",
+        "dataValue": "55.44",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.560+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 7,
+        "dataKey": "energy_spot_price_today_7_hour",
+        "dataValue": "57.11",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.561+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 8,
+        "dataKey": "energy_spot_price_today_8_hour",
+        "dataValue": "53.06",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.561+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 9,
+        "dataKey": "energy_spot_price_today_9_hour",
+        "dataValue": "53.06",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.561+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 10,
+        "dataKey": "energy_spot_price_today_10_hour",
+        "dataValue": "48.12",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.561+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 11,
+        "dataKey": "energy_spot_price_today_11_hour",
+        "dataValue": "33.49",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.561+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 12,
+        "dataKey": "energy_spot_price_today_12_hour",
+        "dataValue": "7.79",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.562+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 13,
+        "dataKey": "energy_spot_price_today_13_hour",
+        "dataValue": "0.38",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.562+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 14,
+        "dataKey": "energy_spot_price_today_14_hour",
+        "dataValue": "-0.75",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.563+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 15,
+        "dataKey": "energy_spot_price_today_15_hour",
+        "dataValue": "8.65",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.563+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 16,
+        "dataKey": "energy_spot_price_today_16_hour",
+        "dataValue": "31.87",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.563+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 17,
+        "dataKey": "energy_spot_price_today_17_hour",
+        "dataValue": "52.59",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.564+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 18,
+        "dataKey": "energy_spot_price_today_18_hour",
+        "dataValue": "70.8",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.564+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 19,
+        "dataKey": "energy_spot_price_today_19_hour",
+        "dataValue": "77.61",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.564+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 20,
+        "dataKey": "energy_spot_price_today_20_hour",
+        "dataValue": "75.19",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.564+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 21,
+        "dataKey": "energy_spot_price_today_21_hour",
+        "dataValue": "67.34",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.575+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 22,
+        "dataKey": "ote_price_current_hour",
+        "dataValue": "75.19",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.565+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 23,
+        "dataKey": "electricity_price_current_hour",
+        "dataValue": "75.19",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.565+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 24,
+        "dataKey": "energy_spot_price_today_22_hour",
+        "dataValue": "60.47",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.576+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 25,
+        "dataKey": "energy_spot_price_today_23_hour",
+        "dataValue": "61.13",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.576+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 26,
+        "dataKey": "energy_spot_price_today_24_hour",
+        "dataValue": "58.13",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.577+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 27,
+        "dataKey": "energy_spot_price_local_from_lowest_0",
+        "dataValue": "-0.01897875",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.577+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 28,
+        "dataKey": "energy_spot_price_local_from_lowest_1",
+        "dataValue": "0.0096159",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.578+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 29,
+        "dataKey": "energy_spot_price_local_from_lowest_2",
+        "dataValue": "0.19712594",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.579+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 30,
+        "dataKey": "energy_spot_price_local_from_lowest_3",
+        "dataValue": "0.21888824",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.581+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 31,
+        "dataKey": "energy_spot_price_local_from_lowest_4",
+        "dataValue": "0.8064704",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.581+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 32,
+        "dataKey": "energy_spot_price_local_from_lowest_5",
+        "dataValue": "0.8474645",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.582+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 33,
+        "dataKey": "energy_spot_price_local_from_lowest_6",
+        "dataValue": "1.2176766",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.582+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 34,
+        "dataKey": "energy_spot_price_local_from_lowest_7",
+        "dataValue": "1.3307899",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.582+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 35,
+        "dataKey": "energy_spot_price_local_from_lowest_8",
+        "dataValue": "1.3426833",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.585+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 36,
+        "dataKey": "energy_spot_price_local_from_lowest_9",
+        "dataValue": "1.3426833",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.585+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 37,
+        "dataKey": "energy_spot_price_local_from_lowest_10",
+        "dataValue": "1.4029092",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.587+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 38,
+        "dataKey": "energy_spot_price_local_from_lowest_11",
+        "dataValue": "1.4059458",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.591+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 39,
+        "dataKey": "energy_spot_price_local_from_lowest_12",
+        "dataValue": "1.4451686",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.594+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 40,
+        "dataKey": "energy_spot_price_local_from_lowest_13",
+        "dataValue": "1.4684491",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.596+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 41,
+        "dataKey": "energy_spot_price_local_from_lowest_14",
+        "dataValue": "1.4709797",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.600+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 42,
+        "dataKey": "energy_spot_price_local_from_lowest_15",
+        "dataValue": "1.5094434",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.601+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 43,
+        "dataKey": "energy_spot_price_local_from_lowest_16",
+        "dataValue": "1.5301933",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.601+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 44,
+        "dataKey": "energy_spot_price_local_from_lowest_17",
+        "dataValue": "1.5350014",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.602+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 45,
+        "dataKey": "energy_spot_price_local_from_lowest_18",
+        "dataValue": "1.5468947",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.602+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 46,
+        "dataKey": "energy_spot_price_local_from_lowest_19",
+        "dataValue": "1.5797912",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.602+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 47,
+        "dataKey": "energy_spot_price_local_from_lowest_20",
+        "dataValue": "1.7040386",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.603+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 48,
+        "dataKey": "energy_spot_price_local_from_lowest_21",
+        "dataValue": "1.7915941",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.604+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 49,
+        "dataKey": "energy_spot_price_local_from_lowest_22",
+        "dataValue": "1.902683",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.609+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 50,
+        "dataKey": "energy_spot_price_local_from_lowest_23",
+        "dataValue": "1.9639212",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.610+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 51,
+        "dataKey": "energy_spot_price_today_avg",
+        "dataValue": "48.65875",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.611+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 52,
+        "dataKey": "energy_spot_price_today_avg_local_currency_kwh",
+        "dataValue": "1.2313097",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.613+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 53,
+        "dataKey": "energy_spot_price_today_avg_czk_kwh",
+        "dataValue": "1.2313097",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.613+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 54,
+        "dataKey": "energy_spot_price_tomorrow_1_hour",
+        "dataValue": "48.65",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.617+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 55,
+        "dataKey": "energy_spot_price_tomorrow_2_hour",
+        "dataValue": "46.06",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.618+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 56,
+        "dataKey": "energy_spot_price_tomorrow_3_hour",
+        "dataValue": "40.98",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.619+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 57,
+        "dataKey": "energy_spot_price_tomorrow_4_hour",
+        "dataValue": "35.55",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.621+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 58,
+        "dataKey": "energy_spot_price_tomorrow_5_hour",
+        "dataValue": "32.39",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.622+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 59,
+        "dataKey": "energy_spot_price_tomorrow_6_hour",
+        "dataValue": "32.28",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.625+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 60,
+        "dataKey": "energy_spot_price_tomorrow_7_hour",
+        "dataValue": "33.91",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.627+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 61,
+        "dataKey": "energy_spot_price_tomorrow_8_hour",
+        "dataValue": "39.49",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.628+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 62,
+        "dataKey": "energy_spot_price_tomorrow_9_hour",
+        "dataValue": "36.77",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.628+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 63,
+        "dataKey": "energy_spot_price_tomorrow_10_hour",
+        "dataValue": "29.44",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.629+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 64,
+        "dataKey": "energy_spot_price_tomorrow_11_hour",
+        "dataValue": "6.37",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.629+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 65,
+        "dataKey": "energy_spot_price_tomorrow_12_hour",
+        "dataValue": "7.62",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.630+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 66,
+        "dataKey": "energy_spot_price_tomorrow_13_hour",
+        "dataValue": "1.19",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.633+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 67,
+        "dataKey": "energy_spot_price_tomorrow_14_hour",
+        "dataValue": "-1.38",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.634+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 68,
+        "dataKey": "energy_spot_price_tomorrow_15_hour",
+        "dataValue": "5.75",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.635+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 69,
+        "dataKey": "energy_spot_price_tomorrow_16_hour",
+        "dataValue": "19.28",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.635+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 70,
+        "dataKey": "energy_spot_price_tomorrow_17_hour",
+        "dataValue": "50.03",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.636+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 71,
+        "dataKey": "energy_spot_price_tomorrow_18_hour",
+        "dataValue": "58.72",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.637+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 72,
+        "dataKey": "energy_spot_price_tomorrow_19_hour",
+        "dataValue": "68.17",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.637+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 73,
+        "dataKey": "energy_spot_price_tomorrow_20_hour",
+        "dataValue": "66.37",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.638+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 74,
+        "dataKey": "energy_spot_price_tomorrow_21_hour",
+        "dataValue": "60.41",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.638+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 75,
+        "dataKey": "energy_spot_price_tomorrow_22_hour",
+        "dataValue": "56.53",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.638+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 76,
+        "dataKey": "energy_spot_price_tomorrow_23_hour",
+        "dataValue": "55.83",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.639+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 77,
+        "dataKey": "energy_spot_price_tomorrow_24_hour",
+        "dataValue": "54.27",
+        "units": "EUR/MWh",
+        "dataFreshness": "2024-03-09T18:00:09.639+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 78,
+        "dataKey": "local_ip_address",
+        "dataValue": "172.240.1.5",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:27:10.176+00:00",
+        "validTime": 880000,
+        "valid": true
+    },
+    {
+        "id": 79,
+        "dataKey": "euro_to_czk",
+        "dataValue": "25.305",
+        "units": "EUR/CZK",
+        "dataFreshness": "2024-03-09T18:23:54.387+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 80,
+        "dataKey": "today_dusk_time",
+        "dataValue": "19:13:28.219679966",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:23:51.220+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 81,
+        "dataKey": "today_dawn_time",
+        "dataValue": "07:06:51.219679966",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:23:51.234+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 82,
+        "dataKey": "date_day_of_the_month",
+        "dataValue": "9",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:28:25.000+00:00",
+        "validTime": 88000,
+        "valid": true
+    },
+    {
+        "id": 83,
+        "dataKey": "date_day_of_the_week",
+        "dataValue": "6",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:28:25.000+00:00",
+        "validTime": 88000,
+        "valid": true
+    },
+    {
+        "id": 84,
+        "dataKey": "date_month_of_the_year",
+        "dataValue": "3",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:28:25.000+00:00",
+        "validTime": 88000,
+        "valid": true
+    },
+    {
+        "id": 85,
+        "dataKey": "time_hour_of_the_day",
+        "dataValue": "19",
+        "units": "h",
+        "dataFreshness": "2024-03-09T18:28:25.000+00:00",
+        "validTime": 88000,
+        "valid": true
+    },
+    {
+        "id": 86,
+        "dataKey": "time_minute_of_the_hour",
+        "dataValue": "28",
+        "units": "m",
+        "dataFreshness": "2024-03-09T18:28:25.000+00:00",
+        "validTime": 88000,
+        "valid": true
+    },
+    {
+        "id": 87,
+        "dataKey": "time_second_of_the_minute",
+        "dataValue": "24",
+        "units": "s",
+        "dataFreshness": "2024-03-09T18:28:25.001+00:00",
+        "validTime": 88000,
+        "valid": true
+    },
+    {
+        "id": 88,
+        "dataKey": "ote_price_current_hour_czk_kwh",
+        "dataValue": "1.902683",
+        "units": "Kč/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.565+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 89,
+        "dataKey": "ote_price_current_hour_local_currency_kwh",
+        "dataValue": "1.902683",
+        "units": "CZK/kWh",
+        "dataFreshness": "2024-03-09T18:00:09.565+00:00",
+        "validTime": 5400,
+        "valid": true
+    },
+    {
+        "id": 90,
+        "dataKey": "solax_total_battery_discharge_energy",
+        "dataValue": "1176.0",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.792+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 91,
+        "dataKey": "solax_today_self_consumed_yield",
+        "dataValue": "10.600001",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.794+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 92,
+        "dataKey": "solax_today_offgrid_ac_energy",
+        "dataValue": "0.0",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.794+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 93,
+        "dataKey": "solax_grid_consumption",
+        "dataValue": "111",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.794+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 94,
+        "dataKey": "solax_total_feedin_energy",
+        "dataValue": "3222.4",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.794+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 95,
+        "dataKey": "solax_battery_voltage",
+        "dataValue": "316.0",
+        "units": "V",
+        "dataFreshness": "2024-03-09T18:28:18.794+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 96,
+        "dataKey": "solax_total_energy",
+        "dataValue": "5617.0",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.795+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 97,
+        "dataKey": "solax_battery_power",
+        "dataValue": "-600.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.795+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 98,
+        "dataKey": "solax_today_energy",
+        "dataValue": "22.7",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.795+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 99,
+        "dataKey": "solax_power_consumption_now",
+        "dataValue": "494.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.795+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 100,
+        "dataKey": "solax_inverter_temperature",
+        "dataValue": "42.0",
+        "units": "°C",
+        "dataFreshness": "2024-03-09T18:28:18.795+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 101,
+        "dataKey": "solax_battery_remaining_energy",
+        "dataValue": "7.0",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.795+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 102,
+        "dataKey": "solax_output_current_phase_3",
+        "dataValue": "1.4",
+        "units": "A",
+        "dataFreshness": "2024-03-09T18:28:18.795+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 103,
+        "dataKey": "solax_eps_x3_power_phase2",
+        "dataValue": "0.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.796+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 104,
+        "dataKey": "solax_output_current_phase_2",
+        "dataValue": "1.6",
+        "units": "A",
+        "dataFreshness": "2024-03-09T18:28:18.796+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 105,
+        "dataKey": "solax_eps_x3_power_phase3",
+        "dataValue": "0.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.796+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 106,
+        "dataKey": "solax_output_current_phase_1",
+        "dataValue": "1.0",
+        "units": "A",
+        "dataFreshness": "2024-03-09T18:28:18.796+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 107,
+        "dataKey": "solax_eps_x3_power_phase1",
+        "dataValue": "0.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.796+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 108,
+        "dataKey": "solax_exported_power",
+        "dataValue": "111.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.796+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 109,
+        "dataKey": "solax_total_panels_energy",
+        "dataValue": "5780.6",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.796+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 110,
+        "dataKey": "solax_inverter_serial_number",
+        "dataValue": "H34-FAKE-60122",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:28:18.796+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 111,
+        "dataKey": "solax_today_yield_including_offgrid",
+        "dataValue": "20.2",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.797+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 112,
+        "dataKey": "solax_wifi_firmware_version",
+        "dataValue": "Fake.003.02",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:28:18.797+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 113,
+        "dataKey": "solax_solar_panels_power_total",
+        "dataValue": "111.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.797+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 114,
+        "dataKey": "solax_panels_current_1",
+        "dataValue": "0.0",
+        "units": "A",
+        "dataFreshness": "2024-03-09T18:28:18.797+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 115,
+        "dataKey": "solax_panels_current_2",
+        "dataValue": "0.0",
+        "units": "A",
+        "dataFreshness": "2024-03-09T18:28:18.797+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 116,
+        "dataKey": "solax_total_battery_charge_energy",
+        "dataValue": "1400.3",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.797+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 117,
+        "dataKey": "solax_eps_x3_current_phase2",
+        "dataValue": "0.0",
+        "units": "A",
+        "dataFreshness": "2024-03-09T18:28:18.797+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 118,
+        "dataKey": "solax_eps_x3_current_phase3",
+        "dataValue": "0.0",
+        "units": "A",
+        "dataFreshness": "2024-03-09T18:28:18.797+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 119,
+        "dataKey": "solax_inverter_runmode",
+        "dataValue": "2.0",
+        "units": "-",
+        "dataFreshness": "2024-03-09T18:28:18.798+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 120,
+        "dataKey": "solax_eps_x3_current_phase1",
+        "dataValue": "0.0",
+        "units": "A",
+        "dataFreshness": "2024-03-09T18:28:18.798+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 121,
+        "dataKey": "solax_grid_frequency_phase_1",
+        "dataValue": "49.989998",
+        "units": "Hz",
+        "dataFreshness": "2024-03-09T18:28:18.798+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 122,
+        "dataKey": "solax_today_consumption",
+        "dataValue": "0.79999995",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.798+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 123,
+        "dataKey": "solax_grid_frequency_phase_3",
+        "dataValue": "49.98",
+        "units": "Hz",
+        "dataFreshness": "2024-03-09T18:28:18.798+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 124,
+        "dataKey": "solax_grid_frequency_phase_2",
+        "dataValue": "50.0",
+        "units": "Hz",
+        "dataFreshness": "2024-03-09T18:28:18.798+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 125,
+        "dataKey": "solax_acpower",
+        "dataValue": "605.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.799+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 126,
+        "dataKey": "solax_inverter_arm_version",
+        "dataValue": "1.31",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:28:18.799+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 127,
+        "dataKey": "solax_inverter_dsp_version",
+        "dataValue": "1.33",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:28:18.799+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 128,
+        "dataKey": "solax_total_consumption",
+        "dataValue": "1272.94",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.799+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 129,
+        "dataKey": "solax_today_yield",
+        "dataValue": "20.2",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.800+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 130,
+        "dataKey": "solax_battery_remaining_capacity",
+        "dataValue": "76.0",
+        "units": "%",
+        "dataFreshness": "2024-03-09T18:28:18.801+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 131,
+        "dataKey": "solax_solar_panels_power_2",
+        "dataValue": "0.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.803+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 132,
+        "dataKey": "solax_solar_panels_power_1",
+        "dataValue": "111.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.804+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 133,
+        "dataKey": "solax_inverter_temperature_radiator",
+        "dataValue": "29.0",
+        "units": "°C",
+        "dataFreshness": "2024-03-09T18:28:18.804+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 134,
+        "dataKey": "solax_today_battery_discharge_energy",
+        "dataValue": "3.3",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.805+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 135,
+        "dataKey": "solax_battery_temperature",
+        "dataValue": "27.0",
+        "units": "°C",
+        "dataFreshness": "2024-03-09T18:28:18.805+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 136,
+        "dataKey": "solax_today_feedin_energy",
+        "dataValue": "9.599999",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.805+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 137,
+        "dataKey": "solax_network_voltage_phase_1",
+        "dataValue": "239.90001",
+        "units": "V",
+        "dataFreshness": "2024-03-09T18:28:18.806+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 138,
+        "dataKey": "solax_wifi_serial_number",
+        "dataValue": "SVY-FAKE-EQ",
+        "units": "",
+        "dataFreshness": "2024-03-09T18:28:18.806+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 139,
+        "dataKey": "solax_network_voltage_phase_3",
+        "dataValue": "241.0",
+        "units": "V",
+        "dataFreshness": "2024-03-09T18:28:18.806+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 140,
+        "dataKey": "solax_panels_voltage_2",
+        "dataValue": "0.0",
+        "units": "V",
+        "dataFreshness": "2024-03-09T18:28:18.807+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 141,
+        "dataKey": "solax_today_battery_charge_energy",
+        "dataValue": "5.1",
+        "units": "kWh",
+        "dataFreshness": "2024-03-09T18:28:18.807+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 142,
+        "dataKey": "solax_network_voltage_phase_2",
+        "dataValue": "239.5",
+        "units": "V",
+        "dataFreshness": "2024-03-09T18:28:18.808+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 143,
+        "dataKey": "solax_panels_voltage_1",
+        "dataValue": "0.0",
+        "units": "V",
+        "dataFreshness": "2024-03-09T18:28:18.808+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 144,
+        "dataKey": "solax_power_now_phase_3",
+        "dataValue": "238.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.809+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 145,
+        "dataKey": "solax_battery_current",
+        "dataValue": "-1.8",
+        "units": "A",
+        "dataFreshness": "2024-03-09T18:28:18.809+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 146,
+        "dataKey": "solax_eps_x3_voltage_phase3",
+        "dataValue": "0.0",
+        "units": "V",
+        "dataFreshness": "2024-03-09T18:28:18.809+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 147,
+        "dataKey": "solax_power_now_phase_2",
+        "dataValue": "287.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.810+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 148,
+        "dataKey": "solax_eps_x3_voltage_phase2",
+        "dataValue": "0.0",
+        "units": "V",
+        "dataFreshness": "2024-03-09T18:28:18.810+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 149,
+        "dataKey": "solax_power_now_phase_1",
+        "dataValue": "80.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.810+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 150,
+        "dataKey": "solax_eps_x3_voltage_phase1",
+        "dataValue": "0.0",
+        "units": "V",
+        "dataFreshness": "2024-03-09T18:28:18.810+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 151,
+        "dataKey": "last_hour_solar_consumption",
+        "dataValue": "0",
+        "units": "kWh",
+        "dataFreshness": "2024-03-08T23:00:00.846+00:00",
+        "validTime": 600,
+        "valid": false
+    }
+]

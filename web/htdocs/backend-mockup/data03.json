@@ -1,0 +1,68 @@
+[
+    {
+        "id": 0,
+        "dataKey": "power_installed",
+        "dataValue": "4500",
+        "units": "Wh",
+        "dataFreshness": "2024-03-09T18:00:09.555+00:00",
+        "validTime": 36000,
+        "valid": true
+    },
+    {
+        "id": 130,
+        "dataKey": "solax_battery_remaining_capacity",
+        "dataValue": "33.0",
+        "units": "%",
+        "dataFreshness": "2024-03-09T18:28:18.801+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 125,
+        "dataKey": "solax_acpower",
+        "dataValue": "333.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.799+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 108,
+        "dataKey": "solax_exported_power",
+        "dataValue": "333.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.796+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 113,
+        "dataKey": "solax_solar_panels_power_total",
+        "dataValue": "333.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.797+00:00",
+        "validTime": 600,
+        "valid": true
+    },    
+    {
+        "id": 97,
+        "dataKey": "solax_battery_power",
+        "dataValue": "-333.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.795+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+    {
+        "id": 99,
+        "dataKey": "solax_power_consumption_now",
+        "dataValue": "333.0",
+        "units": "W",
+        "dataFreshness": "2024-03-09T18:28:18.795+00:00",
+        "validTime": 600,
+        "valid": true
+    },
+
+
+
+]   
