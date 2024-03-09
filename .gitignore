@@ -12,3 +12,5 @@ web/htdocs/metro*
 
 
 fake-solax/htdocs/lastcall
+web/htdocs/backend-mockup/lastcall
+fake-solax/htdocs/solax/lastcall
