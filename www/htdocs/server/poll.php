@@ -4,69 +4,63 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-
 header('Content-Type: application/json; charset=utf-8');
-
-$SlxDataSet = json_decode( file_get_contents( "format.json" , true ) );
-$SlxDataSet->CurrentTimeStamp = date ("Y-m-d H:i:s");
-$SlxDataSet->EnvConstants->SolaxRegNr = "FUCK-OFF";
-//echo ( `<pre>`.json_encode( $SlxDataSet,  JSON_PRETTY_PRINT ) );
-//exit();
-
 
 // Funkce pro převod unsigned na signed
 function unsignedToSigned($val) {
-    return ($val > 32767) ? $val - 65536 : $val;
+  return ($val > 32767) ? $val - 65536 : $val;
 }
 
-
 //-------------------
-  $inverterModeMap = array(
-    "Waiting",
-    "Checking",
-    "Normal",
-    "Off",
-    "Permanent Fault",
-    "Updating",
-    "EPS Check",
-    "EPS Mode",
-    "Self Test",
-    "Idle",
-    "Standby"
-  );
+$inverterModeMap = array(
+  "Waiting",
+  "Checking",
+  "Normal",
+  "Off",
+  "Permanent Fault",
+  "Updating",
+  "EPS Check",
+  "EPS Mode",
+  "Self Test",
+  "Idle",
+  "Standby"
+);
 
 
-// Volání API Solax pomocí cURL
 
-$SolaxPasswd = getenv("SolaxPasswd");
-$SolaxUrl = getenv("SolaxUrl");
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $SolaxUrl);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
-    'optType' => 'ReadRealTimeData',
-    'pwd' => $SolaxPasswd
-)));
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-$solaxResult = curl_exec($ch);
-curl_close($ch);
-$solaxData = json_decode($solaxResult);
+$SlxDataSet = json_decode( file_get_contents( "format.json" , true ) );
+$SlxDataSet->CurrentTimeStamp = date ("Y-m-d H:i:s");
 
-// Volání API AZ Router pomocí cURL
-$AZRouterPowerUrl = getenv("AZRouterPowerUrl");
+$SlxDataSet->EnvConstants->SolaxUrl =  getenv('SolaxUrl');
+$SlxDataSet->EnvConstants->SolaxRegNr =  getenv('SolaxRegNr');
+$SlxDataSet->EnvConstants->SolaxString1Peak =  getenv('SolaxString1Peak');
+$SlxDataSet->EnvConstants->SolaxString2Peak =  getenv('SolaxString2Peak');
+$SlxDataSet->EnvConstants->SolaxTotalPeak = getenv('SolaxString1Peak') + getenv('SolaxString2Peak');
+$SlxDataSet->EnvConstants->SolaxInverterMaxPower =  getenv('SolaxMaxPower');
+$SlxDataSet->EnvConstants->SolaxHouseMaxLoad =  getenv('SolaxHouseMaxLoad');
+$SlxDataSet->EnvConstants->SolaxDataPollInterval =  getenv('SolaxDataPollInterval');
 
-$ch= curl_init();
-curl_setopt($ch, CURLOPT_URL, $AZRouterPowerUrl );
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$AZresult = curl_exec($ch);
-curl_close($ch);
-$AZRData = json_decode( $AZresult );
+require_once ("./poll-curl.php");
+$solaxData = pollSolaxData();
+$AZrData = pollAZrouterData();
+
+echo ( `<pre>`.json_encode( $SlxDataSet,  JSON_PRETTY_PRINT ) );
+exit();
+
+
+
+
+
+
+
+
+
+
+// uložení získaných dat do logu
+
 
 // Zpracování získaných dat
-$solax = new StdClass();
 
 //fetch reduced values from polled data:
 $solax->SerNum =  $solaxData->sn;

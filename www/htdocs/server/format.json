@@ -5,8 +5,8 @@
         "SolaxRegNr": "SVY5****PEQ",
         "SolaxString1Peak": 4500,
         "SolaxString2Peak": 0,
-        "SolaxtotalPeak": 4500,
-        "SolaxmaxPower": 4500,
+        "SolaxTotalPeak": 4500,
+        "SolaxInverterMaxPower": 8000,
         "SolaxHouseMaxLoad": 16000,
         "SolaxDataPollInterval": 5
     },

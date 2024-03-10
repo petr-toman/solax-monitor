@@ -36,7 +36,7 @@ ADD docker-entrypoint-websrv.sh /
 RUN chmod 777 docker-entrypoint-websrv.sh
 
 
-RUN apk add --no-check-certificate --no-cache pcre-dev php82-pear  php82-dev build-base 
+RUN apk add --no-check-certificate --no-cache redis pcre-dev php82-pear  php82-dev build-base 
 COPY certs/*crt /usr/local/share/ca-certificates 
 RUN update-ca-certificates \
 && pecl82 install redis  \  
