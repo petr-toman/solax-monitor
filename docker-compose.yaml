@@ -13,14 +13,33 @@ services:
     env_file:
       - .env  
     volumes: 
-      - "solax-monitor-storage:/var/www/localhost//shared"  
       - "./www/htdocs:/var/www/localhost/htdocs"     #for development purposes 
       - "./www/logs:/var/www/localhost/logs"         #for development purposes 
       - "./www/scripts:/var/www/localhost/scripts"   #for development purposes 
-  redis-cache:
-    image: redis:6.2-alpine
+  cache-redis:
+    build: 
+      context: ./redis-cache
+      dockerfile: dockerfile-redis
     restart: always
     ports:
-      - '6379:6379'    
+      - '6379:6379'
+    # command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+  database:
+    build:
+      context: ./db
+      dockerfile: dockerfile-mariadb
+    restart: 'always'
+    ports:
+      - '3306:3306'
+    volumes: 
+      - "solax-monitor-storage:/var/lib//mysql"
+      - "./db/initdb.d:/var/www/localhost/scripts"   #for development purposes 
+    env_file:
+      - .env   
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"        
 volumes: 
    solax-monitor-storage:   

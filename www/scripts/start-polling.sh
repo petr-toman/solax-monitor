@@ -1,18 +1,26 @@
 #!/bin/bash
 # use env values injected from docker-compose .env file
+# test if it is number 1 - 86400 (from 1 second to one day)
+
+re='^[0-9]+([.][0-9]+)?$'
+if ! [[ $SolaxDataPollInterval =~ $re ]] ; then
+   SolaxDataPollInterval = 5
+fi
+
+if [ $SolaxDataPollInterval -le 1 ]; then
+   SolaxDataPollInterval = 1
+fi
+
+if [ $SolaxDataPollInterval -ge 86400  ]; then
+   SolaxDataPollInterval = 86400
+fi
+
+cd  /var/www/localhost/htdocs/server
+
 
 while true; do
 
-  CurrentTimeStamp="$(date +"%Y-%m-%d %H:%M:%S")" 
+  php82 poll-service.php
+  sleep $SolaxDataPollInterval
 
-
-# wait SolaxDataPollInterval seconds and repeat:
-  symbols="/-\|"
-  for ((w=0; w<$SolaxDataPollInterval; w++)); do
-    for ((i=0; i<${#symbols}; i++)); do
-      echo -n "                " "${symbols:$i:1}" " " "$(echo $SolaxDataPollInterval - $w  | bc )" " " "${symbols:$i:1}"  "                    " 
-      sleep 0.25
-      echo -ne "\r" 
-    done
-  done
 done

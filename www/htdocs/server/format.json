@@ -1,13 +1,13 @@
 {
-    "CurrentTimeStamp": "2024-03-10 00:29:45",
+    "CurrentTimeStamp": "yyyy-mm-dd hh:ii:ss",
     "EnvConstants": {
         "SolaxUrl": "http://",
         "SolaxRegNr": "SVY5****PEQ",
-        "SolaxString1Peak": 4500,
+        "SolaxString1Peak": 0,
         "SolaxString2Peak": 0,
-        "SolaxTotalPeak": 4500,
-        "SolaxInverterMaxPower": 8000,
-        "SolaxHouseMaxLoad": 16000,
+        "SolaxTotalPeak": 0,
+        "SolaxInverterMaxPower": 0,
+        "SolaxHouseMaxLoad": 0,
         "SolaxDataPollInterval": 5
     },
     "Panel": {
@@ -27,7 +27,7 @@
             "unit": "W",
             "caption": "výkon celkem"
         },
-        "totalProduction": {
+        "dailyProduction": {
             "value": 0,
             "unit": "kWh",
             "caption": "dnes výroba DC"
@@ -45,7 +45,7 @@
             "unit": "°C",
             "caption": "teplota"
         },
-        "batteryCap": {
+        "chargeCap": {
             "value": 0,
             "unit": "kWh",
             "caption": "nabití"
@@ -69,8 +69,8 @@
     "inverter": {
         "caption": "STŘÍDAČ",
         "inverterMode": {
-            "value": 2,
-            "unit": "2 [Normal]",
+            "value": 0,
+            "unit": "0 [Undefined]",
             "caption": "teplota"
         },
         "inverterTemp": {
@@ -83,17 +83,17 @@
             "unit": "W",
             "caption": "výkon"
         },
-        "llph1": {
+        "powerL1": {
             "value": 0,
             "unit": "W",
             "caption": "výkon L1"
         },
-        "llph2": {
+        "powerL2": {
             "value": 0,
             "unit": "W",
             "caption": "výkon L2"
         },
-        "llph3": {
+        "powerL3": {
             "value": 0,
             "unit": "W",
             "caption": "výkon L3"

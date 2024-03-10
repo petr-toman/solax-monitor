@@ -44,13 +44,11 @@ sed -i 's/#LoadModule\ expires_module/LoadModule\ expires_module/' /etc/apache2/
 sed -i "s/memory_limit = .*/memory_limit = ${PHP_MEMORY_LIMIT}/" /etc/php82/php.ini
 sed -i "s#^;date.timezone =\$#date.timezone = \"${TZ}\"#" /etc/php82/php.ini
 
-
-#crond
 #httpd -D FOREGROUND
-redis-server --daemonize yes
 httpd 
+
 chmod 777 /var/www/localhost/scripts/start-polling.sh
 cd /var/www/localhost/scripts/
-./start-polling.sh
+./start-polling.sh  
 
 

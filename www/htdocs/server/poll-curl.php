@@ -26,6 +26,7 @@ function pollSolaxData()
 function pollAZrouterData()
 {
     // Volání API AZ Router pomocí cURL
+
     $AZRouterPowerUrl = getenv("AZRouterPowerUrl");
 
     $ch = curl_init();
@@ -39,6 +40,8 @@ function pollAZrouterData()
 
 function logdata($fp, $data)
 {
+
+   // Uložení data do souboru v log adresáři, podle úrovně:
 
     $Debuglevel = getenv("Debuglevel");
     $fname = dirname(__DIR__, 1) . "/../logs/$fp";
@@ -54,3 +57,4 @@ function logdata($fp, $data)
         file_put_contents("$fname-$dt.json",  $data,);
     }
 }
+?>
