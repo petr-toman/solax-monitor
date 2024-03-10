@@ -1,0 +1,178 @@
+{
+    "CurrentTimeStamp": "2024-03-10 00:29:45",
+    "EnvConstants": {
+        "SolaxUrl": "http://",
+        "SolaxRegNr": "SVY5****PEQ",
+        "SolaxString1Peak": 4500,
+        "SolaxString2Peak": 0,
+        "SolaxtotalPeak": 4500,
+        "SolaxmaxPower": 4500,
+        "SolaxHouseMaxLoad": 16000,
+        "SolaxDataPollInterval": 5
+    },
+    "Panel": {
+        "caption": "PANELY",
+        "pv1Power": {
+            "value": 0,
+            "unit": "W",
+            "caption": "výkon string 1"
+        },
+        "pv2Power": {
+            "value": 0,
+            "unit": "W",
+            "caption": "výkon string 2"
+        },
+        "totalPower": {
+            "value": 0,
+            "unit": "W",
+            "caption": "výkon celkem"
+        },
+        "totalProduction": {
+            "value": 0,
+            "unit": "kWh",
+            "caption": "dnes výroba DC"
+        }
+    },
+    "Battery": {
+        "caption": "BATERIE",
+        "batterySoC": {
+            "value": 0,
+            "unit": "%",
+            "caption": "SoC"
+        },
+        "batteryTemp": {
+            "value": 0,
+            "unit": "°C",
+            "caption": "teplota"
+        },
+        "batteryCap": {
+            "value": 0,
+            "unit": "kWh",
+            "caption": "nabití"
+        },
+        "batteryPower": {
+            "value": 0,
+            "unit": "W",
+            "caption": "vybíjení|nabíjení"
+        },
+        "totalChargedIn": {
+            "value": 0,
+            "unit": "kWh",
+            "caption": "dnes nabito"
+        },
+        "totalChargedOut": {
+            "value": 0,
+            "unit": "kWh",
+            "caption": "dnes vybito"
+        }
+    },
+    "inverter": {
+        "caption": "STŘÍDAČ",
+        "inverterMode": {
+            "value": 2,
+            "unit": "2 [Normal]",
+            "caption": "teplota"
+        },
+        "inverterTemp": {
+            "value": 0,
+            "unit": "°C",
+            "caption": "teplota"
+        },
+        "inverterPower": {
+            "value": 0,
+            "unit": "W",
+            "caption": "výkon"
+        },
+        "llph1": {
+            "value": 0,
+            "unit": "W",
+            "caption": "výkon L1"
+        },
+        "llph2": {
+            "value": 0,
+            "unit": "W",
+            "caption": "výkon L2"
+        },
+        "llph3": {
+            "value": 0,
+            "unit": "W",
+            "caption": "výkon L3"
+        },
+        "totalProductionInclBatt": {
+            "value": 0,
+            "unit": "kWh",
+            "caption": "dnes výroba AC"
+        }
+    },
+    "Grid": {
+        "caption": "DISTRIBUČNÍ SÍŤ",
+        "feedInPower": {
+            "value": 0,
+            "unit": "W",
+            "caption": "dodávka|odběr"
+        },
+        "AZRPowerL1": {
+            "value": 0,
+            "unit": "W",
+            "caption": "(AZ) L1 dodávka|odběr"
+        },
+        "AZRPowerL2": {
+            "value": 0,
+            "unit": "W",
+            "caption": "(AZ) L2 dodávka|odběr"
+        },
+        "AZRPowerL3": {
+            "value": 0,
+            "unit": "W",
+            "caption": "(AZ) L3 dodávka|odběr"
+        },
+        "AZRPowerTotal": {
+            "value": 0,
+            "unit": "W",
+            "caption": "(AZ) L1+L2+L3:"
+        },
+        "totalGridIn": {
+            "value": 0,
+            "unit": "kWh",
+            "caption": "dnes spotřeba"
+        },
+        "totalGridOut": {
+            "value": 0,
+            "unit": "kWh",
+            "caption": "soběstačnost"
+        }
+    },
+    "Home": {
+        "caption": "DOMÁCNOST",
+        "loadHome": {
+            "value": 0,
+            "unit": "W",
+            "caption": "aktuální odběr"
+        },
+        "loadHomeL1": {
+            "value": 0,
+            "unit": "W",
+            "caption": "odběr l1"
+        },
+        "loadHomeL2": {
+            "value": 0,
+            "unit": "W",
+            "caption": "odběr L2"
+        },
+        "loadHomeL3": {
+            "value": 0,
+            "unit": "W",
+            "caption": "odběr L3"
+        },
+        "totalConsumption": {
+            "value": 0,
+            "unit": "kWh",
+            "caption": "dnes spotřeba"
+        },
+        "selfSufficiencyRate": {
+            "value": 0,
+            "unit": "%",
+            "caption": "soběstačnost"
+        }
+    }
+}

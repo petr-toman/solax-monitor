@@ -1,0 +1,26 @@
+version: "3"
+
+# start by: docker-compose down -v && docker-compose up --build -d
+
+services:
+  websrv:
+    build: 
+      context: ./www
+      dockerfile: dockerfile-websrv
+    restart: 'always'
+    ports:
+      - '8808:80'
+    env_file:
+      - .env  
+    volumes: 
+      - "solax-monitor-storage:/var/www/localhost//shared"  
+      - "./www/htdocs:/var/www/localhost/htdocs"     #for development purposes 
+      - "./www/logs:/var/www/localhost/logs"         #for development purposes 
+      - "./www/scripts:/var/www/localhost/scripts"   #for development purposes 
+  redis-cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'    
+volumes: 
+   solax-monitor-storage:   
