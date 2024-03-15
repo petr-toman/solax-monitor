@@ -7,6 +7,7 @@ ini_set('display_errors', 'On');
 header('Content-Type: application/json; charset=utf-8');
 
 require_once ("./poll-curl.php");
+
 $solaxData = pollSolaxData();
 $AZRData   = pollAZrouterData();
 

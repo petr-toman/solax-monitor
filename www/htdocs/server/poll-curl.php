@@ -7,6 +7,7 @@ function pollSolaxData()
     $SolaxPasswd = getenv("SolaxPasswd");
     $SolaxUrl = getenv("SolaxUrl");
 
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $SolaxUrl);
     curl_setopt($ch, CURLOPT_POST, 1);
@@ -57,4 +58,3 @@ function logdata($fp, $data)
         file_put_contents("$fname-$dt.json",  $data,);
     }
 }
-?>
