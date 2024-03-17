@@ -71,7 +71,7 @@ function generateText( $solax ){
      $formatted .= sprintf("        vybito: %5.1f kWh\n", $solax->Battery->totalChargedOut->value) ;   
      $formatted .= sprintf( "\n" );
     
-     $formatted .= sprintf( "--- STŘÍDAČ [ %'--35s\n", $solax->inverter->inverterMode->value."]");
+     $formatted .= sprintf( "--- STŘÍDAČ [ %'--34s\n", $solax->inverter->inverterMode->value." ]");
      $formatted .= sprintf( "                                       %5d °C\n", $solax->inverter->inverterTemp->value);
      $formatted .= sprintf("         výkon: %5d kWh %s\n", $solax->inverter->inverterPower->value, progress_bar($solax->inverter->inverterPower->value, $solax->EnvConstants->SolaxInverterMaxPower ) ) ;   
      $formatted .= sprintf("            L1: %5d W\n", $solax->inverter->powerL1->value ) ;   

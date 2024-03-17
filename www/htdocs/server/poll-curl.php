@@ -120,7 +120,7 @@ function convertSolax()
 
 
     //----
-    $SlxDataSet->inverter->inverterMode->value   = $solaxData->Data[19] . ' [' . $inverterModeMap[$solaxData->Data[19]] . ']';
+    $SlxDataSet->inverter->inverterMode->value   = $solaxData->Data[19] . ' - ' . $inverterModeMap[$solaxData->Data[19]] ;
     $SlxDataSet->inverter->inverterTemp->value   = $solaxData->Data[54];
     $SlxDataSet->inverter->inverterPower->value  =  unsignedToSigned($solaxData->Data[9]);
     $SlxDataSet->inverter->powerL1->value  =  $solaxData->Data[6];
